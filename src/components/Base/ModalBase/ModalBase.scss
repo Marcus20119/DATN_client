@@ -1,0 +1,41 @@
+.zoom {
+  // Start enter
+  &-enter {
+    .overlay,
+    .content,
+    .close-button {
+      opacity: 0;
+    }
+  }
+  // Done enter
+  &-enter-active {
+    .overlay,
+    .content,
+    .close-button {
+      opacity: 1;
+      transition-duration: 500ms;
+      transition-timing-function: ease;
+      transition-property: all;
+      transition-delay: var(--delay);
+    }
+  }
+  // Start exit
+  &-exit {
+    .overlay,
+    .content,
+    .close-button {
+      opacity: 1;
+    }
+  }
+  // Done exit
+  &-exit-active {
+    .overlay,
+    .content,
+    .close-button {
+      opacity: 0;
+      transition-duration: 500ms;
+      transition-timing-function: ease;
+      transition-property: all;
+    }
+  }
+}

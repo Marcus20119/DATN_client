@@ -1,0 +1,40 @@
+.loading-circle {
+  position: relative;
+  width: 25px;
+  height: 25px;
+}
+
+.loading-circle:after,
+.loading-circle:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+}
+
+.loading-circle:before {
+  z-index: 5;
+  border: 3px dashed black;
+  border-left: 3px solid transparent;
+  border-bottom: 3px solid transparent;
+  -webkit-animation: dashed 1s linear infinite;
+  animation: dashed 1s linear infinite;
+}
+
+.loading-circle:after {
+  z-index: 10;
+  border: 3px solid #333;
+  border-left: 3px solid transparent;
+  border-bottom: 3px solid transparent;
+  -webkit-animation: dashed 1s ease infinite;
+  animation: dashed 1s ease infinite;
+}
+
+@keyframes dashed {
+  to {
+    transform: rotate(360deg);
+  }
+}
