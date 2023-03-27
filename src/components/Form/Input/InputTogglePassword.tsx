@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import PropTypes from 'prop-types';
 
 import { Input, IInput } from './Input';
 import { CloseEye, OpenEye } from '~/icons';
@@ -34,11 +33,6 @@ const InputTogglePassword: React.FC<IInput> = ({
       label={label}
     />
   );
-};
-
-InputTogglePassword.propTypes = {
-  control: PropTypes.object.isRequired,
-  name: PropTypes.string.isRequired,
 };
 
 export { InputTogglePassword };

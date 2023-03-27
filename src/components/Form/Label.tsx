@@ -7,7 +7,11 @@ type ILabel = {
 >;
 const Label: React.FC<ILabel> = ({ name, children, className, ...props }) => {
   return (
-    <label htmlFor={name} className={`ml-[2px] ${className}`} {...props}>
+    <label
+      htmlFor={name}
+      className={`ml-[2px] text-slate-900 ${className}`}
+      {...props}
+    >
       {children}
     </label>
   );

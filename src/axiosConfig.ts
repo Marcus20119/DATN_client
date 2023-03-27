@@ -20,9 +20,9 @@ const createMyAxios = () => {
 
   instance.interceptors.request.use(
     config => {
-      const accessToken = Cookie.get('accessToken');
-      if (!config.headers['Authorization'] && accessToken) {
-        config.headers['Authorization'] = `Bearer ${accessToken}`;
+      const access_token = Cookie.get('access_token');
+      if (!config.headers['Authorization'] && access_token) {
+        config.headers['Authorization'] = `Bearer ${access_token}`;
       }
       return config;
     },
@@ -38,21 +38,21 @@ const createMyAxios = () => {
       const originalRequest = error.config;
       // Nếu có lỗi và lỗi trả về là 403 thì gửi lại request yêu cầu reset access token
       if (error.response && error.response.status === 403) {
-        const refreshToken = Cookie.get('refreshToken');
+        const refresh_token = Cookie.get('refresh_token');
         const { data } = await myAxios.post('/auth/refresh-token', {
-          refreshToken,
+          refresh_token,
         });
 
         Cookie.set({
-          cName: 'accessToken',
-          cValue: data.newAccessToken,
+          cName: 'access_token',
+          cValue: data.new_access_token,
           exDays: 7,
         });
 
         // Đổi lại headers và gọi lại request cữ
         originalRequest.headers[
           'Authorization'
-        ] = `Bearer ${data.newAccessToken}`;
+        ] = `Bearer ${data.new_access_token}`;
         return instance(originalRequest);
       }
       return Promise.reject(error);

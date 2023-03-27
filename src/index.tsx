@@ -8,7 +8,6 @@ import reportWebVitals from './reportWebVitals';
 import { store } from './store/store';
 
 import './scss/index.scss';
-import RootModal from './components/modal/RootModal';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -18,7 +17,6 @@ root.render(
     <Provider store={store}>
       <BrowserRouter>
         <App />
-        <RootModal />
       </BrowserRouter>
     </Provider>
   </React.Fragment>

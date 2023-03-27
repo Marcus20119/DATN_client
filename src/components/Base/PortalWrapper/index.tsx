@@ -41,7 +41,7 @@ const PortalWrapper: React.FC<IPortalWrapper> = ({
     <div className={containerClass} style={containerStyle}>
       {overlay && (
         <div
-          className="overlay absolute inset-0 bg-[rgba(0,_0,_0,_0.8)] z-[555]"
+          className="overlay absolute inset-0 bg-[rgba(0,_0,_0,_0.7)] z-[555]"
           onClick={onClose}
           style={{ '--delay': delay } as React.CSSProperties}
         ></div>

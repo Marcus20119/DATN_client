@@ -1,7 +1,13 @@
+import ModalAuthHelp from './ModalAuth/ModalAuthHelp';
+
 type IRootModal = {};
 
 const RootModal: React.FC<IRootModal> = () => {
-  return <></>;
+  return (
+    <>
+      <ModalAuthHelp />
+    </>
+  );
 };
 
 export default RootModal;

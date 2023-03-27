@@ -8,7 +8,7 @@ type IError = {
 const Error: React.FC<IError> = ({ errorMessage, className, ...props }) => {
   return (
     <span
-      className={`ml-[2px] text-[0.8rem] text-orange-400 ${className}`}
+      className={`ml-[2px] text-[0.8rem] font-semibold text-[#fa4747] ${className}`}
       {...props}
     >
       {errorMessage}

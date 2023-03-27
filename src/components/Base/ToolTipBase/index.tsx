@@ -19,7 +19,7 @@ const ToolTipBase: React.FC<IToolTipBase> = ({
   tipMessage = '',
   children,
   className = '',
-  tipClassName = 'bg-[#D0D0D0] px-4 py-[6px] rounded-lg text-black shadow-[0px_0px_20px_#22222290]',
+  tipClassName = 'bg-[#D3D8E0] px-4 py-[6px] rounded-lg text-black shadow-xl',
   position = 'top',
   moveUp = 0,
   moveDown = 0,
@@ -68,7 +68,7 @@ const ToolTipBase: React.FC<IToolTipBase> = ({
             displayCloseButton={false}
           >
             {tipMessage}
-            <div className="absolute bottom-0 left-2/4 -translate-x-2/4 translate-y-[6px] border-[12px] border-b-[#D0D0D0] border-r-[#D0D0D0] border-t-transparent border-l-transparent rounded-[4px] rotate-45"></div>
+            <div className="absolute bottom-0 left-2/4 -translate-x-2/4 translate-y-[6px] border-[12px] border-b-[#D3D8E0] border-r-[#D3D8E0] border-t-transparent border-l-transparent rounded-[4px] rotate-45"></div>
           </PortalWrapper>
         </CSSTransition>
       )}
@@ -92,7 +92,7 @@ const ToolTipBase: React.FC<IToolTipBase> = ({
             displayCloseButton={false}
           >
             {tipMessage}
-            <div className="absolute top-0 left-2/4 -translate-x-2/4 -translate-y-[6px] border-[12px] border-t-[#D0D0D0] border-l-[#D0D0D0] border-b-transparent border-r-transparent rounded-[4px] rotate-45"></div>
+            <div className="absolute top-0 left-2/4 -translate-x-2/4 -translate-y-[6px] border-[12px] border-t-[#D3D8E0] border-l-[#D3D8E0] border-b-transparent border-r-transparent rounded-[4px] rotate-45"></div>
           </PortalWrapper>
         </CSSTransition>
       )}
@@ -123,7 +123,7 @@ const ToolTipBase: React.FC<IToolTipBase> = ({
           >
             {tipMessage}
 
-            <div className="absolute left-0 top-2/4 -translate-y-2/4 -translate-x-[6px] border-[10px] border-b-[#D0D0D0] border-l-[#D0D0D0] border-t-transparent border-r-transparent rounded-[4px] rotate-45"></div>
+            <div className="absolute left-0 top-2/4 -translate-y-2/4 -translate-x-[6px] border-[10px] border-b-[#D3D8E0] border-l-[#D3D8E0] border-t-transparent border-r-transparent rounded-[4px] rotate-45"></div>
           </PortalWrapper>
         </CSSTransition>
       )}
@@ -152,7 +152,7 @@ const ToolTipBase: React.FC<IToolTipBase> = ({
             displayCloseButton={false}
           >
             {tipMessage}
-            <div className="absolute right-0 top-2/4 -translate-y-2/4 translate-x-[6px] border-[10px] border-t-[#D0D0D0] border-r-[#D0D0D0] border-b-transparent border-l-transparent rounded-[4px] rotate-45"></div>
+            <div className="absolute right-0 top-2/4 -translate-y-2/4 translate-x-[6px] border-[10px] border-t-[#D3D8E0] border-r-[#D3D8E0] border-b-transparent border-l-transparent rounded-[4px] rotate-45"></div>
           </PortalWrapper>
         </CSSTransition>
       )}
