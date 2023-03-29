@@ -31,7 +31,7 @@ const AuthLayout: React.FC<IAuthLayout> = () => {
             &nbsp;
           </div>
           <div className="z-30 absolute inset-0 flex justify-center items-center">
-            <div className="relative bg-gray-200 rounded-2xl z-2 transition-all w-[90vw] max-w-[500px] px-8 py-[30px] text-[#113465]">
+            <div className="relative bg-gray-200 rounded-2xl z-2 transition-all w-[90vw] max-w-[500px] px-8 py-[30px] text-main-blue">
               <Outlet />
               <RootModal />
             </div>

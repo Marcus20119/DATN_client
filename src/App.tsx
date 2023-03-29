@@ -10,6 +10,9 @@ import LoadingPage from './pages/LoadingPage';
 import NotFoundPage from './pages/NotFoundPage';
 
 const ProjectInfoPage = lazy(() => import('./pages/Client/ProjectInfoPage'));
+const ProcessPage = lazy(() => import('./pages/Client/ProcessPage'));
+const CalenderPage = lazy(() => import('./pages/Client/CalenderPage'));
+const MonitorPage = lazy(() => import('./pages/Client/Monitor/MonitorPage'));
 const TestPage = lazy(() => import('./pages/TestPage'));
 
 function App() {
@@ -27,6 +30,9 @@ function App() {
             element={<Navigate replace to="/client/project-info" />}
           />
           <Route path="client/project-info" element={<ProjectInfoPage />} />
+          <Route path="client/process" element={<ProcessPage />} />
+          <Route path="client/calender" element={<CalenderPage />} />
+          <Route path="client/monitor" element={<MonitorPage />} />
           <Route path="test" element={<TestPage />} />
         </Route>
 

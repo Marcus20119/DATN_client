@@ -50,7 +50,7 @@ const SignInPage: React.FC<ISignInPage> = () => {
       <Heading
         as="h2"
         text="ĐĂNG NHẬP"
-        className="block w-full pb-1 text-4xl font-bold tracking-wide border-b border-b-[#113465]"
+        className="block w-full pb-1 text-4xl font-bold tracking-wide border-b border-b-main-blue"
       />
       <form
         onSubmit={handleSubmit(onSubmitHandler)}
@@ -90,7 +90,7 @@ const SignInPage: React.FC<ISignInPage> = () => {
         <ButtonPrimary
           type="submit"
           isSubmitting={loadingSignIn}
-          additionalClass="!bg-[#113465] !text-white"
+          additionalClass="!bg-main-blue !text-white"
         >
           Đăng Nhập
         </ButtonPrimary>

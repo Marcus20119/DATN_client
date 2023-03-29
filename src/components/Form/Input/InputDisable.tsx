@@ -23,7 +23,7 @@ const InputDisable: React.FC<IInputDisable> = ({
           {...props}
           id={name}
           value={value}
-          className={`block w-full font-sans bg-[#1e1e1e] rounded-[4px] border !border-[#3e3e3e] text-[14px] text-gray-300 px-[15px] py-[10px] focus:!border-[rgb(128,128,128)] placeholder:opacity-60 ${className}`}
+          className={`block w-full font-sans bg-[#11346515] rounded-[4px] border !border-[#3e3e3e] text-[14px] text-slate-900 px-[15px] py-[10px] focus:bg-[#ebebeb] placeholder:opacity-60 placeholder:text-slate-900 ${className}`}
           disabled
         />
       </div>

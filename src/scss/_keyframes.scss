@@ -14,12 +14,14 @@
     visibility: hidden;
     -webkit-opacity: 0;
   }
-  40% {
+  100% {
     opacity: 1;
     visibility: visible;
     -webkit-opacity: 1;
   }
-  80% {
+}
+@keyframes fade-out {
+  0% {
     opacity: 1;
     visibility: visible;
     -webkit-opacity: 1;

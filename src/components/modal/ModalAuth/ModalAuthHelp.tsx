@@ -14,7 +14,7 @@ const ModalAuthHelp = () => {
       onClose={() => dispatch(handleHideAuthModal())}
     >
       <div
-        className={`relative bg-gray-200 rounded-2xl z-2 transition-all w-[90vw] max-w-[400px] px-8 py-[30px] text-[#113465]`}
+        className={`relative bg-gray-200 rounded-2xl z-2 transition-all w-[90vw] max-w-[400px] px-8 py-[24px] text-main-blue`}
       >
         <h2 className="text-lg font-bold mb-1">{contentModalAuthHelp.name}</h2>
         <p className="text-base text-slate-900">

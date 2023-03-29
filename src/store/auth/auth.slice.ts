@@ -20,6 +20,7 @@ const initialUserData: UserDataType = {
 
 type InitialStateType = {
   showModalAuthHelp: boolean;
+  showModalSignOutConfirm: boolean;
   contentModalAuthHelp: {
     name: string;
     helpMessage: string;
@@ -36,6 +37,7 @@ type AuthStateType<T extends keyof InitialStateType> = {
 };
 const initialState: InitialStateType = {
   showModalAuthHelp: false,
+  showModalSignOutConfirm: false,
   contentModalAuthHelp: {
     name: '',
     helpMessage: '',
@@ -64,7 +66,7 @@ export const authSlice = createSlice({
     }),
     handleShowAuthModal: (
       state,
-      { payload }: { payload: 'showModalAuthHelp' }
+      { payload }: { payload: 'showModalAuthHelp' | 'showModalSignOutConfirm' }
     ) => ({
       ...state,
       [payload]: true,
@@ -72,7 +74,17 @@ export const authSlice = createSlice({
     handleHideAuthModal: state => ({
       ...state,
       showModalAuthHelp: false,
+      showModalSignOutConfirm: false,
     }),
+    signOut: state => {
+      Cookie.remove('access_token');
+      Cookie.remove('refresh_token');
+      Cookie.remove('userData');
+      return {
+        ...state,
+        userData: initialUserData,
+      };
+    },
   },
 });
 
@@ -82,6 +94,7 @@ export const {
   setUserData,
   handleShowAuthModal,
   handleHideAuthModal,
+  signOut,
 } = authSlice.actions;
 
 export default authSlice.reducer;
