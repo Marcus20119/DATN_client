@@ -10,8 +10,6 @@ import UserDropdown from './UserDropdown';
 type IHeader = {};
 
 const Header: React.FC<IHeader> = () => {
-  const textClass =
-    'text-main-white text-[0.8rem] font-semibold opacity-80 tracking-wide';
   const dispatch = useDispatch();
   const { userData } = useSelector((state: IRootState) => state.auth);
   const { isReachScrolling } = useSelector((state: IRootState) => state.base);
@@ -56,7 +54,9 @@ const Header: React.FC<IHeader> = () => {
             )}
           </div>
           <div className="inline-flex items-center gap-4 h-full">
-            <span className={textClass}>{readRoleId(userData.role_id)}</span>
+            <span className="text-main-white text-[0.8rem] font-semibold opacity-80 tracking-wide mt-[1px]">
+              {readRoleId(userData.role_id)}
+            </span>
             <div className="w-[1px] h-[20px] bg-main-white opacity-80">
               &nbsp;
             </div>

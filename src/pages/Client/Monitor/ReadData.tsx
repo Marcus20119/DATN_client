@@ -3,22 +3,37 @@ import { useEffect, useState } from 'react';
 import { InputDisable } from '~/components/Form';
 import { Heading } from '~/components/Heading';
 import { realTimeDb } from '~/firebase/firebase-config';
-import { TestDataType } from '~/types';
+import { PLCDataType } from './common';
 
 type IReadData = {};
 
 const ReadData: React.FC<IReadData> = () => {
-  const [testData, setTestData] = useState<TestDataType>({
-    tagBool: false,
-    tagByte: 0,
-    tagInteger: 0,
-    tagReal: 0,
-    tagString: '',
+  const [testData, setTestData] = useState<PLCDataType>({
+    BtnOn1: false,
+    BtnOn2: false,
+    BtnOn3: false,
+    BtnOff: false,
+    AUTO: false,
+    MANUAL: false,
+    OR1: false,
+    OR2: false,
+    OR3: false,
+    T_run: [0, 0],
+    MTK1: false,
+    MTK2: false,
+    MTK3: false,
+    Buzzer: false,
+    LampRun1: false,
+    LampRun2: false,
+    LampRun3: false,
+    LampError1: false,
+    LampError2: false,
+    LampError3: false,
   });
   useEffect(() => {
     const starCountRef = ref(realTimeDb, 'XLNT_PLC');
     onValue(starCountRef, snapshot => {
-      const data: TestDataType = snapshot.val();
+      const data: PLCDataType = snapshot.val();
       if (data) {
         setTestData(data);
       }
@@ -31,7 +46,7 @@ const ReadData: React.FC<IReadData> = () => {
         text="ĐỌC DỮ LIỆU"
         className="font-bold text-main-blue text-2xl mb-3"
       />
-      <div className="flex  gap-3 w-full">
+      {/* <div className="flex  gap-3 w-full">
         <InputDisable
           label="Tag Bool"
           name="tagBool"
@@ -57,7 +72,8 @@ const ReadData: React.FC<IReadData> = () => {
           name="tagString"
           value={testData.tagString.toString()}
         />
-      </div>
+      </div> */}
+      <p>{JSON.stringify(testData)}</p>
     </div>
   );
 };
