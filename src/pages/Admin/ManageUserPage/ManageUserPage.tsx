@@ -1,6 +1,8 @@
-import { useEffect, useState } from 'react';
+import queryString from 'query-string';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { string } from 'yup';
 
 import { Container } from '~/components/Common';
 import { Heading } from '~/components/Heading';
@@ -15,6 +17,7 @@ import {
   ManageUserTabType,
 } from '~/store/admin/admin.type';
 import { IRootState } from '~/store/rootReducer';
+import { SearchParams } from '~/types';
 import ManageUserTable from './ManageUserTable';
 
 interface IManageUserPage {}
@@ -22,32 +25,46 @@ interface IManageUserPage {}
 const ManageUserPage: React.FC<IManageUserPage> = () => {
   useProtectAdmin();
   const dispatch = useDispatch();
+  const navigateTo = useNavigate();
   const { search } = useLocation();
-  console.log('search:', search);
-  console.log(new URLSearchParams(search));
-  const { tableManageUserCurrentTab, loadingGetUsersData, tableTotalPage } =
-    useSelector((state: IRootState) => state.admin);
+  const params = queryString.parse(search) as SearchParams;
+  const { loadingGetUsersData, tableTotalPage } = useSelector(
+    (state: IRootState) => state.admin
+  );
 
+  const [tableTab, setTableTab] = useState<ManageUserTabType>(
+    params.tab as ManageUserTabType
+  );
+  const [tablePage, setTablePage] = useState<number>(
+    Number.parseInt(params.page)
+  );
   const [orderField, setOrderField] =
     useState<AllDataFromUsersType['query']['orderField']>('id');
   const [orderType, setOrderType] =
     useState<AllDataFromUsersType['query']['orderType']>('DESC');
-  const [page, setPage] = useState<number>(1);
 
   const tableTabs: ManageUserTabType[] = [
     'Activated User',
     'Deactivated User',
     'Deleted User',
   ];
-
+  const didMountRef = useRef(false);
   useEffect(() => {
     dispatch(
       actionGetAllDataFromUsers({
-        query: { orderField: 'id', orderType: 'ASC', page: 1 },
-        type: 'Activated User',
+        query: { orderField, orderType, page: tablePage },
+        type: tableTab,
       })
     );
-  }, []);
+  }, [dispatch, orderField, orderType, tablePage, tableTab]);
+
+  useEffect(() => {
+    if (didMountRef.current) {
+      navigateTo(`/admin/manage-user?tab=${tableTab}&page=${tablePage}`);
+    }
+    didMountRef.current = true;
+  }, [navigateTo, tablePage, tableTab]);
+
   return (
     <Container>
       <div className="w-full mt-8">
@@ -62,22 +79,15 @@ const ManageUserPage: React.FC<IManageUserPage> = () => {
           <div className="relative w-full z-10">
             <TableTab
               tableTabs={tableTabs}
-              tableCurrentTab={tableManageUserCurrentTab}
-              handleSetTab={(tab: ManageUserTabType) =>
-                dispatch(
-                  setAdminState({
-                    state: 'tableManageUserCurrentTab',
-                    value: tab,
-                  })
-                )
-              }
+              tableCurrentTab={tableTab}
+              handleSetTab={(tab: ManageUserTabType) => setTableTab(tab)}
               disabled={loadingGetUsersData}
             />
             <ManageUserTable />
           </div>
           <Paginate
-            currentPage={page}
-            setCurrentPage={setPage}
+            currentPage={tablePage}
+            setCurrentPage={setTablePage}
             totalPage={tableTotalPage}
           />
         </div>

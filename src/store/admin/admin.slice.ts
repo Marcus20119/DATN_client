@@ -1,11 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { UserDataType } from '../rootType';
-import { ManageUserTabType } from './admin.type';
 
 type InitialStateType = {
   usersData: UserDataType[];
   loadingGetUsersData: boolean;
-  tableManageUserCurrentTab: ManageUserTabType;
   tableTotalPage: number;
 };
 type AdminStateType<T extends keyof InitialStateType> = {
@@ -15,7 +13,6 @@ type AdminStateType<T extends keyof InitialStateType> = {
 const initialState: InitialStateType = {
   usersData: [],
   loadingGetUsersData: false,
-  tableManageUserCurrentTab: 'Activated User',
   tableTotalPage: 1,
 };
 

@@ -9,7 +9,7 @@ const ItemManageUser: React.FC<IItemManageUser> = () => {
     <Menu.Item>
       {({ active }) => (
         <Link
-          to="/admin/manage-user"
+          to="/admin/manage-user?tab=Activated%20User&page=1"
           className={buttonClassName(active)}
           style={{
             backgroundColor: active ? menuColors.fillActive : '',

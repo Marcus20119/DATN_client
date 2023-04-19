@@ -20,7 +20,6 @@ export function* handleGetAllDataFromUsers(action: {
         setAdminState({ state: 'tableTotalPage', value: tableTotalPage })
       );
     }
-    console.log('data:', data);
   } catch (err) {
     console.log(err);
   } finally {

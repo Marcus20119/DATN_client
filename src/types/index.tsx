@@ -20,3 +20,7 @@ export type PLCDataType = {
   LampError2: boolean;
   LampError3: boolean;
 };
+
+export interface SearchParams {
+  [key: string]: string;
+}
