@@ -38,7 +38,14 @@ const SignInPage: React.FC<ISignInPage> = () => {
   });
   // Handle submit
   const onSubmitHandler = async (data: any) => {
-    dispatch(actionSignIn({ data, onSuccess: () => {} }));
+    dispatch(
+      actionSignIn({
+        data,
+        onSuccess: () => {
+          navigateTo('/client/project-info');
+        },
+      })
+    );
     try {
     } catch (err: any) {
       console.log(err);
