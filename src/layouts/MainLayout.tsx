@@ -22,7 +22,7 @@ const MainLayout: React.FC<IMainLayout> = () => {
       {!!userData.id && (
         <div className="w-full">
           <Header />
-          <div className={isReachScrolling ? 'pt-[112px]' : ''}>
+          <div className={isReachScrolling ? 'pt-[100px]' : ''}>
             <Outlet />
           </div>
           <RootModal />

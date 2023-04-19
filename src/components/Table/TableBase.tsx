@@ -18,7 +18,7 @@ const TableBase: React.FC<ITableBase> = ({ children }) => {
   // const { usersData, loadingUsersData, usersTab } = useSelector(
   //   (state: IRootState) => state.admin
   // );
-  return <table className="h-[1px] w-full">{children}</table>;
+  return <table className="h-[1px] w-full mb-2">{children}</table>;
 };
 
 export { TableBase };

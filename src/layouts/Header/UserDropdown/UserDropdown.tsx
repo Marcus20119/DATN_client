@@ -21,7 +21,7 @@ const UserDropdown: React.FC<IUserDropDown> = () => {
       <div className="h-full">
         <Menu.Button className="inline-flex w-full justify-center items-center text-sm font-medium text-white h-full">
           <span
-            className={`text-main-white text-[0.8rem] font-semibold opacity-80 tracking-wide group-hover:opacity-100`}
+            className={`text-main-white text-[0.72rem] font-semibold opacity-80 tracking-wide group-hover:opacity-100`}
           >
             {userData.user_name}
           </span>

@@ -17,7 +17,7 @@ const TableTab: React.FC<ITableTab> = ({
         {tableTabs.map((tab, index) => (
           <button
             key={tab}
-            className={`relative inline-block px-3 py-[6px] text-white rounded-t-md transition-all cursor-pointer border border-[#ADB7C7] ${
+            className={`relative inline-block px-3 py-[6px] text-white rounded-t-md transition-all cursor-pointer border border-[#ADB7C7] text-sm ${
               tab === tableCurrentTab
                 ? 'bg-main-blue-80 shadow-xl'
                 : 'bg-[#909FB5] hover:bg-[#5D7495] hover:!z-20'

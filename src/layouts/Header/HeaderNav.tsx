@@ -23,16 +23,16 @@ const navData: {
 
 const HeaderNav: React.FC<IHeaderNav> = () => {
   return (
-    <div className="w-full h-[80px] bg-[#25364d]">
+    <div className="w-full h-[72px] bg-[#25364d]">
       <Container className="justify-between">
-        <div className="h-[60px]">
+        <div className="h-[54px]">
           <img
             src="/imgs/logo-full.png"
             alt=""
             className="h-full object-contain object-center"
           />
         </div>
-        <div className="inline-flex gap-5 items-center h-full text-xl font-bold">
+        <div className="inline-flex gap-5 items-center h-full text-lg font-bold">
           {navData.map(navItem => (
             <NavLink
               to={navItem.path}

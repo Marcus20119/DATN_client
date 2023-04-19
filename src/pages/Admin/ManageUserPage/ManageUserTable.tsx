@@ -20,9 +20,9 @@ const ManageUserTable: React.FC<IManageUserTable> = ({}) => {
           <th className="w-[48px]">#</th>
           <th className="w-[48px]">id</th>
           <th className="w-[136px] text-left">Tên người dùng</th>
-          <th className="w-[400px] text-left">Email</th>
+          <th className="w-[350px] text-left">Email</th>
           <th className="w-[136px] text-left">SĐT</th>
-          <th className="w-[136px]">Giới tính</th>
+          <th className="w-[48px]">Giới tính</th>
           <th className="w-[136px]">Quyền hạng</th>
           <th className="w-[136px]">Ngày tạo</th>
           <th className="">Hành động</th>

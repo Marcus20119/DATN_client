@@ -68,7 +68,7 @@ const ManageUserPage: React.FC<IManageUserPage> = () => {
   return (
     <Container>
       <div className="w-full mt-8">
-        <Heading as="h1" text="QUẢN LÝ NGƯỜI DÙNG" />
+        <Heading as="h1" text="QUẢN LÝ NGƯỜI DÙNG" className="text-[32px]" />
         <div className="w-full mb-4">
           <div className="flex justify-end items-center w-full mb-4">
             <TableFilter

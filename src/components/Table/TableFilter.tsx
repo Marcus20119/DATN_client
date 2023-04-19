@@ -73,13 +73,13 @@ const TableFilter: React.FC<ITableFilter> = ({
 
   return (
     <div className="relative z-20 inline-flex items-center gap-2">
-      <span className="text-[#212a39] pr-3 font-bold text-lg mt-1">Sort:</span>
-      <div className="w-[200px]">
+      <span className="text-[#212a39] pr-3 font-bold mt-1">Sort:</span>
+      <div className="w-[180px]">
         <Combobox value={selectedField} onChange={setSelectedField}>
           <div className="relative mt-1">
             <div className="relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-main-blue-80 sm:text-sm">
               <Combobox.Input
-                className="w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 focus:ring-0"
+                className="w-full border-none py-[7px] pl-3 pr-10 text-sm leading-5 text-gray-900 focus:ring-0"
                 displayValue={(field: {
                   id: number;
                   name: string;
@@ -103,7 +103,7 @@ const TableFilter: React.FC<ITableFilter> = ({
             >
               <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm custom-scrollbar">
                 {filteredField.length === 0 && queryField !== '' ? (
-                  <div className="relative cursor-default select-none py-2 px-4 text-gray-700">
+                  <div className="relative cursor-default select-none py-[7px] px-4 text-gray-700">
                     Nothing found.
                   </div>
                 ) : (
@@ -111,7 +111,7 @@ const TableFilter: React.FC<ITableFilter> = ({
                     <Combobox.Option
                       key={field.id}
                       className={({ active }) =>
-                        `relative cursor-default select-none py-2 pl-10 pr-4 rounded-sm ${
+                        `relative cursor-default select-none text-[13px] py-[7px] pl-6 pr-4 rounded-sm ${
                           active
                             ? 'bg-main-blue-80 text-white'
                             : 'text-gray-900'
@@ -155,7 +155,7 @@ const TableFilter: React.FC<ITableFilter> = ({
           <div className="relative mt-1">
             <div className="relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-main-blue-80 sm:text-sm">
               <Combobox.Input
-                className="w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 focus:ring-0"
+                className="w-full border-none py-[7px] pl-3 pr-10 text-sm leading-5 text-gray-900 focus:ring-0"
                 displayValue={(type: {
                   id: number;
                   name: string;
@@ -179,7 +179,7 @@ const TableFilter: React.FC<ITableFilter> = ({
             >
               <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
                 {filteredType.length === 0 && queryType !== '' ? (
-                  <div className="relative cursor-default select-none py-2 px-4 text-gray-700">
+                  <div className="relative cursor-default select-none py-[7px] px-4 text-gray-700">
                     Nothing found.
                   </div>
                 ) : (
@@ -187,7 +187,7 @@ const TableFilter: React.FC<ITableFilter> = ({
                     <Combobox.Option
                       key={type.id}
                       className={({ active }) =>
-                        `relative cursor-default select-none py-2 pl-10 pr-4 rounded-sm ${
+                        `relative cursor-default select-none py-[7px] pl-6 pr-4 rounded-sm ${
                           active
                             ? 'bg-main-blue-80 text-white'
                             : 'text-gray-900'

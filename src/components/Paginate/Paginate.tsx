@@ -18,10 +18,10 @@ const Paginate: React.FC<IPaginate> = ({
     setCurrentPage(event.selected + 1);
   };
   const prevElement = (
-    <i className="bx bx-chevron-left inline-flex items-center justify-center mt-[1px] !text-lg"></i>
+    <i className="bx bx-chevron-left inline-flex items-center justify-center mb-[2px] !text-xl"></i>
   );
   const nextElement = (
-    <i className="bx bx-chevron-right inline-flex items-center justify-center mt-[1px] !text-lg"></i>
+    <i className="bx bx-chevron-right inline-flex items-center justify-center mb-[2px] !text-xl"></i>
   );
 
   return (

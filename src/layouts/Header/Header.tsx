@@ -16,7 +16,7 @@ const Header: React.FC<IHeader> = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY >= 112) {
+      if (window.scrollY >= 100) {
         dispatch(setBaseState({ state: 'isReachScrolling', value: true }));
       } else {
         dispatch(setBaseState({ state: 'isReachScrolling', value: false }));
@@ -34,7 +34,7 @@ const Header: React.FC<IHeader> = () => {
       <div
         className={`bg-[#1a273a] ${
           !isReachScrolling
-            ? 'w-full h-[32px]'
+            ? 'w-full h-[28px]'
             : 'fixed left-0 right-0 top-0 h-[40px]'
         }`}
         style={{
@@ -54,7 +54,7 @@ const Header: React.FC<IHeader> = () => {
             )}
           </div>
           <div className="inline-flex items-center gap-4 h-full">
-            <span className="text-main-white text-[0.8rem] font-semibold opacity-80 tracking-wide mt-[1px]">
+            <span className="text-main-white text-[0.72rem] font-semibold opacity-80 tracking-wide mt-[1px]">
               {User.roleId(userData.role_id)}
             </span>
             <div className="w-[1px] h-[20px] bg-main-white opacity-80">
