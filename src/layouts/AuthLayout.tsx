@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Outlet, useNavigate } from 'react-router-dom';
-import RootModal from '~/components/modal/RootModal';
+import RootModal from '~/components/Modal/RootModal';
 import { IRootState } from '~/store/rootReducer';
 
 type IAuthLayout = {};
@@ -10,7 +10,7 @@ const AuthLayout: React.FC<IAuthLayout> = () => {
   const navigateTo = useNavigate();
   const { userData } = useSelector((state: IRootState) => state.auth);
   useEffect(() => {
-    if (userData.role_id === 0) {
+    if (userData.role_id >= 0) {
       navigateTo('/client/project-info');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

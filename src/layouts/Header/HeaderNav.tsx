@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { Container } from '~/components/Layout';
+import { Container } from '~/components/Common';
 
 type IHeaderNav = {};
 

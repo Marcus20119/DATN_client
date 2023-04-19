@@ -32,26 +32,6 @@ export function* handleSignUp(action: {
   }
 }
 
-// const setAuthCookie = (data: AuthResponseType) => {
-//   const { accessToken, refreshToken, userData } = data;
-
-//   Cookie.set({
-//     cName: 'accessToken',
-//     cValue: accessToken,
-//     exDays: 7,
-//   });
-//   Cookie.set({
-//     cName: 'refreshToken',
-//     cValue: refreshToken,
-//     exDays: 7,
-//   });
-//   Cookie.set({
-//     cName: 'userData',
-//     cValue: userData,
-//     exDays: 7,
-//   });
-// };
-
 export function* handleSignIn(action: {
   type: string;
   payload: {
@@ -63,7 +43,6 @@ export function* handleSignIn(action: {
   try {
     const { data } = yield call(requestSignIn, action.payload.data);
     if (data) {
-      console.log('data:', data);
       yield put(setAuthState({ state: 'messageSignInError', value: '' }));
       const userData: UserDataType = data.userData;
       yield put(setUserData(userData));

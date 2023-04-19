@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Outlet, useNavigate } from 'react-router-dom';
-import RootModal from '~/components/modal/RootModal';
+import RootModal from '~/components/Modal/RootModal';
 import { IRootState } from '~/store/rootReducer';
 import Header from './Header/Header';
 

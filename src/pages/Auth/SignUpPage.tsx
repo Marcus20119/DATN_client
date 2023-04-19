@@ -67,11 +67,7 @@ const SignUpPage: React.FC<ISignUpPage> = () => {
 
   return (
     <div className="flex flex-col gap-6 w-full">
-      <Heading
-        as="h2"
-        text="ĐĂNG KÝ"
-        className="block w-full pb-1 text-4xl font-bold tracking-wide border-b border-b-main-blue"
-      />
+      <Heading as="h2" text="ĐĂNG KÝ" className="border-b border-b-main-blue" />
       <form
         onSubmit={handleSubmit(onSubmitHandler)}
         className="flex flex-col gap-3 w-full"

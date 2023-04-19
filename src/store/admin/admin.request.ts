@@ -1,9 +1,10 @@
 import { privateAxios } from '~/axiosConfig';
-import { TestType } from './admin.type';
+import { AllDataFromUsersType } from './admin.type';
 
-export function requestTest(payload: TestType) {
+export function requestGetAllDataFromUsers(payload: AllDataFromUsersType) {
   return privateAxios.request({
     method: 'GET',
-    url: '/test',
+    url: '/g/users/' + payload.type,
+    params: payload.query,
   });
 }

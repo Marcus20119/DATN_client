@@ -1,5 +1,5 @@
 import { useSelector } from 'react-redux';
-import { Container } from '~/components/Layout';
+import { Container } from '~/components/Common';
 import { useScrollOnTop } from '~/hooks';
 import { IRootState } from '~/store/rootReducer';
 

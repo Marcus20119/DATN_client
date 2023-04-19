@@ -8,8 +8,15 @@ type IHeading = {
   HTMLHeadingElement
 >;
 
-const Heading: React.FC<IHeading> = ({ as, text, ...rest }) => {
-  return React.createElement(as, rest, text);
+const Heading: React.FC<IHeading> = ({ as, text, className, ...rest }) => {
+  return React.createElement(
+    as,
+    {
+      className: `block w-full pb-1 text-4xl font-bold tracking-wide text-main-blue ${className}`,
+      ...rest,
+    },
+    text
+  );
 };
 
 export { Heading };

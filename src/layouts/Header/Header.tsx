@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Container } from '~/components/Layout';
-import { readRoleId } from '~/helpers';
+import { Container } from '~/components/Common';
+import { User } from '~/helpers';
 import { setBaseState } from '~/store/base/base.slice';
 import { IRootState } from '~/store/rootReducer';
 import HeaderNav from './HeaderNav';
-import UserDropdown from './UserDropdown';
+import { UserDropdown } from './UserDropdown';
 
 type IHeader = {};
 
@@ -55,7 +55,7 @@ const Header: React.FC<IHeader> = () => {
           </div>
           <div className="inline-flex items-center gap-4 h-full">
             <span className="text-main-white text-[0.8rem] font-semibold opacity-80 tracking-wide mt-[1px]">
-              {readRoleId(userData.role_id)}
+              {User.roleId(userData.role_id)}
             </span>
             <div className="w-[1px] h-[20px] bg-main-white opacity-80">
               &nbsp;

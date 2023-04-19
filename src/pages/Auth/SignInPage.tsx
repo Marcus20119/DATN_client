@@ -50,7 +50,7 @@ const SignInPage: React.FC<ISignInPage> = () => {
       <Heading
         as="h2"
         text="ĐĂNG NHẬP"
-        className="block w-full pb-1 text-4xl font-bold tracking-wide border-b border-b-main-blue"
+        className="border-b border-b-main-blue"
       />
       <form
         onSubmit={handleSubmit(onSubmitHandler)}
