@@ -32,4 +32,4 @@ const MainLayout: React.FC<IMainLayout> = () => {
   );
 };
 
-export default MainLayout;
+export { MainLayout };

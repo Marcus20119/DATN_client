@@ -1,15 +1,31 @@
 import { Menu } from '@headlessui/react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { IRootState } from '~/store/rootReducer';
 import { buttonClassName, menuColors } from './common';
 
 interface IItemManageUser {}
 
 const ItemManageUser: React.FC<IItemManageUser> = () => {
+  const { userData } = useSelector((state: IRootState) => state.auth);
+  let destinationPath: string = '';
+  switch (userData.role_id) {
+    case 3: {
+      destinationPath = '/manager/manage-user?tab=Activated%20User&page=1';
+      break;
+    }
+    case 2: {
+      destinationPath = '/admin/manage-user?tab=Activated%20User&page=1';
+      break;
+    }
+    default:
+      destinationPath = '';
+  }
   return (
     <Menu.Item>
       {({ active }) => (
         <Link
-          to="/admin/manage-user?tab=Activated%20User&page=1"
+          to={destinationPath}
           className={buttonClassName(active)}
           style={{
             backgroundColor: active ? menuColors.fillActive : '',

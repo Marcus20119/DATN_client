@@ -3,4 +3,4 @@ export * from './useModal';
 export * from './useClickOutSide';
 export * from './useLocalStorage';
 export * from './useScrollOnTop';
-export * from './useProtectAdmin';
+export * from './useNavigateQuery';

@@ -1,17 +1,22 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { TableBase, TableLoading } from '~/components/Table';
 import { DeleteButton, EditButton } from '~/components/Table/ActionButton';
 import { User } from '~/helpers';
+import { ManageUserTabType } from '~/store/rootType';
 import { IRootState } from '~/store/rootReducer';
 
-interface IManageUserTable {}
+interface IManagerManageUserTable {
+  currentPage: number;
+  currentTab: ManageUserTabType;
+}
 
-const ManageUserTable: React.FC<IManageUserTable> = ({}) => {
-  const page = 1;
-  const usersTab = 'Active User';
-  const dispatch = useDispatch();
+const ManagerManageUserTable: React.FC<IManagerManageUserTable> = ({
+  currentPage,
+  currentTab,
+}) => {
+  // const dispatch = useDispatch();
   const { usersData, loadingGetUsersData } = useSelector(
-    (state: IRootState) => state.admin
+    (state: IRootState) => state.manager
   );
   return (
     <TableBase>
@@ -19,12 +24,12 @@ const ManageUserTable: React.FC<IManageUserTable> = ({}) => {
         <tr>
           <th className="w-[48px]">#</th>
           <th className="w-[48px]">id</th>
-          <th className="w-[136px] text-left">Tên người dùng</th>
+          <th className="w-[132px] text-left">Tên người dùng</th>
           <th className="w-[350px] text-left">Email</th>
-          <th className="w-[136px] text-left">SĐT</th>
-          <th className="w-[48px]">Giới tính</th>
-          <th className="w-[136px]">Quyền hạng</th>
-          <th className="w-[136px]">Ngày tạo</th>
+          <th className="w-[96px] text-left">SĐT</th>
+          <th className="w-[96px]">Giới tính</th>
+          <th className="w-[112px]">Quyền hạng</th>
+          <th className="w-[96px]">Ngày tạo</th>
           <th className="">Hành động</th>
         </tr>
       </thead>
@@ -34,27 +39,29 @@ const ManageUserTable: React.FC<IManageUserTable> = ({}) => {
           usersData.length > 0 &&
           usersData.map((userData, index) => (
             <tr key={userData.id}>
-              <td>{10 * (page - 1) + index + 1}</td>
+              <td>{10 * (currentPage - 1) + index + 1}</td>
               <td>{userData.id}</td>
-              <td className="text-left">{userData.user_name}</td>
+              <td className="text-left">
+                <span className="line-clamp-1">{userData.user_name}</span>
+              </td>
               <td className="text-left" title={userData.email}>
                 <span className="line-clamp-1 break-all">{userData.email}</span>
               </td>
               <td className="text-left" title={userData.phone_number || ''}>
-                {userData.phone_number}
+                {userData.phone_number || '0777421072'}
               </td>
               <td>{User.gender(userData.gender)}</td>
               <td>{User.roleId(userData.role_id)}</td>
               <td>{User.day(userData.created_at)}</td>
               <td>
                 <div className="flex items-center justify-center gap-3 w-full">
-                  {usersTab === 'Active User' && (
+                  {currentTab === 'Activated User' && (
                     <>
                       <EditButton userData={userData} />
                       <DeleteButton userData={userData} />
                     </>
                   )}
-                  {/* {usersTab === 'Deleted User' && (
+                  {/* {currentTab === 'Deleted User' && (
                     <>
                       <RestoreButton userData={userData} />
                       <DeleteButton userData={userData} />
@@ -67,7 +74,7 @@ const ManageUserTable: React.FC<IManageUserTable> = ({}) => {
         <TableLoading
           data={usersData}
           loading={loadingGetUsersData}
-          page={page}
+          currentPage={currentPage}
           nCol={8}
         />
       </tbody>
@@ -75,4 +82,4 @@ const ManageUserTable: React.FC<IManageUserTable> = ({}) => {
   );
 };
 
-export default ManageUserTable;
+export default ManagerManageUserTable;

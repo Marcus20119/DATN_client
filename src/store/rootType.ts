@@ -13,3 +13,17 @@ export type UserDataType = {
   created_at: Date | null;
   updated_at: Date | null;
 };
+
+export type ManageUserTabType =
+  | 'Activated User'
+  | 'Deactivated User'
+  | 'Deleted User';
+
+export type GetAllDataFromUserType = {
+  query: {
+    orderField: keyof UserDataType;
+    orderType: 'DESC' | 'ASC';
+    page: number;
+  };
+  type: ManageUserTabType;
+};

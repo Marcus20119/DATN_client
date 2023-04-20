@@ -1,7 +1,7 @@
 interface ITableLoading {
   loading: boolean;
   data: any[];
-  page: number;
+  currentPage: number;
   nCol: number;
 }
 
@@ -9,7 +9,7 @@ const TableLoading: React.FC<ITableLoading> = ({
   data,
   loading,
   nCol,
-  page,
+  currentPage,
 }) => {
   return (
     <>
@@ -20,7 +20,7 @@ const TableLoading: React.FC<ITableLoading> = ({
           .fill('')
           .map((item, index) => (
             <tr key={`empty-${index}`}>
-              <td>{10 * (page - 1) + data.length + index + 1}</td>
+              <td>{10 * (currentPage - 1) + data.length + index + 1}</td>
               {Array(nCol)
                 .fill('')
                 .map((cell, cellIndex) => (
@@ -33,7 +33,7 @@ const TableLoading: React.FC<ITableLoading> = ({
           .fill('')
           .map((item, index) => (
             <tr key={`empty-${index}`}>
-              <td>{10 * (page - 1) + index + 1}</td>
+              <td>{10 * (currentPage - 1) + index + 1}</td>
               {Array(nCol)
                 .fill('')
                 .map((cell, cellIndex) => (

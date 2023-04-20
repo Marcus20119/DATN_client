@@ -1,7 +1,10 @@
 import { takeEvery, takeLatest } from 'redux-saga/effects';
-import { actionGetAllDataFromUsers } from './admin.action';
-import { handleGetAllDataFromUsers } from './admin.handler';
+import { actionAdminGetAllDataFromUser } from './admin.action';
+import { handleAdminGetAllDataFromUser } from './admin.handler';
 
 export default function* adminSaga() {
-  yield takeLatest(actionGetAllDataFromUsers.type, handleGetAllDataFromUsers);
+  yield takeLatest(
+    actionAdminGetAllDataFromUser.type,
+    handleAdminGetAllDataFromUser
+  );
 }

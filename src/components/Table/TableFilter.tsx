@@ -4,36 +4,28 @@ import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
 import { UserDataType } from '~/store/rootType';
 
 type ITableFilter = {
-  setOrderField: React.Dispatch<React.SetStateAction<keyof UserDataType>>;
-  setOrderType: React.Dispatch<React.SetStateAction<'ASC' | 'DESC'>>;
+  setOrderField: (state: any) => void;
+  setOrderType: (state: any) => void;
+  fieldsList: {
+    id: number;
+    name: string;
+    type: any;
+  }[];
 };
-
-const fields: {
-  id: number;
-  name: string;
-  type: keyof UserDataType;
-}[] = [
-  { id: 1, name: 'ID', type: 'id' },
-  { id: 2, name: 'User Name', type: 'user_name' },
-  { id: 3, name: 'Email', type: 'email' },
-  { id: 4, name: 'Tel.', type: 'phone_number' },
-  { id: 5, name: 'Gender', type: 'gender' },
-  { id: 6, name: 'Role', type: 'role_id' },
-  { id: 7, name: 'Created At', type: 'created_at' },
-];
 
 const types: {
   id: number;
   name: string;
   type: 'ASC' | 'DESC';
 }[] = [
-  { id: 1, name: 'Ascending', type: 'ASC' },
-  { id: 2, name: 'Descending', type: 'DESC' },
+  { id: 1, name: 'Tăng dần', type: 'ASC' },
+  { id: 2, name: 'Giảm dần', type: 'DESC' },
 ];
 
 const TableFilter: React.FC<ITableFilter> = ({
   setOrderField,
   setOrderType,
+  fieldsList: fields,
 }) => {
   const [selectedField, setSelectedField] = useState(fields[0]);
   const [queryField, setQueryField] = useState('');
@@ -111,7 +103,7 @@ const TableFilter: React.FC<ITableFilter> = ({
                     <Combobox.Option
                       key={field.id}
                       className={({ active }) =>
-                        `relative cursor-default select-none text-[13px] py-[7px] pl-6 pr-4 rounded-sm ${
+                        `relative cursor-default select-none text-[13px] py-[7px] pl-8 pr-4 rounded-sm ${
                           active
                             ? 'bg-main-blue-80 text-white'
                             : 'text-gray-900'
@@ -135,7 +127,7 @@ const TableFilter: React.FC<ITableFilter> = ({
                               }`}
                             >
                               <CheckIcon
-                                className="h-5 w-5"
+                                className="h-4 w-4"
                                 aria-hidden="true"
                               />
                             </span>
@@ -187,7 +179,7 @@ const TableFilter: React.FC<ITableFilter> = ({
                     <Combobox.Option
                       key={type.id}
                       className={({ active }) =>
-                        `relative cursor-default select-none py-[7px] pl-6 pr-4 rounded-sm ${
+                        `relative cursor-default select-none py-[7px] pl-8 pr-4 rounded-sm ${
                           active
                             ? 'bg-main-blue-80 text-white'
                             : 'text-gray-900'
@@ -211,7 +203,7 @@ const TableFilter: React.FC<ITableFilter> = ({
                               }`}
                             >
                               <CheckIcon
-                                className="h-5 w-5"
+                                className="h-4 w-4"
                                 aria-hidden="true"
                               />
                             </span>

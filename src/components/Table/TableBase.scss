@@ -1,33 +1,3 @@
-// table,
-// td,
-// th {
-//   border-collapse: collapse;
-// }
-// table {
-//   width: 100%;
-//   table-layout: fixed;
-//   height: 1px;
-// }
-// thead {
-//   // background-color: #f7f7f8;
-// }
-// th,
-// td {
-//   vertical-align: middle;
-//   text-align: left;
-// }
-// th {
-//   padding: 20px 15px;
-//   font-weight: 600;
-// }
-// td {
-//   padding: 15px 15px;
-// }
-// tr:last-child {
-//   td {
-//     border-bottom: none;
-//   }
-// }
 table {
   border-collapse: collapse;
   width: 100%;
@@ -41,7 +11,7 @@ td,
 th {
   font-size: 13px;
   color: #212a39;
-  white-space: nowrap;
+  // white-space: nowrap;
 }
 tbody,
 th {

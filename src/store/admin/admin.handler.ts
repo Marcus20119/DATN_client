@@ -1,17 +1,17 @@
-import { call, put } from 'redux-saga/effects';
+import { call, put, select } from 'redux-saga/effects';
+import { IRootState } from '../rootReducer';
 
-import { requestGetAllDataFromUsers } from './admin.request';
-import { AllDataFromUsersType } from './admin.type';
-import { UserDataType } from '../rootType';
+import { GetAllDataFromUserType, UserDataType } from '../rootType';
+import { requestAdminGetAllDataFromUser } from './admin.request';
 import { setAdminState } from './admin.slice';
 
-export function* handleGetAllDataFromUsers(action: {
+export function* handleAdminGetAllDataFromUser(action: {
   type: string;
-  payload: AllDataFromUsersType;
+  payload: GetAllDataFromUserType;
 }) {
   yield put(setAdminState({ state: 'loadingGetUsersData', value: true }));
   try {
-    const { data } = yield call(requestGetAllDataFromUsers, action.payload);
+    const { data } = yield call(requestAdminGetAllDataFromUser, action.payload);
     if (data) {
       const usersData: UserDataType[] = data.data;
       const tableTotalPage: number = data.totalPages;

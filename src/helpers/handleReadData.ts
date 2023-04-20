@@ -12,6 +12,8 @@ class UserClass {
       case 1:
         return 'Engineer';
       case 2:
+        return 'Manager';
+      case 3:
         return 'Admin';
       default:
         return '';

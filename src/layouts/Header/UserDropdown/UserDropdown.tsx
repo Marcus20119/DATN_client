@@ -68,6 +68,15 @@ const UserDropdown: React.FC<IUserDropDown> = () => {
                 <ItemManageProject />
               </>
             )}
+            {userData.role_id === 3 && (
+              <>
+                <ItemMonitor />
+                <ItemControl />
+                <ItemExport />
+                <ItemManageUser />
+                <ItemManageProject />
+              </>
+            )}
           </div>
           <div className="px-1 py-1">
             <ItemSignOut />

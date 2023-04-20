@@ -1,6 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
-import { AllDataFromUsersType } from './admin.type';
+import { GetAllDataFromUserType } from '../rootType';
 
-export const actionGetAllDataFromUsers = createAction<AllDataFromUsersType>(
-  'ADMIN/GET-ALL-DATA-FROM_USERS'
-);
+export const actionAdminGetAllDataFromUser =
+  createAction<GetAllDataFromUserType>('ADMIN/GET-ALL-DATA-FROM_USER');

@@ -1,12 +1,12 @@
 import { privateAxios } from '~/axiosConfig';
 import { GetAllDataFromUserType } from '../rootType';
 
-export function requestAdminGetAllDataFromUser(
-  payload: GetAllDataFromUserType
+export function requestManagerGetAllDataFromUser(
+  payload: GetAllDataFromUserType & { project: string }
 ) {
   return privateAxios.request({
     method: 'GET',
-    url: '/g/users/' + payload.type,
+    url: '/g/' + payload.project + '/users/' + payload.type,
     params: payload.query,
   });
 }
