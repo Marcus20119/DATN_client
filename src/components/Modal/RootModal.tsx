@@ -1,13 +1,14 @@
-import ModalAuthHelp from './ModalAuth/ModalAuthHelp';
-import ModalSignOutConfirm from './ModalAuth/ModalSignOutConfirm';
+import ModalBaseConfirm from './ModalBase/ModalBaseConfirm';
+import ModalBaseHelpInput from './ModalBase/ModalBaseHelpInput';
 
 type IRootModal = {};
 
 const RootModal: React.FC<IRootModal> = () => {
   return (
     <>
-      <ModalAuthHelp />
-      <ModalSignOutConfirm />
+      <ModalBaseConfirm />
+
+      <ModalBaseHelpInput />
     </>
   );
 };

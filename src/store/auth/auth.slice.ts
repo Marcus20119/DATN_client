@@ -31,10 +31,15 @@ type InitialStateType = {
   messageSignUpError: string;
   messageSignInError: string;
 };
-type AuthStateType<T extends keyof InitialStateType> = {
-  state: T;
-  value: InitialStateType[T];
+type AuthStateTypeBase<K extends keyof InitialStateType> = {
+  state: K;
+  value: InitialStateType[K];
 };
+
+type AuthStateType = {
+  [K in keyof InitialStateType]: AuthStateTypeBase<K>;
+}[keyof InitialStateType];
+
 const initialState: InitialStateType = {
   showModalAuthHelp: false,
   showModalSignOutConfirm: false,
@@ -53,10 +58,7 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    setAuthState: (
-      state,
-      { payload }: { payload: AuthStateType<keyof InitialStateType> }
-    ) => ({
+    setAuthState: (state, { payload }: { payload: AuthStateType }) => ({
       ...state,
       [payload.state]: payload.value,
     }),

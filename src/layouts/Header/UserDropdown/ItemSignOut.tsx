@@ -1,6 +1,6 @@
 import { Menu } from '@headlessui/react';
 import { useDispatch } from 'react-redux';
-import { handleShowAuthModal } from '~/store/auth/auth.slice';
+import { handleShowBaseConfirmModal } from '~/store/base/base.slice';
 import { buttonClassName, menuColors } from './common';
 
 interface IItemSignOut {}
@@ -16,7 +16,14 @@ const ItemSignOut: React.FC<IItemSignOut> = () => {
             backgroundColor: active ? menuColors.fillActive : '',
           }}
           onClick={() =>
-            dispatch(handleShowAuthModal('showModalSignOutConfirm'))
+            dispatch(
+              handleShowBaseConfirmModal({
+                title: 'XÁC NHẬN !',
+                description: 'Bạn muốn đăng xuất khỏi tài khoản này ?',
+                confirmButtonLabel: 'Đăng xuất',
+                confirmAction: { type: 'auth/signOut', payload: undefined },
+              })
+            )
           }
         >
           <SignOutIcon active={active} />

@@ -1,9 +1,14 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { TableBase, TableLoading } from '~/components/Table';
-import { DeleteButton, EditButton } from '~/components/Table/ActionButton';
+import {
+  DeleteButton,
+  EditButton,
+  RestoreButton,
+} from '~/components/Table/ActionButton';
 import { User } from '~/helpers';
 import { ManageUserTabType } from '~/store/rootType';
 import { IRootState } from '~/store/rootReducer';
+import { handleShowBaseConfirmModal } from '~/store/base/base.slice';
 
 interface IAdminManageUserTable {
   currentPage: number;
@@ -18,12 +23,33 @@ const AdminManageUserTable: React.FC<IAdminManageUserTable> = ({
   const { usersData, loadingGetUsersData } = useSelector(
     (state: IRootState) => state.admin
   );
+
+  const handleSoftDelete = (id: number) => {
+    dispatch(
+      handleShowBaseConfirmModal({
+        title: 'XÁC NHẬN !',
+        description: 'Bạn có chắc chắn muốn xóa người dùng này ?',
+        confirmButtonLabel: 'Xóa',
+        confirmAction: { type: 'ADMIN/SOFT-DELETE-USER', payload: id },
+      })
+    );
+  };
+  const handleRestore = (id: number) => {
+    dispatch(
+      handleShowBaseConfirmModal({
+        title: 'XÁC NHẬN !',
+        description: 'Bạn có chắc chắn muốn khôi phục người dùng này ?',
+        confirmButtonLabel: 'Khôi phục',
+        confirmAction: { type: 'ADMIN/RESTORE-USER', payload: id },
+      })
+    );
+  };
   return (
     <TableBase>
       <thead>
         <tr>
           <th className="w-[48px]">#</th>
-          <th className="w-[48px]">id</th>
+          <th className="w-[48px]">ID</th>
           <th className="w-[132px] text-left">Tên người dùng</th>
           <th className="w-[350px] text-left">Email</th>
           <th className="w-[96px] text-left">SĐT</th>
@@ -60,15 +86,26 @@ const AdminManageUserTable: React.FC<IAdminManageUserTable> = ({
                   {currentTab === 'Activated User' && (
                     <>
                       <EditButton userData={userData} />
-                      <DeleteButton userData={userData} />
+                      <DeleteButton
+                        onClick={() => handleSoftDelete(userData.id)}
+                      />
                     </>
                   )}
-                  {/* {currentTab === 'Deleted User' && (
+                  {currentTab === 'Deactivated User' && (
                     <>
-                      <RestoreButton userData={userData} />
-                      <DeleteButton userData={userData} />
+                      <EditButton userData={userData} />
+                      <DeleteButton
+                        onClick={() => handleSoftDelete(userData.id)}
+                      />
                     </>
-                  )} */}
+                  )}
+                  {currentTab === 'Deleted User' && (
+                    <>
+                      <RestoreButton
+                        onClick={() => handleRestore(userData.id)}
+                      />
+                    </>
+                  )}
                 </div>
               </td>
             </tr>

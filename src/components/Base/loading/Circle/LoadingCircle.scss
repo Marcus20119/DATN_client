@@ -1,7 +1,7 @@
 .loading-circle {
   position: relative;
-  width: 25px;
-  height: 25px;
+  width: 24px;
+  height: 24px;
 }
 
 .loading-circle:after,
@@ -11,13 +11,13 @@
   top: 0;
   left: 0;
   border-radius: 50%;
-  width: 25px;
-  height: 25px;
+  width: 24px;
+  height: 24px;
 }
 
 .loading-circle:before {
   z-index: 5;
-  border: 3px dashed #ccc;
+  // border: 3px dashed #ccc;
   border-left: 3px solid transparent;
   border-bottom: 3px solid transparent;
   -webkit-animation: dashed 1s linear infinite;
@@ -26,11 +26,29 @@
 
 .loading-circle:after {
   z-index: 10;
-  border: 3px solid #ddd;
+  // border: 3px solid #ddd;
   border-left: 3px solid transparent;
   border-bottom: 3px solid transparent;
   -webkit-animation: dashed 1s ease infinite;
   animation: dashed 1s ease infinite;
+}
+
+.circle-white.loading-circle:before {
+  border-right: 3px dashed #ccc;
+  border-top: 3px dashed #ccc;
+}
+.circle-white.loading-circle:after {
+  border-right: 3px solid #ddd;
+  border-top: 3px solid #ddd;
+}
+
+.circle-black.loading-circle:before {
+  border-right: 3px dashed #00000055;
+  border-top: 3px dashed #00000055;
+}
+.circle-black.loading-circle:after {
+  border-right: 3px solid #00000022;
+  border-top: 3px solid #00000022;
 }
 
 @keyframes dashed {

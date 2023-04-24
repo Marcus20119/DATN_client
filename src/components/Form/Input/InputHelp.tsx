@@ -1,8 +1,7 @@
 import { Input, IInput } from './Input';
 import { QuestionIcon } from '~/icons';
-import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { handleShowAuthModal, setAuthState } from '~/store/auth/auth.slice';
+import { handleShowBaseHelpInputModal } from '~/store/base/base.slice';
 
 const InputHelp: React.FC<IInput & { helpMessage: string }> = ({
   control,
@@ -18,13 +17,7 @@ const InputHelp: React.FC<IInput & { helpMessage: string }> = ({
     <QuestionIcon
       className="text-[#999999] cursor-pointer"
       onClick={() => {
-        dispatch(
-          setAuthState({
-            state: 'contentModalAuthHelp',
-            value: { name: label, helpMessage },
-          })
-        );
-        dispatch(handleShowAuthModal('showModalAuthHelp'));
+        dispatch(handleShowBaseHelpInputModal({ label, helpMessage }));
       }}
     />
   );

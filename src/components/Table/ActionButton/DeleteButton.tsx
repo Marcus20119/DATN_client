@@ -1,36 +1,12 @@
-import { useDispatch, useSelector } from 'react-redux';
-// import {
-//   handleShowAdminModal,
-//   setSelectedUserData,
-// } from '~/store/admin/admin.slice';
-import { IRootState } from '~/store/rootReducer';
-import { UserDataType } from '~/store/rootType';
 import { actionButtonClassName } from './common';
 
 type IDeleteButton = {
-  userData: UserDataType;
+  onClick?: () => void;
 };
 
-const DeleteButton: React.FC<IDeleteButton> = ({ userData }) => {
-  const dispatch = useDispatch();
-  const { userData: yourData } = useSelector((state: IRootState) => state.auth);
-  // const { usersTab } = useSelector((state: IRootState) => state.admin);
+const DeleteButton: React.FC<IDeleteButton> = ({ onClick = () => {} }) => {
   return (
-    <button
-      title="Xóa"
-      className={actionButtonClassName}
-      // onClick={() => {
-      //   dispatch(
-      //     handleShowAdminModal(
-      //       usersTab === 'Active User'
-      //         ? 'showSoftDeleteUserModal'
-      //         : 'showHardDeleteUserModal'
-      //     )
-      //   );
-      //   dispatch(setSelectedUserData(userData));
-      // }}
-      disabled={userData.id === yourData.id}
-    >
+    <button title="Xóa" className={actionButtonClassName} onClick={onClick}>
       <TrashIcon />
     </button>
   );

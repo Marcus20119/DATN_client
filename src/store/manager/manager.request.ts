@@ -6,7 +6,7 @@ export function requestManagerGetAllDataFromUser(
 ) {
   return privateAxios.request({
     method: 'GET',
-    url: '/g/' + payload.project + '/users/' + payload.type,
+    url: `/g/2/users/${payload.type}/${payload.project}`,
     params: payload.query,
   });
 }

@@ -15,6 +15,7 @@ import { IRootState } from '~/store/rootReducer';
 import { UserDataType } from '~/store/rootType';
 import { SearchParams } from '~/types';
 import AdminManageUserTable from './AdminManageUserTable';
+import { LoadingCircle } from '~/components/Base/loading/Circle';
 
 interface IAdminManageUserPage {}
 
@@ -43,9 +44,8 @@ const AdminManageUserPage: React.FC<IAdminManageUserPage> = () => {
   const dispatch = useDispatch();
   const { search } = useLocation();
   const params = queryString.parse(search) as SearchParams;
-  const { loadingGetUsersData, tableTotalPage } = useSelector(
-    (state: IRootState) => state.admin
-  );
+  const { loadingGetUsersData, tableTotalPage, toggleForceRefetchUsersData } =
+    useSelector((state: IRootState) => state.admin);
 
   const [tableCurrentTab, setTableCurrentTab] = useState<ManageUserTabType>(
     params.tab as ManageUserTabType
@@ -78,7 +78,14 @@ const AdminManageUserPage: React.FC<IAdminManageUserPage> = () => {
         type: tableCurrentTab,
       })
     );
-  }, [dispatch, orderField, orderType, tableCurrentPage, tableCurrentTab]);
+  }, [
+    dispatch,
+    orderField,
+    orderType,
+    tableCurrentPage,
+    tableCurrentTab,
+    toggleForceRefetchUsersData,
+  ]);
 
   // Thay đổi query
   useNavigateQuery({
@@ -89,7 +96,16 @@ const AdminManageUserPage: React.FC<IAdminManageUserPage> = () => {
   return (
     <Container>
       <div className="w-full mt-8">
-        <Heading as="h1" text="QUẢN LÝ NGƯỜI DÙNG" className="text-[32px]" />
+        <div className="flex gap-4 w-full">
+          <Heading
+            as="h1"
+            text="QUẢN LÝ NGƯỜI DÙNG"
+            className="text-[32px] !w-fit"
+          />
+          {loadingGetUsersData && (
+            <LoadingCircle className="mt-1" color="circle-black" />
+          )}
+        </div>
         <div className="w-full mb-4">
           <div className="flex justify-end items-center w-full mb-4">
             <TableFilter
@@ -102,7 +118,10 @@ const AdminManageUserPage: React.FC<IAdminManageUserPage> = () => {
             <TableTab
               tableTabs={tableTabs}
               tableCurrentTab={tableCurrentTab}
-              handleSetTab={(tab: ManageUserTabType) => setTableCurrentTab(tab)}
+              handleSetTab={(tab: ManageUserTabType) => {
+                setTableCurrentTab(tab);
+                setTableCurrentPage(1);
+              }}
               disabled={loadingGetUsersData}
             />
             <AdminManageUserTable

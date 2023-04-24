@@ -15,6 +15,7 @@ import { UserDataType } from '~/store/rootType';
 import { SearchParams } from '~/types';
 import ManagerManageUserTable from './ManagerManageUserTable';
 import { actionManagerGetAllDataFromUser } from '~/store/manager/manager.action';
+import { LoadingCircle } from '~/components/Base/loading/Circle';
 
 interface IManagerManageUserPage {}
 
@@ -88,7 +89,16 @@ const ManagerManageUserPage: React.FC<IManagerManageUserPage> = () => {
   return (
     <Container>
       <div className="w-full mt-8">
-        <Heading as="h1" text="QUẢN LÝ NGƯỜI DÙNG" className="text-[32px]" />
+        <div className="flex gap-4 w-full">
+          <Heading
+            as="h1"
+            text="QUẢN LÝ NGƯỜI DÙNG"
+            className="text-[32px] !w-fit"
+          />
+          {loadingGetUsersData && (
+            <LoadingCircle className="mt-1" color="circle-black" />
+          )}
+        </div>
         <div className="w-full mb-4">
           <div className="flex justify-end items-center w-full mb-4">
             <TableFilter

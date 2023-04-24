@@ -23,7 +23,7 @@ const ManagerManageUserTable: React.FC<IManagerManageUserTable> = ({
       <thead>
         <tr>
           <th className="w-[48px]">#</th>
-          <th className="w-[48px]">id</th>
+          <th className="w-[48px]">ID</th>
           <th className="w-[132px] text-left">Tên người dùng</th>
           <th className="w-[350px] text-left">Email</th>
           <th className="w-[96px] text-left">SĐT</th>
@@ -58,7 +58,7 @@ const ManagerManageUserTable: React.FC<IManagerManageUserTable> = ({
                   {currentTab === 'Activated User' && (
                     <>
                       <EditButton userData={userData} />
-                      <DeleteButton userData={userData} />
+                      <DeleteButton />
                     </>
                   )}
                   {/* {currentTab === 'Deleted User' && (

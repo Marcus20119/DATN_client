@@ -6,10 +6,14 @@ type InitialStateType = {
   loadingGetUsersData: boolean;
   tableTotalPage: number;
 };
-type ManagerStateType<T extends keyof InitialStateType> = {
-  state: T;
-  value: InitialStateType[T];
+type ManagerStateTypeBase<K extends keyof InitialStateType> = {
+  state: K;
+  value: InitialStateType[K];
 };
+type ManagerStateType = {
+  [K in keyof InitialStateType]: ManagerStateTypeBase<K>;
+}[keyof InitialStateType];
+
 const initialState: InitialStateType = {
   usersData: [],
   loadingGetUsersData: false,
@@ -20,10 +24,7 @@ export const managerSlice = createSlice({
   name: 'manager',
   initialState,
   reducers: {
-    setManagerState: (
-      state,
-      { payload }: { payload: ManagerStateType<keyof InitialStateType> }
-    ) => ({
+    setManagerState: (state, { payload }: { payload: ManagerStateType }) => ({
       ...state,
       [payload.state]: payload.value,
     }),

@@ -58,8 +58,6 @@ const SignUpPage: React.FC<ISignUpPage> = () => {
           },
         })
       );
-      if (!messageSignUpError) {
-      }
     } catch (err: any) {
       console.log(err);
     }

@@ -10,11 +10,11 @@ const ItemManageUser: React.FC<IItemManageUser> = () => {
   const { userData } = useSelector((state: IRootState) => state.auth);
   let destinationPath: string = '';
   switch (userData.role_id) {
-    case 3: {
+    case 2: {
       destinationPath = '/manager/manage-user?tab=Activated%20User&page=1';
       break;
     }
-    case 2: {
+    case 3: {
       destinationPath = '/admin/manage-user?tab=Activated%20User&page=1';
       break;
     }

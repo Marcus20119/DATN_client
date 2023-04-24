@@ -1,25 +1,15 @@
-import { useDispatch } from 'react-redux';
-// import {
-//   handleShowAdminModal,
-//   setSelectedUserData,
-// } from '~/store/admin/admin.slice';
-import { UserDataType } from '~/store/rootType';
 import { actionButtonClassName } from './common';
 
 type IRestoreButton = {
-  userData: UserDataType;
+  onClick: () => void;
 };
 
-const RestoreButton: React.FC<IRestoreButton> = ({ userData }) => {
-  const dispatch = useDispatch();
+const RestoreButton: React.FC<IRestoreButton> = ({ onClick = () => {} }) => {
   return (
     <button
       title="Khôi phục"
       className={actionButtonClassName}
-      // onClick={() => {
-      //   dispatch(handleShowAdminModal('showRestoreUserModal'));
-      //   dispatch(setSelectedUserData(userData));
-      // }}
+      onClick={onClick}
     >
       <RestoreIcon />
     </button>
