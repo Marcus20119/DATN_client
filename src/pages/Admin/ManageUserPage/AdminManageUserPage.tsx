@@ -44,8 +44,11 @@ const AdminManageUserPage: React.FC<IAdminManageUserPage> = () => {
   const dispatch = useDispatch();
   const { search } = useLocation();
   const params = queryString.parse(search) as SearchParams;
-  const { loadingGetUsersData, tableTotalPage, toggleForceRefetchUsersData } =
-    useSelector((state: IRootState) => state.admin);
+  const {
+    loadingGetUsersData,
+    tableTotalPage,
+    toggleForceRefetchAdminUsersData,
+  } = useSelector((state: IRootState) => state.admin);
 
   const [tableCurrentTab, setTableCurrentTab] = useState<ManageUserTabType>(
     params.tab as ManageUserTabType
@@ -84,7 +87,7 @@ const AdminManageUserPage: React.FC<IAdminManageUserPage> = () => {
     orderType,
     tableCurrentPage,
     tableCurrentTab,
-    toggleForceRefetchUsersData,
+    toggleForceRefetchAdminUsersData,
   ]);
 
   // Thay đổi query

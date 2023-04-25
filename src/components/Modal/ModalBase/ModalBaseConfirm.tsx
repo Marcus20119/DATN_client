@@ -36,6 +36,13 @@ const ModalBaseConfirm = () => {
             <ButtonPrimary
               onClick={() => {
                 dispatch(modalConfirmAction);
+                // Nếu action từ reducer sẽ đóng modal ngay lập tức, không cần đợi
+                if (
+                  modalConfirmAction.type[0] ===
+                  modalConfirmAction.type[0].toLowerCase()
+                ) {
+                  dispatch(handleHideBaseModal());
+                }
               }}
               isSubmitting={loadingModalConfirm}
             >

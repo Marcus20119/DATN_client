@@ -16,7 +16,6 @@ const ButtonPrimary: React.FC<IButtonPrimary> = ({
   ...props
 }) => {
   const child = isSubmitting ? <LoadingCircle /> : children;
-  console.log('isSubmitting:', isSubmitting);
   return (
     <button
       {...props}

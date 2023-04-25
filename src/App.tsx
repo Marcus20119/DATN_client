@@ -1,7 +1,8 @@
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 import { lazy } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Navigate, Route, Routes } from 'react-router-dom';
+import { Cookie } from './helpers';
 import {
   AuthLayout,
   MainLayout,
@@ -13,6 +14,7 @@ import SignUpPage from './pages/Auth/SignUpPage';
 
 import LoadingPage from './pages/LoadingPage';
 import NotFoundPage from './pages/NotFoundPage';
+import { actionGetThisUserData } from './store/auth/auth.action';
 import { IRootState } from './store/rootReducer';
 
 const ProjectInfoPage = lazy(() => import('./pages/Client/ProjectInfoPage'));
@@ -28,7 +30,14 @@ const ManagerManageUserPage = lazy(
 const TestPage = lazy(() => import('./pages/TestPage'));
 
 function App() {
+  const dispatch = useDispatch();
   const { userData } = useSelector((state: IRootState) => state.auth);
+  useEffect(() => {
+    const userId = Cookie.get('user_id');
+    if (userId) {
+      dispatch(actionGetThisUserData(userId));
+    }
+  }, []);
   return (
     <Suspense fallback={<LoadingPage />}>
       <Routes>

@@ -1,7 +1,11 @@
 import { call, put } from 'redux-saga/effects';
 import { Cookie } from '~/helpers';
 import { UserDataType } from '../rootType';
-import { requestSignIn, requestSignUp } from './auth.request';
+import {
+  requestGetThisUserData,
+  requestSignIn,
+  requestSignUp,
+} from './auth.request';
 import { setAuthState, setUserData } from './auth.slice';
 import { SignInDataType, SignUpDataType } from './auth.type';
 
@@ -61,6 +65,11 @@ export function* handleSignIn(action: {
         cValue: userData,
         exDays: 7,
       });
+      Cookie.set({
+        cName: 'user_id',
+        cValue: userData.id,
+        exDays: 7,
+      });
       action.payload.onSuccess();
     }
   } catch (err: any) {
@@ -73,5 +82,26 @@ export function* handleSignIn(action: {
     );
   } finally {
     yield put(setAuthState({ state: 'loadingSignIn', value: false }));
+  }
+}
+
+export function* handleGetThisUserData(action: {
+  type: string;
+  payload: UserDataType['id'];
+}) {
+  try {
+    const { data } = yield call(requestGetThisUserData, action.payload);
+    if (data) {
+      const userData: UserDataType = data.data;
+      yield put(setUserData(userData));
+      Cookie.set({
+        cName: 'userData',
+        cValue: userData,
+        exDays: 7,
+      });
+    }
+  } catch (err: any) {
+    console.log(err);
+  } finally {
   }
 }

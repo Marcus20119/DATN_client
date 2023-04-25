@@ -1,6 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { TableBase, TableLoading } from '~/components/Table';
 import {
+  ActivateButton,
+  DeactivateButton,
   DeleteButton,
   EditButton,
   RestoreButton,
@@ -41,6 +43,36 @@ const AdminManageUserTable: React.FC<IAdminManageUserTable> = ({
         description: 'Bạn có chắc chắn muốn khôi phục người dùng này ?',
         confirmButtonLabel: 'Khôi phục',
         confirmAction: { type: 'ADMIN/RESTORE-USER', payload: id },
+      })
+    );
+  };
+  const handleActivate = (id: number) => {
+    dispatch(
+      handleShowBaseConfirmModal({
+        title: 'XÁC NHẬN !',
+        description: 'Bạn có chắc chắn muốn activate người dùng này ?',
+        confirmButtonLabel: 'Activate',
+        confirmAction: { type: 'ADMIN/ACTIVATE-USER', payload: id },
+      })
+    );
+  };
+  const handleDeactivate = (id: number) => {
+    dispatch(
+      handleShowBaseConfirmModal({
+        title: 'XÁC NHẬN !',
+        description: 'Bạn có chắc chắn muốn deactivate người dùng này ?',
+        confirmButtonLabel: 'Deactivate',
+        confirmAction: { type: 'ADMIN/DEACTIVATE-USER', payload: id },
+      })
+    );
+  };
+  const handleHardDelete = (id: number) => {
+    dispatch(
+      handleShowBaseConfirmModal({
+        title: 'XÁC NHẬN !',
+        description: 'Bạn có chắc chắn muốn xóa vĩnh viễn người dùng này ?',
+        confirmButtonLabel: 'Xóa',
+        confirmAction: { type: 'ADMIN/HARD-DELETE-USER', payload: id },
       })
     );
   };
@@ -89,10 +121,16 @@ const AdminManageUserTable: React.FC<IAdminManageUserTable> = ({
                       <DeleteButton
                         onClick={() => handleSoftDelete(userData.id)}
                       />
+                      <DeactivateButton
+                        onClick={() => handleDeactivate(userData.id)}
+                      />
                     </>
                   )}
                   {currentTab === 'Deactivated User' && (
                     <>
+                      <ActivateButton
+                        onClick={() => handleActivate(userData.id)}
+                      />
                       <EditButton userData={userData} />
                       <DeleteButton
                         onClick={() => handleSoftDelete(userData.id)}
@@ -103,6 +141,9 @@ const AdminManageUserTable: React.FC<IAdminManageUserTable> = ({
                     <>
                       <RestoreButton
                         onClick={() => handleRestore(userData.id)}
+                      />
+                      <DeleteButton
+                        onClick={() => handleHardDelete(userData.id)}
                       />
                     </>
                   )}

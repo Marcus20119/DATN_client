@@ -1,9 +1,16 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { TableBase, TableLoading } from '~/components/Table';
-import { DeleteButton, EditButton } from '~/components/Table/ActionButton';
+import {
+  ActivateButton,
+  DeactivateButton,
+  DeleteButton,
+  EditButton,
+  RestoreButton,
+} from '~/components/Table/ActionButton';
 import { User } from '~/helpers';
 import { ManageUserTabType } from '~/store/rootType';
 import { IRootState } from '~/store/rootReducer';
+import { handleShowBaseConfirmModal } from '~/store/base/base.slice';
 
 interface IManagerManageUserTable {
   currentPage: number;
@@ -14,10 +21,61 @@ const ManagerManageUserTable: React.FC<IManagerManageUserTable> = ({
   currentPage,
   currentTab,
 }) => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const { usersData, loadingGetUsersData } = useSelector(
     (state: IRootState) => state.manager
   );
+
+  const handleSoftDelete = (id: number) => {
+    dispatch(
+      handleShowBaseConfirmModal({
+        title: 'XÁC NHẬN !',
+        description: 'Bạn có chắc chắn muốn xóa người dùng này ?',
+        confirmButtonLabel: 'Xóa',
+        confirmAction: { type: 'MANAGER/SOFT-DELETE-USER', payload: id },
+      })
+    );
+  };
+  const handleRestore = (id: number) => {
+    dispatch(
+      handleShowBaseConfirmModal({
+        title: 'XÁC NHẬN !',
+        description: 'Bạn có chắc chắn muốn khôi phục người dùng này ?',
+        confirmButtonLabel: 'Khôi phục',
+        confirmAction: { type: 'MANAGER/RESTORE-USER', payload: id },
+      })
+    );
+  };
+  const handleActivate = (id: number) => {
+    dispatch(
+      handleShowBaseConfirmModal({
+        title: 'XÁC NHẬN !',
+        description: 'Bạn có chắc chắn muốn activate người dùng này ?',
+        confirmButtonLabel: 'Activate',
+        confirmAction: { type: 'MANAGER/ACTIVATE-USER', payload: id },
+      })
+    );
+  };
+  const handleDeactivate = (id: number) => {
+    dispatch(
+      handleShowBaseConfirmModal({
+        title: 'XÁC NHẬN !',
+        description: 'Bạn có chắc chắn muốn deactivate người dùng này ?',
+        confirmButtonLabel: 'Deactivate',
+        confirmAction: { type: 'MANAGER/DEACTIVATE-USER', payload: id },
+      })
+    );
+  };
+  const handleHardDelete = (id: number) => {
+    dispatch(
+      handleShowBaseConfirmModal({
+        title: 'XÁC NHẬN !',
+        description: 'Bạn có chắc chắn muốn xóa vĩnh viễn người dùng này ?',
+        confirmButtonLabel: 'Xóa',
+        confirmAction: { type: 'MANAGER/HARD-DELETE-USER', payload: id },
+      })
+    );
+  };
   return (
     <TableBase>
       <thead>
@@ -58,15 +116,35 @@ const ManagerManageUserTable: React.FC<IManagerManageUserTable> = ({
                   {currentTab === 'Activated User' && (
                     <>
                       <EditButton userData={userData} />
-                      <DeleteButton />
+                      <DeleteButton
+                        onClick={() => handleSoftDelete(userData.id)}
+                      />
+                      <DeactivateButton
+                        onClick={() => handleDeactivate(userData.id)}
+                      />
                     </>
                   )}
-                  {/* {currentTab === 'Deleted User' && (
+                  {currentTab === 'Deactivated User' && (
                     <>
-                      <RestoreButton userData={userData} />
-                      <DeleteButton userData={userData} />
+                      <ActivateButton
+                        onClick={() => handleActivate(userData.id)}
+                      />
+                      <EditButton userData={userData} />
+                      <DeleteButton
+                        onClick={() => handleSoftDelete(userData.id)}
+                      />
                     </>
-                  )} */}
+                  )}
+                  {currentTab === 'Deleted User' && (
+                    <>
+                      <RestoreButton
+                        onClick={() => handleRestore(userData.id)}
+                      />
+                      <DeleteButton
+                        onClick={() => handleHardDelete(userData.id)}
+                      />
+                    </>
+                  )}
                 </div>
               </td>
             </tr>

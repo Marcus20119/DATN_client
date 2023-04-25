@@ -3,6 +3,7 @@ import { UserDataType } from '../rootType';
 
 type InitialStateType = {
   usersData: UserDataType[];
+  toggleForceRefetchManagerUsersData: boolean;
   loadingGetUsersData: boolean;
   tableTotalPage: number;
 };
@@ -17,6 +18,7 @@ type ManagerStateType = {
 const initialState: InitialStateType = {
   usersData: [],
   loadingGetUsersData: false,
+  toggleForceRefetchManagerUsersData: false,
   tableTotalPage: 1,
 };
 
@@ -28,10 +30,16 @@ export const managerSlice = createSlice({
       ...state,
       [payload.state]: payload.value,
     }),
+    forceRefetchManagerUsersData: state => ({
+      ...state,
+      toggleForceRefetchManagerUsersData:
+        !state.toggleForceRefetchManagerUsersData,
+    }),
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setManagerState } = managerSlice.actions;
+export const { setManagerState, forceRefetchManagerUsersData } =
+  managerSlice.actions;
 
 export default managerSlice.reducer;

@@ -1,7 +1,7 @@
 import { actionButtonClassName } from './common';
 
 type IRestoreButton = {
-  onClick: () => void;
+  onClick?: () => void;
 };
 
 const RestoreButton: React.FC<IRestoreButton> = ({ onClick = () => {} }) => {

@@ -13,7 +13,7 @@ const ProtectedAdmin: React.FC<IProtectedAdmin> = ({}) => {
       navigateTo('/client/project-info');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [userData]);
   return (
     <>
       <Outlet />

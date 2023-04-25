@@ -1,14 +1,16 @@
-import { call, put, select } from 'redux-saga/effects';
+import { call, put } from 'redux-saga/effects';
 import { handleHideBaseModal, setBaseState } from '../base/base.slice';
-import { IRootState } from '../rootReducer';
 
 import { GetAllDataFromUserType, UserDataType } from '../rootType';
 import {
+  requestAdminActivateUser,
+  requestAdminDeactivateUser,
   requestAdminGetAllDataFromUser,
+  requestAdminHardDeleteUser,
   requestAdminRestoreUser,
   requestAdminSoftDeleteUser,
 } from './admin.request';
-import { forceRefetchUsersData, setAdminState } from './admin.slice';
+import { forceRefetchAdminUsersData, setAdminState } from './admin.slice';
 
 export function* handleAdminGetAllDataFromUser(action: {
   type: string;
@@ -40,14 +42,13 @@ export function* handleAdminSoftDeleteUser(action: {
   try {
     yield call(requestAdminSoftDeleteUser, action.payload);
     yield put(handleHideBaseModal());
-    yield put(forceRefetchUsersData());
+    yield put(forceRefetchAdminUsersData());
   } catch (err) {
     console.log(err);
   } finally {
     yield put(setBaseState({ state: 'loadingModalConfirm', value: false }));
   }
 }
-
 export function* handleAdminRestoreUser(action: {
   type: string;
   payload: UserDataType['id'];
@@ -56,7 +57,52 @@ export function* handleAdminRestoreUser(action: {
   try {
     yield call(requestAdminRestoreUser, action.payload);
     yield put(handleHideBaseModal());
-    yield put(forceRefetchUsersData());
+    yield put(forceRefetchAdminUsersData());
+  } catch (err) {
+    console.log(err);
+  } finally {
+    yield put(setBaseState({ state: 'loadingModalConfirm', value: false }));
+  }
+}
+export function* handleAdminActivateUser(action: {
+  type: string;
+  payload: UserDataType['id'];
+}) {
+  yield put(setBaseState({ state: 'loadingModalConfirm', value: true }));
+  try {
+    yield call(requestAdminActivateUser, action.payload);
+    yield put(handleHideBaseModal());
+    yield put(forceRefetchAdminUsersData());
+  } catch (err) {
+    console.log(err);
+  } finally {
+    yield put(setBaseState({ state: 'loadingModalConfirm', value: false }));
+  }
+}
+export function* handleAdminDeactivateUser(action: {
+  type: string;
+  payload: UserDataType['id'];
+}) {
+  yield put(setBaseState({ state: 'loadingModalConfirm', value: true }));
+  try {
+    yield call(requestAdminDeactivateUser, action.payload);
+    yield put(handleHideBaseModal());
+    yield put(forceRefetchAdminUsersData());
+  } catch (err) {
+    console.log(err);
+  } finally {
+    yield put(setBaseState({ state: 'loadingModalConfirm', value: false }));
+  }
+}
+export function* handleAdminHardDeleteUser(action: {
+  type: string;
+  payload: UserDataType['id'];
+}) {
+  yield put(setBaseState({ state: 'loadingModalConfirm', value: true }));
+  try {
+    yield call(requestAdminHardDeleteUser, action.payload);
+    yield put(handleHideBaseModal());
+    yield put(forceRefetchAdminUsersData());
   } catch (err) {
     console.log(err);
   } finally {

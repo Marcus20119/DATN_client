@@ -1,4 +1,8 @@
-import { actionSignIn, actionSignUp } from './auth.action';
+import {
+  actionGetThisUserData,
+  actionSignIn,
+  actionSignUp,
+} from './auth.action';
 import { setAuthState, setUserData, signOut } from './auth.slice';
 
 export type SignUpDataType = {
@@ -18,6 +22,7 @@ type AuthActionTypeInitial = {
   'auth/signOut': Parameters<typeof signOut>[0];
   'AUTH/SIGN-UP': Parameters<typeof actionSignUp>[0];
   'AUTH/SIGN-IN': Parameters<typeof actionSignIn>[0];
+  'AUTH/GET-THIS-USER-DATA': Parameters<typeof actionGetThisUserData>[0];
 };
 
 type AuthActionTypeBase<T extends keyof AuthActionTypeInitial> = {

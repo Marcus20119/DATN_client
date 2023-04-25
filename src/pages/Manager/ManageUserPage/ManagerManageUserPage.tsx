@@ -43,9 +43,11 @@ const ManagerManageUserPage: React.FC<IManagerManageUserPage> = () => {
   const dispatch = useDispatch();
   const { search } = useLocation();
   const params = queryString.parse(search) as SearchParams;
-  const { loadingGetUsersData, tableTotalPage } = useSelector(
-    (state: IRootState) => state.manager
-  );
+  const {
+    loadingGetUsersData,
+    tableTotalPage,
+    toggleForceRefetchManagerUsersData,
+  } = useSelector((state: IRootState) => state.manager);
 
   const [tableCurrentTab, setTableCurrentTab] = useState<ManageUserTabType>(
     params.tab as ManageUserTabType
@@ -78,7 +80,14 @@ const ManagerManageUserPage: React.FC<IManagerManageUserPage> = () => {
         type: tableCurrentTab,
       })
     );
-  }, [dispatch, orderField, orderType, tableCurrentPage, tableCurrentTab]);
+  }, [
+    dispatch,
+    orderField,
+    orderType,
+    tableCurrentPage,
+    tableCurrentTab,
+    toggleForceRefetchManagerUsersData,
+  ]);
 
   // Thay đổi query
   useNavigateQuery({
@@ -111,7 +120,10 @@ const ManagerManageUserPage: React.FC<IManagerManageUserPage> = () => {
             <TableTab
               tableTabs={tableTabs}
               tableCurrentTab={tableCurrentTab}
-              handleSetTab={(tab: ManageUserTabType) => setTableCurrentTab(tab)}
+              handleSetTab={(tab: ManageUserTabType) => {
+                setTableCurrentTab(tab);
+                setTableCurrentPage(1);
+              }}
               disabled={loadingGetUsersData}
             />
             <ManagerManageUserTable

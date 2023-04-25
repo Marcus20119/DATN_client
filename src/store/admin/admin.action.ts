@@ -9,3 +9,12 @@ export const actionAdminSoftDeleteUser = createAction<UserDataType['id']>(
 );
 export const actionAdminRestoreUser =
   createAction<UserDataType['id']>('ADMIN/RESTORE-USER');
+export const actionAdminActivateUser = createAction<UserDataType['id']>(
+  'ADMIN/ACTIVATE-USER'
+);
+export const actionAdminDeactivateUser = createAction<UserDataType['id']>(
+  'ADMIN/DEACTIVATE-USER'
+);
+export const actionAdminHardDeleteUser = createAction<UserDataType['id']>(
+  'ADMIN/HARD-DELETE-USER'
+);

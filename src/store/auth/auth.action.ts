@@ -1,4 +1,5 @@
 import { createAction } from '@reduxjs/toolkit';
+import { UserDataType } from '../rootType';
 import { SignInDataType, SignUpDataType } from './auth.type';
 
 export const actionSignUp = createAction<{
@@ -10,3 +11,7 @@ export const actionSignIn = createAction<{
   data: SignInDataType;
   onSuccess: () => void;
 }>('AUTH/SIGN-IN');
+
+export const actionGetThisUserData = createAction<UserDataType['id']>(
+  'AUTH/GET-THIS-USER-DATA'
+);

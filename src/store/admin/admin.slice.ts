@@ -4,7 +4,7 @@ import { UserDataType } from '../rootType';
 type InitialStateType = {
   usersData: UserDataType[];
   loadingGetUsersData: boolean;
-  toggleForceRefetchUsersData: boolean;
+  toggleForceRefetchAdminUsersData: boolean;
   tableTotalPage: number;
 };
 type AdminStateTypeBase<K extends keyof InitialStateType> = {
@@ -18,7 +18,7 @@ type AdminStateType = {
 const initialState: InitialStateType = {
   usersData: [],
   loadingGetUsersData: false,
-  toggleForceRefetchUsersData: false,
+  toggleForceRefetchAdminUsersData: false,
   tableTotalPage: 1,
 };
 
@@ -30,14 +30,14 @@ export const adminSlice = createSlice({
       ...state,
       [payload.state]: payload.value,
     }),
-    forceRefetchUsersData: state => ({
+    forceRefetchAdminUsersData: state => ({
       ...state,
-      toggleForceRefetchUsersData: !state.toggleForceRefetchUsersData,
+      toggleForceRefetchAdminUsersData: !state.toggleForceRefetchAdminUsersData,
     }),
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setAdminState, forceRefetchUsersData } = adminSlice.actions;
+export const { setAdminState, forceRefetchAdminUsersData } = adminSlice.actions;
 
 export default adminSlice.reducer;
