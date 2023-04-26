@@ -14,6 +14,7 @@ type IRadio = {
   name: string;
   label: string;
   placeholder?: string;
+  direction?: 'vertical' | 'horizontal';
 } & React.DetailedHTMLProps<
   React.InputHTMLAttributes<HTMLInputElement>,
   HTMLInputElement
@@ -24,6 +25,7 @@ const Radio: React.FC<IRadio> = ({
   name,
   label,
   radios,
+  direction = 'vertical',
   ...props
 }) => {
   const {
@@ -33,30 +35,44 @@ const Radio: React.FC<IRadio> = ({
 
   const watchRadioValue = useWatch({ name, control });
   return (
-    <Field>
-      <Label name={name}>{label}</Label>
-      <div className="radio-wrap">
-        {radios.map(radio => (
-          <label key={radio.name} className="radio-item-wrap">
-            <div className="radio-item_check-wrap">
-              <input
-                type="radio"
-                className="radio-item_check"
-                // eslint-disable-next-line eqeqeq
-                checked={watchRadioValue == radio.value}
-                {...props}
-                {...{ ...field, value: radio.value }}
-              />
-              <div className="radio-item_check-alternative"></div>
-            </div>
-            <span className="radio-item_label">{radio.name}</span>
-          </label>
-        ))}
-      </div>
-      {errors?.[name]?.message && (
-        <Error errorMessage={String(errors?.[name]?.message)}></Error>
+    <>
+      <Field direction={direction}>
+        <Label name={name} direction={direction}>
+          {label}
+        </Label>
+        <div
+          className={`radio-wrap ${
+            direction === 'vertical' ? 'w-full' : 'flex-1'
+          }`}
+        >
+          {radios.map(radio => (
+            <label key={radio.name} className="radio-item-wrap">
+              <div className="radio-item_check-wrap">
+                <input
+                  type="radio"
+                  className="radio-item_check"
+                  // eslint-disable-next-line eqeqeq
+                  checked={watchRadioValue == radio.value}
+                  {...props}
+                  {...{ ...field, value: radio.value }}
+                />
+                <div className="radio-item_check-alternative"></div>
+              </div>
+              <span className="radio-item_label">{radio.name}</span>
+            </label>
+          ))}
+        </div>
+        {errors?.[name]?.message && direction === 'vertical' && (
+          <Error errorMessage={String(errors?.[name]?.message)}></Error>
+        )}
+      </Field>
+      {errors?.[name]?.message && direction === 'horizontal' && (
+        <Error
+          errorMessage={String(errors?.[name]?.message)}
+          className="ml-[140px] pl-5 mt-[-12px]"
+        ></Error>
       )}
-    </Field>
+    </>
   );
 };
 

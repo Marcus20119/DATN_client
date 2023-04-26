@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { Outlet, useNavigate } from 'react-router-dom';
 import RootModal from '~/components/Modal/RootModal';
 import { IRootState } from '~/store/rootReducer';
+import Footer from './Footer';
 import Header from './Header/Header';
 
 type IMainLayout = {};
@@ -26,6 +27,7 @@ const MainLayout: React.FC<IMainLayout> = () => {
             <Outlet />
           </div>
           <RootModal />
+          <Footer />
         </div>
       )}
     </>

@@ -1,4 +1,5 @@
 import { Menu } from '@headlessui/react';
+import { Link } from 'react-router-dom';
 import { buttonClassName, menuColors } from './common';
 
 interface IItemUserInfo {}
@@ -7,7 +8,8 @@ const ItemUserInfo: React.FC<IItemUserInfo> = () => {
   return (
     <Menu.Item>
       {({ active }) => (
-        <button
+        <Link
+          to="/client/account"
           className={buttonClassName(active)}
           style={{
             backgroundColor: active ? menuColors.fillActive : '',
@@ -15,7 +17,7 @@ const ItemUserInfo: React.FC<IItemUserInfo> = () => {
         >
           <PersonIcon active={active} />
           Tài khoản
-        </button>
+        </Link>
       )}
     </Menu.Item>
   );

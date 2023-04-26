@@ -1,6 +1,5 @@
 .radio-wrap {
   display: flex;
-  width: 100%;
   height: 50px;
   gap: 24px;
 }
@@ -29,7 +28,7 @@
 }
 
 .radio-item-wrap .radio-item_check:checked + .radio-item_check-alternative {
-  background-color: #0d9488;
+  background-color: #3b5880;
 }
 
 .radio-item_label {

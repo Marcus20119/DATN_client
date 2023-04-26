@@ -9,6 +9,7 @@ const InputTogglePassword: React.FC<IInput> = ({
   label,
   icon,
   className,
+  direction = 'vertical',
   ...props
 }) => {
   const [toggle, setToggle] = useState(false);
@@ -31,6 +32,7 @@ const InputTogglePassword: React.FC<IInput> = ({
       icon={toggleComponent}
       className={`tracking-[0.2rem] ${className}`}
       label={label}
+      direction={direction}
     />
   );
 };

@@ -6,6 +6,7 @@ export type IInputDisable = {
   label: string;
   value: string;
   className?: string;
+  direction?: 'horizontal' | 'vertical';
 };
 
 const InputDisable: React.FC<IInputDisable> = ({
@@ -13,11 +14,14 @@ const InputDisable: React.FC<IInputDisable> = ({
   label,
   value,
   className = '',
+  direction = 'vertical',
   ...props
 }) => {
   return (
-    <Field>
-      <Label name={name}>{label}</Label>
+    <Field direction={direction}>
+      <Label name={name} direction={direction}>
+        {label}
+      </Label>
       <div className="relative w-full">
         <input
           {...props}

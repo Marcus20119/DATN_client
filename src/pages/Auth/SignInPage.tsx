@@ -9,6 +9,7 @@ import { IRootState } from '~/store/rootReducer';
 import { ButtonPrimary } from '~/components/Button';
 import { useNavigate } from 'react-router-dom';
 import { actionSignIn } from '~/store/auth/auth.action';
+import { onErrorsHandler } from '~/helpers';
 
 type ISignInPage = {};
 
@@ -30,7 +31,7 @@ const SignInPage: React.FC<ISignInPage> = () => {
   const {
     control,
     handleSubmit,
-    // formState: { isSubmitting },
+    formState: { errors },
     // reset,
   } = useForm({
     resolver: yupResolver(schema),
@@ -60,7 +61,7 @@ const SignInPage: React.FC<ISignInPage> = () => {
         className="border-b border-b-main-blue"
       />
       <form
-        onSubmit={handleSubmit(onSubmitHandler)}
+        onSubmit={handleSubmit(onSubmitHandler, () => onErrorsHandler(errors))}
         className="flex flex-col gap-3 w-full"
         // autoComplete="off"
         noValidate

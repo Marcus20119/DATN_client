@@ -21,11 +21,16 @@ const ProjectInfoPage = lazy(() => import('./pages/Client/ProjectInfoPage'));
 const ProcessPage = lazy(() => import('./pages/Client/ProcessPage'));
 const CalenderPage = lazy(() => import('./pages/Client/CalenderPage'));
 const MonitorPage = lazy(() => import('./pages/Client/Monitor/MonitorPage'));
+const AccountPage = lazy(() => import('./pages/Client/AccountPage'));
 const AdminManageUserPage = lazy(
   () => import('./pages/Admin/ManageUserPage/AdminManageUserPage')
 );
+const AdminEditUserPage = lazy(() => import('./pages/Admin/AdminEditUserPage'));
 const ManagerManageUserPage = lazy(
   () => import('./pages/Manager/ManageUserPage/ManagerManageUserPage')
+);
+const ManagerEditUserPage = lazy(
+  () => import('./pages/Manager/ManagerEditUserPage')
 );
 const TestPage = lazy(() => import('./pages/TestPage'));
 
@@ -65,12 +70,15 @@ function App() {
             <Route path="process" element={<ProcessPage />} />
             <Route path="calender" element={<CalenderPage />} />
             <Route path="monitor" element={<MonitorPage />} />
+            <Route path="account" element={<AccountPage />} />
           </Route>
           <Route path="admin" element={<ProtectedAdmin />}>
             <Route path="manage-user" element={<AdminManageUserPage />} />
+            <Route path="edit-user/:id" element={<AdminEditUserPage />} />
           </Route>
           <Route path="manager" element={<ProtectedManager />}>
             <Route path="manage-user" element={<ManagerManageUserPage />} />
+            <Route path="edit-user/:id" element={<ManagerEditUserPage />} />
           </Route>
           <Route path="test" element={<TestPage />} />
         </Route>

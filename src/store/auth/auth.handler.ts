@@ -89,6 +89,7 @@ export function* handleGetThisUserData(action: {
   type: string;
   payload: UserDataType['id'];
 }) {
+  yield put(setAuthState({ state: 'loadingGetThisUserData', value: true }));
   try {
     const { data } = yield call(requestGetThisUserData, action.payload);
     if (data) {
@@ -103,5 +104,6 @@ export function* handleGetThisUserData(action: {
   } catch (err: any) {
     console.log(err);
   } finally {
+    yield put(setAuthState({ state: 'loadingGetThisUserData', value: false }));
   }
 }

@@ -1,25 +1,15 @@
-import { useDispatch } from 'react-redux';
-// import {
-//   handleShowAdminModal,
-//   setSelectedUserData,
-// } from '~/store/admin/admin.slice';
-import { UserDataType } from '~/store/rootType';
 import { actionButtonClassName } from './common';
 
 type IEditButton = {
-  userData: UserDataType;
+  onClick?: () => void;
 };
 
-const EditButton: React.FC<IEditButton> = ({ userData }) => {
-  const dispatch = useDispatch();
+const EditButton: React.FC<IEditButton> = ({ onClick = () => {} }) => {
   return (
     <button
       title="Chỉnh sửa"
       className={actionButtonClassName}
-      // onClick={() => {
-      //   dispatch(handleShowAdminModal('showUpdateUserModal'));
-      //   dispatch(setSelectedUserData(userData));
-      // }}
+      onClick={onClick}
     >
       <WriteIcon />
     </button>

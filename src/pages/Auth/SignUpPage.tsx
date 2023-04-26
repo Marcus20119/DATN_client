@@ -14,6 +14,7 @@ import { IRootState } from '~/store/rootReducer';
 import { ButtonPrimary } from '~/components/Button';
 import { useNavigate } from 'react-router-dom';
 import { actionSignUp } from '~/store/auth/auth.action';
+import { onErrorsHandler } from '~/helpers';
 
 type ISignUpPage = {};
 
@@ -41,7 +42,7 @@ const SignUpPage: React.FC<ISignUpPage> = () => {
   const {
     control,
     handleSubmit,
-    // formState: { isSubmitting },
+    formState: { errors },
     // reset,
   } = useForm({
     resolver: yupResolver(schema),
@@ -67,7 +68,7 @@ const SignUpPage: React.FC<ISignUpPage> = () => {
     <div className="flex flex-col gap-6 w-full">
       <Heading as="h2" text="ĐĂNG KÝ" className="border-b border-b-main-blue" />
       <form
-        onSubmit={handleSubmit(onSubmitHandler)}
+        onSubmit={handleSubmit(onSubmitHandler, () => onErrorsHandler(errors))}
         className="flex flex-col gap-3 w-full"
         // autoComplete="off"
         noValidate

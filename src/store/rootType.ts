@@ -14,6 +14,22 @@ export type UserDataType = {
   updated_at: Date | null;
 };
 
+export const initialUserData: UserDataType = {
+  id: 0,
+  user_name: '',
+  email: '',
+  role_id: -1,
+  gender: -1,
+  is_activated: false,
+  is_deleted: false,
+  project_id: 0,
+  project_key: '',
+  avatar: '',
+  phone_number: '',
+  created_at: null,
+  updated_at: null,
+};
+
 export type ManageUserTabType =
   | 'Activated User'
   | 'Deactivated User'
