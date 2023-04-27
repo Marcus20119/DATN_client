@@ -22,8 +22,12 @@ const ProcessPage = lazy(() => import('./pages/Client/ProcessPage'));
 const CalenderPage = lazy(() => import('./pages/Client/CalenderPage'));
 const MonitorPage = lazy(() => import('./pages/Client/Monitor/MonitorPage'));
 const AccountPage = lazy(() => import('./pages/Client/AccountPage'));
+const StaffInfoPage = lazy(() => import('./pages/Client/StaffInfoPage'));
 const AdminManageUserPage = lazy(
   () => import('./pages/Admin/ManageUserPage/AdminManageUserPage')
+);
+const AdminManageStaffPage = lazy(
+  () => import('./pages/Admin/ManageStaffPage/AdminManageStaffPage')
 );
 const AdminEditUserPage = lazy(() => import('./pages/Admin/AdminEditUserPage'));
 const ManagerManageUserPage = lazy(
@@ -42,6 +46,7 @@ function App() {
     if (userId) {
       dispatch(actionGetThisUserData(userId));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <Suspense fallback={<LoadingPage />}>
@@ -71,9 +76,11 @@ function App() {
             <Route path="calender" element={<CalenderPage />} />
             <Route path="monitor" element={<MonitorPage />} />
             <Route path="account" element={<AccountPage />} />
+            <Route path="staff-info/:id" element={<StaffInfoPage />} />
           </Route>
           <Route path="admin" element={<ProtectedAdmin />}>
             <Route path="manage-user" element={<AdminManageUserPage />} />
+            <Route path="manage-staff" element={<AdminManageStaffPage />} />
             <Route path="edit-user/:id" element={<AdminEditUserPage />} />
           </Route>
           <Route path="manager" element={<ProtectedManager />}>

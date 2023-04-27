@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { TableBase, TableLoading } from '~/components/Table';
 import { ManageUserActionModule } from '~/modules';
-import { User } from '~/helpers';
+import { ReadData } from '~/helpers';
 import { IRootState } from '~/store/rootReducer';
 import { ManageUserTabType } from '~/store/rootType';
 
@@ -50,9 +50,9 @@ const ManagerManageUserTable: React.FC<IManagerManageUserTable> = ({
               <td className="text-left" title={userData.phone_number || ''}>
                 {userData.phone_number || '-'}
               </td>
-              <td>{User.gender(userData.gender)}</td>
-              <td>{User.roleId(userData.role_id)}</td>
-              <td>{User.day(userData.created_at)}</td>
+              <td>{ReadData.gender(userData.gender)}</td>
+              <td>{ReadData.roleId(userData.role_id)}</td>
+              <td>{ReadData.day(userData.created_at)}</td>
               <td>
                 <ManageUserActionModule
                   role="MANAGER"

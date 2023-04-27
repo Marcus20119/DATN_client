@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Container } from '~/components/Common';
-import { User } from '~/helpers';
+import { ReadData } from '~/helpers';
 import { setBaseState } from '~/store/base/base.slice';
 import { IRootState } from '~/store/rootReducer';
 import HeaderNav from './HeaderNav';
@@ -55,7 +55,7 @@ const Header: React.FC<IHeader> = () => {
           </div>
           <div className="inline-flex items-center gap-4 h-full">
             <span className="text-main-white text-[0.72rem] font-semibold opacity-80 tracking-wide mt-[1px]">
-              {User.roleId(userData.role_id)}
+              {ReadData.roleId(userData.role_id)}
             </span>
             <div className="w-[1px] h-[20px] bg-main-white opacity-80">
               &nbsp;

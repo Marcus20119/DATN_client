@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
+import { signOut } from './auth/auth.slice';
 import { reducer } from './rootReducer';
 import allSagas from './rootSaga';
 
@@ -11,3 +12,7 @@ export const store = configureStore({
 });
 
 sagaMiddleware.run(allSagas);
+
+export const forceSignOut = () => {
+  store.dispatch(signOut());
+};

@@ -1,5 +1,4 @@
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { handleShowBaseConfirmModal } from '~/store/base/base.slice';
 import { ManageUserTabType, UserDataType } from '~/store/rootType';
 import {
@@ -22,7 +21,6 @@ const ManageUserActionModule: React.FC<IManageUserActionModule> = ({
   userData,
 }) => {
   const dispatch = useDispatch();
-  const navigateTo = useNavigate();
   const handleSoftDelete = (id: number) => {
     dispatch(
       handleShowBaseConfirmModal({
@@ -73,28 +71,32 @@ const ManageUserActionModule: React.FC<IManageUserActionModule> = ({
       })
     );
   };
-  const handleEdit = (id: number) => {
-    navigateTo(`/${role.toLowerCase()}/edit-user/${id}`);
-  };
+
   return (
     <div className="flex items-center justify-center gap-3 w-full">
       {currentTab === 'Activated User' && (
         <>
-          <EditButton onClick={() => handleEdit(userData.id)} />
+          <EditButton
+            path={`/${role.toLowerCase()}/edit-user/${userData.id}`}
+          />
           <DeleteButton onClick={() => handleSoftDelete(userData.id)} />
           <DeactivateButton onClick={() => handleDeactivate(userData.id)} />
         </>
       )}
       {currentTab === 'Deactivated User' && (
         <>
-          <EditButton onClick={() => handleEdit(userData.id)} />
+          <EditButton
+            path={`/${role.toLowerCase()}/edit-user/${userData.id}`}
+          />
           <DeleteButton onClick={() => handleSoftDelete(userData.id)} />
           <ActivateButton onClick={() => handleActivate(userData.id)} />
         </>
       )}
       {currentTab === 'Deleted User' && (
         <>
-          <EditButton onClick={() => handleEdit(userData.id)} />
+          <EditButton
+            path={`/${role.toLowerCase()}/edit-user/${userData.id}`}
+          />
           <DeleteButton onClick={() => handleHardDelete(userData.id)} />
           <RestoreButton onClick={() => handleRestore(userData.id)} />
         </>

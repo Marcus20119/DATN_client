@@ -1,5 +1,9 @@
 import axios from 'axios';
 import { Cookie } from './helpers';
+import { forceSignOut } from './store/store';
+// import store from './store/store';
+
+// const { dispatch } = store;
 
 export const myAxios = axios.create({
   baseURL: process.env.REACT_APP_BACKEND_URL,
@@ -34,10 +38,13 @@ const createMyAxios = () => {
     response => response,
     // Nếu trả về lỗi thì config lại để reset được access token
     async error => {
+      console.log('error:', error);
       // return new Promise(async resolve => {
       const originalRequest = error.config;
       // Nếu có lỗi và lỗi trả về là 403 thì gửi lại request yêu cầu reset access token
-      if (error.response && error.response.status === 403) {
+      if (error?.response?.data?.message === 'User Not Found or is Deleted') {
+        forceSignOut();
+      } else if (error?.response?.status === 403) {
         const refresh_token = Cookie.get('refresh_token');
         const { data } = await myAxios.post('/auth/refresh-token', {
           refresh_token,

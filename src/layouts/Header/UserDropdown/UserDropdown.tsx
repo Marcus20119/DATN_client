@@ -6,7 +6,9 @@ import { IRootState } from '~/store/rootReducer';
 import ItemControl from './ItemControl';
 import ItemExport from './ItemExport';
 import ItemInventory from './ItemInventory';
+import ItemAddUser from './ItemManageAddUser';
 import ItemManageProject from './ItemManageProject';
+import ItemManageStaff from './ItemManageStaff';
 import ItemManageUser from './ItemManageUser';
 import ItemMonitor from './ItemMonitor';
 import ItemSignOut from './ItemSignOut';
@@ -70,14 +72,17 @@ const UserDropdown: React.FC<IUserDropDown> = () => {
             )}
             {userData.role_id === 3 && (
               <>
-                <ItemMonitor />
-                <ItemControl />
-                <ItemExport />
                 <ItemManageUser />
-                <ItemManageProject />
+                <ItemAddUser />
               </>
             )}
           </div>
+          {userData.role_id === 3 && (
+            <div className="px-1 py-1">
+              <ItemManageProject />
+              <ItemManageStaff />
+            </div>
+          )}
           <div className="px-1 py-1">
             <ItemSignOut />
           </div>

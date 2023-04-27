@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Outlet, useNavigate } from 'react-router-dom';
 import RootModal from '~/components/Modal/RootModal';
+import { signOut } from '~/store/auth/auth.slice';
 import { IRootState } from '~/store/rootReducer';
 import Footer from './Footer';
 import Header from './Header/Header';
@@ -9,21 +10,25 @@ import Header from './Header/Header';
 type IMainLayout = {};
 
 const MainLayout: React.FC<IMainLayout> = () => {
+  const dispatch = useDispatch();
   const navigateTo = useNavigate();
   const { userData } = useSelector((state: IRootState) => state.auth);
   const { isReachScrolling } = useSelector((state: IRootState) => state.base);
   useEffect(() => {
-    if (!userData.id) {
+    if (!userData.id || userData.is_deleted) {
+      dispatch(signOut());
       navigateTo('/auth/sign-in');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userData]);
   return (
     <>
-      {!!userData.id && (
+      {!!userData.id && !userData.is_deleted && (
         <div className="w-full">
           <Header />
-          <div className={isReachScrolling ? 'pt-[100px]' : ''}>
+          <div
+            className={`min-h-screen ${isReachScrolling ? 'pt-[100px]' : ''}`}
+          >
             <Outlet />
           </div>
           <RootModal />

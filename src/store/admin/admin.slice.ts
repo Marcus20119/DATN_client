@@ -1,10 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { UserDataType } from '../rootType';
+import { StaffDataType, UserDataType } from '../rootType';
 
 type InitialStateType = {
   usersData: UserDataType[];
+  staffsData: StaffDataType[];
   loadingGetUsersData: boolean;
+  loadingGetStaffsData: boolean;
   toggleForceRefetchAdminUsersData: boolean;
+  toggleForceRefetchAdminStaffsData: boolean;
   tableTotalPage: number;
 };
 type AdminStateTypeBase<K extends keyof InitialStateType> = {
@@ -17,8 +20,11 @@ type AdminStateType = {
 
 const initialState: InitialStateType = {
   usersData: [],
+  staffsData: [],
   loadingGetUsersData: false,
+  loadingGetStaffsData: false,
   toggleForceRefetchAdminUsersData: false,
+  toggleForceRefetchAdminStaffsData: false,
   tableTotalPage: 1,
 };
 
@@ -34,10 +40,18 @@ export const adminSlice = createSlice({
       ...state,
       toggleForceRefetchAdminUsersData: !state.toggleForceRefetchAdminUsersData,
     }),
+    forceRefetchAdminStaffsData: state => ({
+      ...state,
+      toggleForceRefetchAdminUsersData: !state.toggleForceRefetchAdminUsersData,
+    }),
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setAdminState, forceRefetchAdminUsersData } = adminSlice.actions;
+export const {
+  setAdminState,
+  forceRefetchAdminUsersData,
+  forceRefetchAdminStaffsData,
+} = adminSlice.actions;
 
 export default adminSlice.reducer;

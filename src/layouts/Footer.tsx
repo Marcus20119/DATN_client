@@ -52,7 +52,7 @@ const Footer: React.FC<IFooter> = ({}) => {
               <div className="flex flex-col gap-1 text-sm text-main-white">
                 {contacts.map(contact => (
                   <div key={contact.data} className="flex items-center gap-3">
-                    <i className={`${contact.iconClass}`}></i>
+                    <i className={`${contact.iconClass} mb-[1px]`}></i>
                     <span>{contact.data}</span>
                   </div>
                 ))}
@@ -71,7 +71,7 @@ const Footer: React.FC<IFooter> = ({}) => {
                     rel="noopener noreferrer"
                     className="flex items-center gap-3 hover:opacity-80"
                   >
-                    <i className={`${more.iconClass}`}></i>
+                    <i className={`${more.iconClass} mb-[1px]`}></i>
                     <span>{more.data}</span>
                   </a>
                 ))}

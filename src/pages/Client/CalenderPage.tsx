@@ -3,9 +3,9 @@ import { Container } from '~/components/Common';
 import { useScrollOnTop } from '~/hooks';
 import { IRootState } from '~/store/rootReducer';
 
-type ICalender = {};
+type ICalenderPage = {};
 
-const Calender: React.FC<ICalender> = () => {
+const CalenderPage: React.FC<ICalenderPage> = () => {
   useScrollOnTop();
   const { isReachScrolling } = useSelector((state: IRootState) => state.base);
   return (
@@ -17,4 +17,4 @@ const Calender: React.FC<ICalender> = () => {
   );
 };
 
-export default Calender;
+export default CalenderPage;

@@ -1,4 +1,4 @@
-import { User } from '~/helpers';
+import { ReadData } from '~/helpers';
 import { UserDataType } from '~/store/rootType';
 
 interface IEditUserHeadingModule {
@@ -17,14 +17,14 @@ const EditUserHeadingModule: React.FC<IEditUserHeadingModule> = ({
       <span>-</span>
       <div>
         <span className="font-bold text-main-blue-80 mr-2">Ngày tạo: </span>
-        <span>{User.day(thisUserData.created_at)}</span>
+        <span>{ReadData.day(thisUserData.created_at)}</span>
       </div>
       <span>-</span>
       <div>
         <span className="font-bold text-main-blue-80 mr-2">
           Ngày chỉnh sửa cuối cùng:{' '}
         </span>
-        <span>{User.day(thisUserData.updated_at)}</span>
+        <span>{ReadData.day(thisUserData.updated_at)}</span>
       </div>
     </div>
   );

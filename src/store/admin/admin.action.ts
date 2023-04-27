@@ -1,8 +1,11 @@
 import { createAction } from '@reduxjs/toolkit';
 import { GetAllDataFromUserType, UserDataType } from '../rootType';
+import { GetAllDataFromStaffType } from './admin.type';
 
 export const actionAdminGetAllDataFromUser =
   createAction<GetAllDataFromUserType>('ADMIN/GET-ALL-DATA-FROM-USER');
+export const actionAdminGetAllDataFromStaff =
+  createAction<GetAllDataFromStaffType>('ADMIN/GET-ALL-DATA-FROM-STAFF');
 
 export const actionAdminSoftDeleteUser = createAction<UserDataType['id']>(
   'ADMIN/SOFT-DELETE-USER'

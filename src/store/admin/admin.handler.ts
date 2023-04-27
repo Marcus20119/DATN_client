@@ -1,16 +1,22 @@
 import { call, put } from 'redux-saga/effects';
 import { handleHideBaseModal, setBaseState } from '../base/base.slice';
 
-import { GetAllDataFromUserType, UserDataType } from '../rootType';
+import {
+  GetAllDataFromUserType,
+  StaffDataType,
+  UserDataType,
+} from '../rootType';
 import {
   requestAdminActivateUser,
   requestAdminDeactivateUser,
+  requestAdminGetAllDataFromStaff,
   requestAdminGetAllDataFromUser,
   requestAdminHardDeleteUser,
   requestAdminRestoreUser,
   requestAdminSoftDeleteUser,
 } from './admin.request';
 import { forceRefetchAdminUsersData, setAdminState } from './admin.slice';
+import { GetAllDataFromStaffType } from './admin.type';
 
 export function* handleAdminGetAllDataFromUser(action: {
   type: string;
@@ -31,6 +37,31 @@ export function* handleAdminGetAllDataFromUser(action: {
     console.log(err);
   } finally {
     yield put(setAdminState({ state: 'loadingGetUsersData', value: false }));
+  }
+}
+
+export function* handleAdminGetAllDataFromStaffs(action: {
+  type: string;
+  payload: GetAllDataFromStaffType;
+}) {
+  yield put(setAdminState({ state: 'loadingGetStaffsData', value: true }));
+  try {
+    const { data } = yield call(
+      requestAdminGetAllDataFromStaff,
+      action.payload
+    );
+    if (data) {
+      const staffsData: StaffDataType[] = data.data;
+      const tableTotalPage: number = data.totalPages;
+      yield put(setAdminState({ state: 'staffsData', value: staffsData }));
+      yield put(
+        setAdminState({ state: 'tableTotalPage', value: tableTotalPage })
+      );
+    }
+  } catch (err) {
+    console.log(err);
+  } finally {
+    yield put(setAdminState({ state: 'loadingGetStaffsData', value: false }));
   }
 }
 

@@ -30,6 +30,46 @@ export const initialUserData: UserDataType = {
   updated_at: null,
 };
 
+export type StaffDataType = {
+  id: number;
+  full_name: string;
+  email: string;
+  gender: number;
+  is_deleted: boolean;
+  avatar: string;
+  phone_number: string;
+  exp: string;
+  hometown: string;
+  degree: string;
+  major: string;
+  languages: string[];
+  address: string;
+  work_unit: string;
+  day_of_birth: Date | null;
+  created_at: Date | null;
+  updated_at: Date | null;
+};
+
+export const initialStaffData: StaffDataType = {
+  id: 0,
+  full_name: '',
+  email: '',
+  gender: -1,
+  is_deleted: false,
+  avatar: '',
+  phone_number: '',
+  exp: '',
+  hometown: '',
+  degree: '',
+  major: '',
+  address: '',
+  languages: [],
+  work_unit: '',
+  day_of_birth: null,
+  created_at: null,
+  updated_at: null,
+};
+
 export type ManageUserTabType =
   | 'Activated User'
   | 'Deactivated User'

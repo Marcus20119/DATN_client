@@ -1,5 +1,6 @@
 import { privateAxios } from '~/axiosConfig';
 import { GetAllDataFromUserType, UserDataType } from '../rootType';
+import { GetAllDataFromStaffType } from './admin.type';
 
 export function requestAdminGetAllDataFromUser(
   payload: GetAllDataFromUserType
@@ -7,6 +8,15 @@ export function requestAdminGetAllDataFromUser(
   return privateAxios.request({
     method: 'GET',
     url: '/g/3/users/' + payload.type,
+    params: payload.query,
+  });
+}
+export function requestAdminGetAllDataFromStaff(
+  payload: GetAllDataFromStaffType
+) {
+  return privateAxios.request({
+    method: 'GET',
+    url: '/g/staffs/' + payload.type,
     params: payload.query,
   });
 }

@@ -1,18 +1,15 @@
+import { Link } from 'react-router-dom';
 import { actionButtonClassName } from './common';
 
 type IEditButton = {
-  onClick?: () => void;
+  path: string;
 };
 
-const EditButton: React.FC<IEditButton> = ({ onClick = () => {} }) => {
+const EditButton: React.FC<IEditButton> = ({ path = '' }) => {
   return (
-    <button
-      title="Chỉnh sửa"
-      className={actionButtonClassName}
-      onClick={onClick}
-    >
+    <Link title="Chỉnh sửa" className={actionButtonClassName} to={path}>
       <WriteIcon />
-    </button>
+    </Link>
   );
 };
 

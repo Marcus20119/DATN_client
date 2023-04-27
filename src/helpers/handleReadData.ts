@@ -1,4 +1,4 @@
-class UserClass {
+class ReadDataClass {
   day(day: string | Date | null) {
     return day?.toString().split('T')[0] || '';
   }
@@ -19,6 +19,9 @@ class UserClass {
         return '';
     }
   }
+  avatar({ bucket, name }: { bucket: 'staff_avatar'; name: string }) {
+    return `https://hibudsswlhbjzbxalgmn.supabase.co/storage/v1/object/public/${bucket}/${name}`;
+  }
 }
 
-export const User = new UserClass();
+export const ReadData = new ReadDataClass();
