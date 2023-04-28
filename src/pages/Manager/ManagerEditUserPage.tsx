@@ -2,9 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { privateAxios } from '~/axiosConfig';
-import { LoadingCircle } from '~/components/Base/loading/Circle';
-import { Container } from '~/components/Common';
-import { Heading } from '~/components/Heading';
+import { Container, Section } from '~/components/Common';
 import { useScrollOnTop } from '~/hooks';
 import {
   EditUserGeneralModule,
@@ -41,17 +39,7 @@ const ManagerEditUserPage: React.FC<IManagerEditUserPage> = ({}) => {
 
   return (
     <Container>
-      <div className="w-full mt-8">
-        <div className="flex gap-4 w-full">
-          <Heading
-            as="h1"
-            text="CHỈNH SỬA NGƯỜI DÙNG"
-            className="text-[32px] !w-fit"
-          />
-          {fetchDataLoading && (
-            <LoadingCircle className="mt-1" color="circle-black" />
-          )}
-        </div>
+      <Section sectionTitle="CHỈNH SỬA NGƯỜI DÙNG" isLoading={fetchDataLoading}>
         <div className="flex flex-col py-4 w-full">
           <EditUserHeadingModule thisUserData={thisUserData} />
 
@@ -69,7 +57,7 @@ const ManagerEditUserPage: React.FC<IManagerEditUserPage> = ({}) => {
             <EditUserPasswordModule role="MANAGER" id={id as string} />
           </div>
         </div>
-      </div>
+      </Section>
     </Container>
   );
 };

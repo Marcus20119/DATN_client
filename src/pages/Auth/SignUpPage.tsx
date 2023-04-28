@@ -27,9 +27,9 @@ const schema = yup.object({
     .required('Không được để trống mục này'),
   password: yup
     .string()
+    .required('Không được để trống mục này')
     .max(8, 'Yêu cầu 8 ký tự')
-    .min(8, 'Yêu cầu 8 ký tự')
-    .required('Không được để trống mục này'),
+    .min(8, 'Yêu cầu 8 ký tự'),
 });
 
 const SignUpPage: React.FC<ISignUpPage> = () => {

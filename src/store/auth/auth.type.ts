@@ -3,7 +3,12 @@ import {
   actionSignIn,
   actionSignUp,
 } from './auth.action';
-import { setAuthState, setUserData, signOut } from './auth.slice';
+import {
+  forceRefetchThisUserData,
+  setAuthState,
+  setUserData,
+  signOut,
+} from './auth.slice';
 
 export type SignUpDataType = {
   email: string;
@@ -20,6 +25,9 @@ type AuthActionTypeInitial = {
   'auth/setAuthState': Parameters<typeof setAuthState>[0];
   'auth/setUserData': Parameters<typeof setUserData>[0];
   'auth/signOut': Parameters<typeof signOut>[0];
+  'auth/forceRefetchThisUserData': Parameters<
+    typeof forceRefetchThisUserData
+  >[0];
   'AUTH/SIGN-UP': Parameters<typeof actionSignUp>[0];
   'AUTH/SIGN-IN': Parameters<typeof actionSignIn>[0];
   'AUTH/GET-THIS-USER-DATA': Parameters<typeof actionGetThisUserData>[0];

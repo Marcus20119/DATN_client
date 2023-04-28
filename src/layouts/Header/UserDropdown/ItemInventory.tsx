@@ -1,9 +1,12 @@
 import { Menu } from '@headlessui/react';
+import { useDispatch } from 'react-redux';
+import { setBaseState } from '~/store/base/base.slice';
 import { buttonClassName, menuColors } from './common';
 
 interface IItemInventory {}
 
 const ItemInventory: React.FC<IItemInventory> = () => {
+  const dispatch = useDispatch();
   return (
     <Menu.Item>
       {({ active }) => (
@@ -12,6 +15,9 @@ const ItemInventory: React.FC<IItemInventory> = () => {
           style={{
             backgroundColor: active ? menuColors.fillActive : '',
           }}
+          onClick={() =>
+            dispatch(setBaseState({ state: 'showMenu', value: false }))
+          }
         >
           <FolderIcon active={active} />
           Kho tài liệu

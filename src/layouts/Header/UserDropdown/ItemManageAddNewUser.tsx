@@ -1,27 +1,50 @@
 import { Menu } from '@headlessui/react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { setBaseState } from '~/store/base/base.slice';
+import { IRootState } from '~/store/rootReducer';
 import { buttonClassName, menuColors } from './common';
 
-interface IItemAddUser {}
+interface IItemAddNewUser {}
 
-const ItemAddUser: React.FC<IItemAddUser> = () => {
+const ItemAddNewUser: React.FC<IItemAddNewUser> = () => {
+  const dispatch = useDispatch();
+  const { userData } = useSelector((state: IRootState) => state.auth);
+  let destinationPath: string = '';
+  switch (userData.role_id) {
+    case 2: {
+      destinationPath = '/manager/add-new-user';
+      break;
+    }
+    case 3: {
+      destinationPath = '/admin/add-new-user';
+      break;
+    }
+    default:
+      destinationPath = '';
+  }
   return (
     <Menu.Item>
       {({ active }) => (
-        <button
+        <Link
+          to={destinationPath}
           className={buttonClassName(active)}
           style={{
             backgroundColor: active ? menuColors.fillActive : '',
           }}
+          onClick={() =>
+            dispatch(setBaseState({ state: 'showMenu', value: false }))
+          }
         >
           <FileIcon active={active} />
           Thêm người dùng
-        </button>
+        </Link>
       )}
     </Menu.Item>
   );
 };
 
-export default ItemAddUser;
+export default ItemAddNewUser;
 
 function FileIcon({ active }: { active: boolean }) {
   return (

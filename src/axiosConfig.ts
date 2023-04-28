@@ -38,29 +38,37 @@ const createMyAxios = () => {
     response => response,
     // Nếu trả về lỗi thì config lại để reset được access token
     async error => {
-      console.log('error:', error);
       // return new Promise(async resolve => {
       const originalRequest = error.config;
-      // Nếu có lỗi và lỗi trả về là 403 thì gửi lại request yêu cầu reset access token
+      // Nếu khi gọi request mà phát hiện người dùng đã bị xóa thì sẽ logOut
       if (error?.response?.data?.message === 'User Not Found or is Deleted') {
         forceSignOut();
       } else if (error?.response?.status === 403) {
-        const refresh_token = Cookie.get('refresh_token');
-        const { data } = await myAxios.post('/auth/refresh-token', {
-          refresh_token,
-        });
+        try {
+          // Nếu có lỗi và lỗi trả về là 403 thì gửi lại request yêu cầu reset access token
+          const refresh_token = Cookie.get('refresh_token');
+          const { data } = await myAxios.post('/auth/refresh-token', {
+            refresh_token,
+          });
 
-        Cookie.set({
-          cName: 'access_token',
-          cValue: data.new_access_token,
-          exDays: 7,
-        });
+          Cookie.set({
+            cName: 'access_token',
+            cValue: data.new_access_token,
+            exDays: 7,
+          });
 
-        // Đổi lại headers và gọi lại request cữ
-        originalRequest.headers[
-          'Authorization'
-        ] = `Bearer ${data.new_access_token}`;
-        return instance(originalRequest);
+          // Đổi lại headers và gọi lại request cữ
+          originalRequest.headers[
+            'Authorization'
+          ] = `Bearer ${data.new_access_token}`;
+          return instance(originalRequest);
+        } catch (err: any) {
+          console.log(err);
+          // Nếu refresh token hết hạn thì logOut
+          if (err?.response?.data?.message === 'refreshToken not found') {
+            forceSignOut();
+          }
+        }
       }
       return Promise.reject(error);
     }

@@ -1,10 +1,13 @@
 import { Menu } from '@headlessui/react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { setBaseState } from '~/store/base/base.slice';
 import { buttonClassName, menuColors } from './common';
 
 interface IItemMonitor {}
 
 const ItemMonitor: React.FC<IItemMonitor> = () => {
+  const dispatch = useDispatch();
   return (
     <Menu.Item>
       {({ active }) => (
@@ -14,6 +17,9 @@ const ItemMonitor: React.FC<IItemMonitor> = () => {
           style={{
             backgroundColor: active ? menuColors.fillActive : '',
           }}
+          onClick={() =>
+            dispatch(setBaseState({ state: 'showMenu', value: false }))
+          }
         >
           <ChartIcon active={active} />
           Giám Sát

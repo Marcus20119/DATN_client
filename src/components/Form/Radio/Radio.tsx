@@ -13,7 +13,6 @@ type IRadio = {
   control: any;
   name: string;
   label: string;
-  placeholder?: string;
   direction?: 'vertical' | 'horizontal';
 } & React.DetailedHTMLProps<
   React.InputHTMLAttributes<HTMLInputElement>,
@@ -69,7 +68,7 @@ const Radio: React.FC<IRadio> = ({
       {errors?.[name]?.message && direction === 'horizontal' && (
         <Error
           errorMessage={String(errors?.[name]?.message)}
-          className="ml-[140px] pl-5 mt-[-12px]"
+          className="!ml-[140px] pl-5 mt-[-12px]"
         ></Error>
       )}
     </>

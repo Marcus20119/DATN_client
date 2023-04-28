@@ -12,35 +12,35 @@ import {
 import EditUserHeadingModule from '~/modules/EditUserHeadingModule';
 import { initialUserData, UserDataType } from '~/store/rootType';
 
-interface IAdminEditUserPage {}
+interface IAdminEditStaffPage {}
 
-const AdminEditUserPage: React.FC<IAdminEditUserPage> = ({}) => {
+const AdminEditStaffPage: React.FC<IAdminEditStaffPage> = ({}) => {
   useScrollOnTop();
   const { id } = useParams();
-  const [thisUserData, setThisUserData] =
-    useState<UserDataType>(initialUserData);
-  const [fetchDataLoading, setFetchDataLoading] = useState<boolean>(false);
-  useEffect(() => {
-    (async () => {
-      setFetchDataLoading(true);
-      try {
-        const { data } = await privateAxios.request({
-          method: 'GET',
-          url: '/g/user/' + id,
-        });
-        setThisUserData(data.data);
-      } catch (err) {
-        console.log(err);
-      } finally {
-        setFetchDataLoading(false);
-      }
-    })();
-  }, [id]);
+  // const [thisUserData, setThisUserData] =
+  //   useState<UserDataType>(initialUserData);
+  // const [fetchDataLoading, setFetchDataLoading] = useState<boolean>(false);
+  // useEffect(() => {
+  //   (async () => {
+  //     setFetchDataLoading(true);
+  //     try {
+  //       const { data } = await privateAxios.request({
+  //         method: 'GET',
+  //         url: '/g/user/' + id,
+  //       });
+  //       setThisUserData(data.data);
+  //     } catch (err) {
+  //       console.log(err);
+  //     } finally {
+  //       setFetchDataLoading(false);
+  //     }
+  //   })();
+  // }, [id]);
 
   return (
     <Container>
-      <Section sectionTitle="CHỈNH SỬA NGƯỜI DÙNG" isLoading={fetchDataLoading}>
-        <div className="flex flex-col py-4 w-full">
+      <Section sectionTitle="CHỈNH SỬA NHÂN VIÊN" isLoading={false}>
+        {/* <div className="flex flex-col py-4 w-full">
           <EditUserHeadingModule thisUserData={thisUserData} />
 
           <div className="flex flex-col gap-4 py-4 w-full">
@@ -56,10 +56,10 @@ const AdminEditUserPage: React.FC<IAdminEditUserPage> = ({}) => {
             />
             <EditUserPasswordModule role="ADMIN" id={id as string} />
           </div>
-        </div>
+        </div> */}
       </Section>
     </Container>
   );
 };
 
-export default AdminEditUserPage;
+export default AdminEditStaffPage;

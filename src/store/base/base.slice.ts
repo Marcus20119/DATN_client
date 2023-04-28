@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { AllActionType } from './base.type';
 
 type InitialStateType = {
+  showMenu: boolean;
   isReachScrolling: boolean;
   showModalConfirm: boolean;
   loadingModalConfirm: boolean;
@@ -27,6 +28,7 @@ type BaseStateType = {
 }[keyof InitialStateType];
 
 const initialState: InitialStateType = {
+  showMenu: false,
   isReachScrolling: false,
   showModalConfirm: false,
   loadingModalConfirm: false,

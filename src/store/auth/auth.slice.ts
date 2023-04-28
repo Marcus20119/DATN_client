@@ -13,6 +13,7 @@ type InitialStateType = {
   loadingGetThisUserData: boolean;
   loadingSignUp: boolean;
   loadingSignIn: boolean;
+  toggleForceRefetchThisUserData: boolean;
   messageSignUpError: string;
   messageSignInError: string;
 };
@@ -36,6 +37,7 @@ const initialState: InitialStateType = {
   loadingGetThisUserData: false,
   loadingSignUp: false,
   loadingSignIn: false,
+  toggleForceRefetchThisUserData: false,
   messageSignUpError: '',
   messageSignInError: '',
 };
@@ -73,6 +75,10 @@ export const authSlice = createSlice({
         userData: initialUserData,
       };
     },
+    forceRefetchThisUserData: state => ({
+      ...state,
+      toggleForceRefetchThisUserData: !state.toggleForceRefetchThisUserData,
+    }),
   },
 });
 
@@ -83,6 +89,7 @@ export const {
   handleShowAuthModal,
   handleHideAuthModal,
   signOut,
+  forceRefetchThisUserData,
 } = authSlice.actions;
 
 export default authSlice.reducer;

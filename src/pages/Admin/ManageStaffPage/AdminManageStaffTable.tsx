@@ -63,7 +63,7 @@ const AdminManageStaffTable: React.FC<IAdminManageStaffTable> = ({
                   {currentTab === 'Active Staff' && (
                     <>
                       <ViewButton path={`/client/staff-info/${staffData.id}`} />
-                      <EditButton path={``} />
+                      <EditButton path={`/admin/edit-staff/${staffData.id}`} />
                       <DeleteButton onClick={() => {}} />
                     </>
                   )}

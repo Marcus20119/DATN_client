@@ -3,19 +3,20 @@ import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
-import { Container } from '~/components/Common';
-import { Heading } from '~/components/Heading';
+import { Container, Section } from '~/components/Common';
 import Paginate from '~/components/Paginate/Paginate';
 import { TableFilter } from '~/components/Table';
 import TableTab from '~/components/Table/TableTab';
 import { useNavigateQuery, useScrollOnTop } from '~/hooks';
-import { GetAllDataFromUserType, ManageUserTabType } from '~/store/rootType';
+import { actionManagerGetAllDataFromUser } from '~/store/manager/manager.action';
 import { IRootState } from '~/store/rootReducer';
-import { UserDataType } from '~/store/rootType';
+import {
+  GetAllDataFromUserType,
+  ManageUserTabType,
+  UserDataType,
+} from '~/store/rootType';
 import { SearchParams } from '~/types';
 import ManagerManageUserTable from './ManagerManageUserTable';
-import { actionManagerGetAllDataFromUser } from '~/store/manager/manager.action';
-import { LoadingCircle } from '~/components/Base/loading/Circle';
 
 interface IManagerManageUserPage {}
 
@@ -97,17 +98,10 @@ const ManagerManageUserPage: React.FC<IManagerManageUserPage> = () => {
 
   return (
     <Container>
-      <div className="w-full mt-8">
-        <div className="flex gap-4 w-full">
-          <Heading
-            as="h1"
-            text="QUẢN LÝ NGƯỜI DÙNG"
-            className="text-[32px] !w-fit"
-          />
-          {loadingGetUsersData && (
-            <LoadingCircle className="mt-1" color="circle-black" />
-          )}
-        </div>
+      <Section
+        sectionTitle="QUẢN LÝ NGƯỜI DÙNG"
+        isLoading={loadingGetUsersData}
+      >
         <div className="w-full mb-4">
           <div className="flex justify-end items-center w-full mb-4">
             <TableFilter
@@ -137,7 +131,7 @@ const ManagerManageUserPage: React.FC<IManagerManageUserPage> = () => {
             totalPage={tableTotalPage}
           />
         </div>
-      </div>
+      </Section>
     </Container>
   );
 };

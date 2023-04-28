@@ -3,9 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
-import { LoadingCircle } from '~/components/Base/loading/Circle';
-import { Container } from '~/components/Common';
-import { Heading } from '~/components/Heading';
+import { Container, Section } from '~/components/Common';
 import Paginate from '~/components/Paginate/Paginate';
 import { TableFilter } from '~/components/Table';
 import TableTab from '~/components/Table/TableTab';
@@ -95,17 +93,10 @@ const AdminManageStaffPage: React.FC<IAdminManageStaffPage> = () => {
 
   return (
     <Container>
-      <div className="w-full mt-8">
-        <div className="flex gap-4 w-full">
-          <Heading
-            as="h1"
-            text="QUẢN LÝ NHÂN VIÊN"
-            className="text-[32px] !w-fit"
-          />
-          {loadingGetStaffsData && (
-            <LoadingCircle className="mt-1" color="circle-black" />
-          )}
-        </div>
+      <Section
+        sectionTitle="QUẢN LÝ NHÂN VIÊN"
+        isLoading={loadingGetStaffsData}
+      >
         <div className="w-full mb-4">
           <div className="flex justify-end items-center w-full mb-4">
             <TableFilter
@@ -135,7 +126,7 @@ const AdminManageStaffPage: React.FC<IAdminManageStaffPage> = () => {
             totalPage={tableTotalPage}
           />
         </div>
-      </div>
+      </Section>
     </Container>
   );
 };

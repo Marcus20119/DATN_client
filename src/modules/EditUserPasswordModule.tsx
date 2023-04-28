@@ -4,10 +4,9 @@ import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { privateAxios } from '~/axiosConfig';
 
-import { ButtonPrimary } from '~/components/Button';
-import { Error, InputTogglePassword } from '~/components/Form';
-import { Heading } from '~/components/Heading';
-import { onErrorsHandler } from '~/helpers';
+import { InputTogglePassword } from '~/components/Form';
+import { MyToast } from '~/utils';
+import EditBaseModule from './EditBaseModule';
 
 interface IEditUserPasswordModule {
   role: 'ADMIN' | 'MANAGER' | 'SELF';
@@ -72,6 +71,7 @@ const EditUserPasswordModule: React.FC<IEditUserPasswordModule> = ({
         default:
           break;
       }
+      MyToast.success('Đổi mật khẩu thành công !');
     } catch (err: any) {
       console.log(err);
       setErrorSubmitPassword(err?.response?.data?.message);
@@ -80,46 +80,30 @@ const EditUserPasswordModule: React.FC<IEditUserPasswordModule> = ({
     }
   };
   return (
-    <form
-      onSubmit={handleSubmitPassword(onSubmitPasswordHandler, () =>
-        onErrorsHandler(errorsPassword)
-      )}
-      className="flex flex-col gap-4"
-      // autoComplete="off"
-      noValidate
+    <EditBaseModule
+      handleSubmit={handleSubmitPassword}
+      onSubmitHandler={onSubmitPasswordHandler}
+      errors={errorsPassword}
+      errorSubmit={errorSubmitPassword}
+      isSubmitting={isSubmittingPassword}
+      title="Đổi mật khẩu"
+      buttonSubmitLabel="Đổi mật khẩu"
     >
-      <div className="flex justify-between items-end border-b border-b-main-blue/50 mb-2">
-        <Heading as="h2" text="Đổi mật khẩu" className="!text-lg !w-fit" />
-        <Error errorMessage={errorSubmitPassword} className="mb-1" />
-      </div>
-      <div className="flex justify-between w-full">
-        <div className="flex flex-col gap-4 w-[65%]">
-          {role === 'SELF' && (
-            <InputTogglePassword
-              control={controlPassword}
-              name="old_password"
-              label="Mật khẩu cũ *"
-              direction="horizontal"
-            ></InputTogglePassword>
-          )}
-          <InputTogglePassword
-            control={controlPassword}
-            name="new_password"
-            label="Mật khẩu mới *"
-            direction="horizontal"
-          ></InputTogglePassword>
-        </div>
-        <div className="w-[180px]">
-          <ButtonPrimary
-            type="submit"
-            isSubmitting={isSubmittingPassword}
-            additionalClass="!bg-main-blue !text-white"
-          >
-            Đổi mật khẩu
-          </ButtonPrimary>
-        </div>
-      </div>
-    </form>
+      {role === 'SELF' && (
+        <InputTogglePassword
+          control={controlPassword}
+          name="old_password"
+          label="Mật khẩu cũ *"
+          direction="horizontal"
+        ></InputTogglePassword>
+      )}
+      <InputTogglePassword
+        control={controlPassword}
+        name="new_password"
+        label="Mật khẩu mới *"
+        direction="horizontal"
+      ></InputTogglePassword>
+    </EditBaseModule>
   );
 };
 

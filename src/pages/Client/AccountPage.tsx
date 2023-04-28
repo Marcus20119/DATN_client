@@ -1,6 +1,5 @@
 import { useSelector } from 'react-redux';
-import { Container } from '~/components/Common';
-import { Heading } from '~/components/Heading';
+import { Container, Section } from '~/components/Common';
 import { EditUserGeneralModule, EditUserPasswordModule } from '~/modules';
 import EditUserHeadingModule from '~/modules/EditUserHeadingModule';
 import { IRootState } from '~/store/rootReducer';
@@ -11,14 +10,7 @@ const AccountPage: React.FC<IAccountPage> = ({}) => {
   const { userData } = useSelector((state: IRootState) => state.auth);
   return (
     <Container>
-      <div className="w-full mt-8">
-        <div className="flex gap-4 w-full">
-          <Heading
-            as="h1"
-            text="TÀI KHOẢN CỦA TÔI"
-            className="text-[32px] !w-fit"
-          />
-        </div>
+      <Section sectionTitle="TÀI KHOẢN CỦA TÔI">
         <div className="flex flex-col py-4 w-full">
           <EditUserHeadingModule thisUserData={userData} />
 
@@ -31,7 +23,7 @@ const AccountPage: React.FC<IAccountPage> = ({}) => {
             <EditUserPasswordModule role="SELF" id={userData.id.toString()} />
           </div>
         </div>
-      </div>
+      </Section>
     </Container>
   );
 };

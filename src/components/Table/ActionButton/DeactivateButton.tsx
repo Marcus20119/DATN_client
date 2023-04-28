@@ -27,8 +27,8 @@ const DeactivateIcon = () => {
       width="22"
       height="22"
       viewBox="0 0 24 24"
+      stroke="currentColor"
       fill="none"
-      stroke="#000000"
       className="w-6 h-6"
       strokeWidth={1.5}
       strokeLinecap="round"

@@ -27,6 +27,7 @@
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.9.0",
     "react-scripts": "5.0.1",
+    "react-toastify": "^9.1.2",
     "react-transition-group": "^4.4.5",
     "redux": "^4.2.1",
     "redux-saga": "^1.2.3",
@@ -62,6 +63,7 @@
   },
   "devDependencies": {
     "@types/query-string": "^6.3.0",
+    "@types/react-toastify": "^4.1.0",
     "@types/react-transition-group": "^4.4.5",
     "autoprefixer": "^10.4.14",
     "babel-plugin-module-resolver": "^5.0.0",

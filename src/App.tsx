@@ -30,6 +30,12 @@ const AdminManageStaffPage = lazy(
   () => import('./pages/Admin/ManageStaffPage/AdminManageStaffPage')
 );
 const AdminEditUserPage = lazy(() => import('./pages/Admin/AdminEditUserPage'));
+const AdminEditStaffPage = lazy(
+  () => import('./pages/Admin/AdminEditStaffPage')
+);
+const AdminAddNewUserPage = lazy(
+  () => import('./pages/Admin/AdminAddNewUserPage')
+);
 const ManagerManageUserPage = lazy(
   () => import('./pages/Manager/ManageUserPage/ManagerManageUserPage')
 );
@@ -40,14 +46,16 @@ const TestPage = lazy(() => import('./pages/TestPage'));
 
 function App() {
   const dispatch = useDispatch();
-  const { userData } = useSelector((state: IRootState) => state.auth);
+  const { userData, toggleForceRefetchThisUserData } = useSelector(
+    (state: IRootState) => state.auth
+  );
   useEffect(() => {
     const userId = Cookie.get('user_id');
     if (userId) {
       dispatch(actionGetThisUserData(userId));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [toggleForceRefetchThisUserData]);
   return (
     <Suspense fallback={<LoadingPage />}>
       <Routes>
@@ -82,6 +90,8 @@ function App() {
             <Route path="manage-user" element={<AdminManageUserPage />} />
             <Route path="manage-staff" element={<AdminManageStaffPage />} />
             <Route path="edit-user/:id" element={<AdminEditUserPage />} />
+            <Route path="edit-staff/:id" element={<AdminEditStaffPage />} />
+            <Route path="add-new-user" element={<AdminAddNewUserPage />} />
           </Route>
           <Route path="manager" element={<ProtectedManager />}>
             <Route path="manage-user" element={<ManagerManageUserPage />} />

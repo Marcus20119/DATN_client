@@ -1,10 +1,13 @@
 import { Menu } from '@headlessui/react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { setBaseState } from '~/store/base/base.slice';
 import { buttonClassName, menuColors } from './common';
 
 interface IItemUserInfo {}
 
 const ItemUserInfo: React.FC<IItemUserInfo> = () => {
+  const dispatch = useDispatch();
   return (
     <Menu.Item>
       {({ active }) => (
@@ -14,6 +17,9 @@ const ItemUserInfo: React.FC<IItemUserInfo> = () => {
           style={{
             backgroundColor: active ? menuColors.fillActive : '',
           }}
+          onClick={() =>
+            dispatch(setBaseState({ state: 'showMenu', value: false }))
+          }
         >
           <PersonIcon active={active} />
           Tài khoản

@@ -1,17 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { privateAxios } from '~/axiosConfig';
-import { LoadingCircle } from '~/components/Base/loading/Circle';
-import { Container } from '~/components/Common';
-import { Heading } from '~/components/Heading';
+import { Container, Section } from '~/components/Common';
 import { TableBase } from '~/components/Table';
 import { ReadData } from '~/helpers';
 import { useScrollOnTop } from '~/hooks';
 import { initialStaffData, StaffDataType } from '~/store/rootType';
 
-interface IStaffInfoPagePage {}
+interface IStaffInfoPage {}
 
-const StaffInfoPagePage: React.FC<IStaffInfoPagePage> = ({}) => {
+const StaffInfoPage: React.FC<IStaffInfoPage> = ({}) => {
   useScrollOnTop();
   const { id } = useParams();
   const [thisStaffData, setThisStaffData] =
@@ -40,6 +38,7 @@ const StaffInfoPagePage: React.FC<IStaffInfoPagePage> = ({}) => {
     { name: 'Năm sinh', value: ReadData.day(thisStaffData.day_of_birth) },
     { name: 'Quê quán', value: thisStaffData.hometown },
     { name: 'Đơn vị công tác', value: thisStaffData.work_unit },
+
     { name: 'Tốt nghiệp ĐH chuyên ngành', value: thisStaffData.major },
     { name: 'Học vị', value: thisStaffData.degree },
     { name: 'Kinh nghiệm', value: thisStaffData.exp + ' năm' },
@@ -51,17 +50,7 @@ const StaffInfoPagePage: React.FC<IStaffInfoPagePage> = ({}) => {
 
   return (
     <Container>
-      <div className="w-full mt-8">
-        <div className="flex gap-4 w-full">
-          <Heading
-            as="h1"
-            text="THÔNG TIN NHÂN VIÊN"
-            className="text-[32px] !w-fit"
-          />
-          {fetchDataLoading && (
-            <LoadingCircle className="mt-1" color="circle-black" />
-          )}
-        </div>
+      <Section sectionTitle="THÔNG TIN NHÂN VIÊN" isLoading={fetchDataLoading}>
         {!!thisStaffData.id && (
           <div className="flex w-full mt-5">
             <div className="flex flex-col items-center gap-2 w-[250px] border-r border-r-main-blue/50 pr-3">
@@ -91,9 +80,9 @@ const StaffInfoPagePage: React.FC<IStaffInfoPagePage> = ({}) => {
             </div>
           </div>
         )}
-      </div>
+      </Section>
     </Container>
   );
 };
 
-export default StaffInfoPagePage;
+export default StaffInfoPage;

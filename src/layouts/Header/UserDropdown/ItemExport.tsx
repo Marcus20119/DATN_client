@@ -1,9 +1,12 @@
 import { Menu } from '@headlessui/react';
+import { useDispatch } from 'react-redux';
+import { setBaseState } from '~/store/base/base.slice';
 import { buttonClassName, menuColors } from './common';
 
 interface IItemExport {}
 
 const ItemExport: React.FC<IItemExport> = () => {
+  const dispatch = useDispatch();
   return (
     <Menu.Item>
       {({ active }) => (
@@ -12,6 +15,9 @@ const ItemExport: React.FC<IItemExport> = () => {
           style={{
             backgroundColor: active ? menuColors.fillActive : '',
           }}
+          onClick={() =>
+            dispatch(setBaseState({ state: 'showMenu', value: false }))
+          }
         >
           <DownloadIcon active={active} />
           Xuất báo cáo

@@ -10,7 +10,7 @@ type IPaginate = {
 const Paginate: React.FC<IPaginate> = ({
   setCurrentPage,
   totalPage,
-  currentPage,
+  currentPage = 1,
 }) => {
   const handlePageClick = (
     event: React.MouseEvent<HTMLElement, MouseEvent> & { selected: number }

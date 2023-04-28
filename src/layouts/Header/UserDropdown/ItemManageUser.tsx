@@ -1,12 +1,14 @@
 import { Menu } from '@headlessui/react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { setBaseState } from '~/store/base/base.slice';
 import { IRootState } from '~/store/rootReducer';
 import { buttonClassName, menuColors } from './common';
 
 interface IItemManageUser {}
 
 const ItemManageUser: React.FC<IItemManageUser> = () => {
+  const dispatch = useDispatch();
   const { userData } = useSelector((state: IRootState) => state.auth);
   let destinationPath: string = '';
   switch (userData.role_id) {
@@ -30,6 +32,9 @@ const ItemManageUser: React.FC<IItemManageUser> = () => {
           style={{
             backgroundColor: active ? menuColors.fillActive : '',
           }}
+          onClick={() =>
+            dispatch(setBaseState({ state: 'showMenu', value: false }))
+          }
         >
           <UsersIcon active={active} />
           Quản lý người dùng
