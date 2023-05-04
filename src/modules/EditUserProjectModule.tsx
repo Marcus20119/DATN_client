@@ -7,7 +7,7 @@ import { privateAxios } from '~/axiosConfig';
 import { Input, Radio } from '~/components/Form';
 import { UserDataType } from '~/store/rootType';
 import { MyToast } from '~/utils';
-import EditBaseModule from './EditBaseModule';
+import { BaseModule } from './BaseModule';
 
 interface IEditUserProjectModule {
   role: 'ADMIN' | 'MANAGER';
@@ -78,7 +78,7 @@ const EditUserProjectModule: React.FC<IEditUserProjectModule> = ({
     }
   };
   return (
-    <EditBaseModule
+    <BaseModule
       handleSubmit={handleSubmitProject}
       onSubmitHandler={onSubmitProjectHandler}
       errors={errorsProject}
@@ -112,7 +112,7 @@ const EditUserProjectModule: React.FC<IEditUserProjectModule> = ({
         }
         direction="horizontal"
       />
-    </EditBaseModule>
+    </BaseModule>
   );
 };
 

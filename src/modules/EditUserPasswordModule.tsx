@@ -6,7 +6,7 @@ import { privateAxios } from '~/axiosConfig';
 
 import { InputTogglePassword } from '~/components/Form';
 import { MyToast } from '~/utils';
-import EditBaseModule from './EditBaseModule';
+import { BaseModule } from './BaseModule';
 
 interface IEditUserPasswordModule {
   role: 'ADMIN' | 'MANAGER' | 'SELF';
@@ -80,7 +80,7 @@ const EditUserPasswordModule: React.FC<IEditUserPasswordModule> = ({
     }
   };
   return (
-    <EditBaseModule
+    <BaseModule
       handleSubmit={handleSubmitPassword}
       onSubmitHandler={onSubmitPasswordHandler}
       errors={errorsPassword}
@@ -103,7 +103,7 @@ const EditUserPasswordModule: React.FC<IEditUserPasswordModule> = ({
         label="Mật khẩu mới *"
         direction="horizontal"
       ></InputTogglePassword>
-    </EditBaseModule>
+    </BaseModule>
   );
 };
 

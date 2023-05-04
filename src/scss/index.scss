@@ -58,6 +58,9 @@
     vertical-align: middle;
     height: 44.8px;
   }
+  input::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+  }
 }
 
 .review {

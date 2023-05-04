@@ -1,40 +1,16 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useParams } from 'react-router-dom';
 
 import { privateAxios } from '~/axiosConfig';
 import { Container, Section } from '~/components/Common';
-import { useScrollOnTop } from '~/hooks';
 import { BaseModule, schemaStaff, StaffModule } from '~/modules';
-import { initialStaffData, StaffDataType } from '~/store/rootType';
 import { supabase } from '~/supabase/supabase';
 import { MyToast } from '~/utils';
 
-interface IAdminEditStaffPage {}
+interface IAdminAddNewStaffPage {}
 
-const AdminEditStaffPage: React.FC<IAdminEditStaffPage> = ({}) => {
-  useScrollOnTop();
-  const { id } = useParams();
-  const [thisStaffData, setThisStaffData] =
-    useState<StaffDataType>(initialStaffData);
-  const [fetchDataLoading, setFetchDataLoading] = useState<boolean>(false);
-  useEffect(() => {
-    (async () => {
-      setFetchDataLoading(true);
-      try {
-        const { data } = await privateAxios.request({
-          method: 'GET',
-          url: '/g/Staff/' + id,
-        });
-        setThisStaffData(data.data);
-      } catch (err) {
-        console.log(err);
-      } finally {
-        setFetchDataLoading(false);
-      }
-    })();
-  }, [id]);
+const AdminAddNewStaffPage: React.FC<IAdminAddNewStaffPage> = ({}) => {
   const {
     control: controlAddNewStaff,
     handleSubmit: handleSubmitAddNewStaff,
@@ -48,16 +24,6 @@ const AdminEditStaffPage: React.FC<IAdminEditStaffPage> = ({}) => {
     resolver: yupResolver(schemaStaff),
     mode: 'onSubmit',
   });
-
-  useEffect(() => {
-    const { is_deleted, created_at, id, updated_at, ...defaultData } =
-      thisStaffData;
-    resetAddNewStaff({
-      ...defaultData,
-      avatar: '',
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [thisStaffData]);
   const [errorSubmitAddNewStaff, setErrorSubmitAddNewStaff] =
     useState<string>('');
   const onSubmitAddNewStaffHandler = async (data: any) => {
@@ -73,22 +39,17 @@ const AdminEditStaffPage: React.FC<IAdminEditStaffPage> = ({}) => {
           .upload(fileName, file);
         if (uploadError) {
           console.log('uploadError:', uploadError);
-          delete data.avatar;
+          data.avatar = '';
         }
-        const { error: deleteError } = await supabase.storage
-          .from('staff_avatar')
-          .remove([thisStaffData.avatar]);
-        console.log('thisStaffData.avatar:', thisStaffData.avatar);
-        console.log('deleteError:', deleteError);
-      } else {
-        delete data.avatar;
       }
       await privateAxios.request({
-        method: 'PATCH',
-        url: '/u/staff/edit/' + id,
+        method: 'POST',
+        url: '/p/add-new-staff',
         data,
       });
-      MyToast.success('Chỉnh sửa nhân viên thành công');
+      console.log('data:', data);
+      MyToast.success('Thêm nhân viên thành công !');
+      resetAddNewStaff();
     } catch (err: any) {
       console.log(err);
       setErrorSubmitAddNewStaff(err?.response?.data?.message);
@@ -97,7 +58,7 @@ const AdminEditStaffPage: React.FC<IAdminEditStaffPage> = ({}) => {
 
   return (
     <Container>
-      <Section sectionTitle="CHỈNH SỬA NHÂN VIÊN" isLoading={fetchDataLoading}>
+      <Section sectionTitle="THÊM NHÂN VIÊN MỚI">
         <div className="flex flex-col gap-4w-full">
           <BaseModule
             handleSubmit={handleSubmitAddNewStaff}
@@ -106,7 +67,7 @@ const AdminEditStaffPage: React.FC<IAdminEditStaffPage> = ({}) => {
             errorSubmit={errorSubmitAddNewStaff}
             isSubmitting={isSubmittingAddNewStaff}
             title=""
-            buttonSubmitLabel="Cập nhật"
+            buttonSubmitLabel="Thêm người dùng"
           >
             <StaffModule
               control={controlAddNewStaff}
@@ -119,4 +80,4 @@ const AdminEditStaffPage: React.FC<IAdminEditStaffPage> = ({}) => {
   );
 };
 
-export default AdminEditStaffPage;
+export default AdminAddNewStaffPage;

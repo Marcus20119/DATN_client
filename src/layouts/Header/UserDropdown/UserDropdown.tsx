@@ -80,7 +80,7 @@ const UserDropdown: React.FC<IUserDropDown> = () => {
                   <ItemControl />
                   <ItemExport />
                   <ItemManageUser />
-                  <ItemManageProject />
+                  <ItemAddNewUser />
                 </>
               )}
               {userData.role_id === 3 && (

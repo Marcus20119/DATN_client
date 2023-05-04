@@ -30,4 +30,4 @@ const EditUserHeadingModule: React.FC<IEditUserHeadingModule> = ({
   );
 };
 
-export default EditUserHeadingModule;
+export { EditUserHeadingModule };

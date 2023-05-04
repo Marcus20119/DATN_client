@@ -4,7 +4,7 @@ import { Error } from '~/components/Form';
 import { Heading } from '~/components/Heading';
 import { onErrorsHandler } from '~/helpers';
 
-interface IEditBaseModule {
+interface IBaseModule {
   children: React.ReactNode;
   handleSubmit: UseFormHandleSubmit<FieldValues>;
   onSubmitHandler: (data: any) => Promise<void>;
@@ -15,7 +15,7 @@ interface IEditBaseModule {
   buttonSubmitLabel?: string;
 }
 
-const EditBaseModule: React.FC<IEditBaseModule> = ({
+const BaseModule: React.FC<IBaseModule> = ({
   children,
   handleSubmit,
   onSubmitHandler,
@@ -58,4 +58,4 @@ const EditBaseModule: React.FC<IEditBaseModule> = ({
   );
 };
 
-export default EditBaseModule;
+export { BaseModule };

@@ -41,7 +41,10 @@ const createMyAxios = () => {
       // return new Promise(async resolve => {
       const originalRequest = error.config;
       // Nếu khi gọi request mà phát hiện người dùng đã bị xóa thì sẽ logOut
-      if (error?.response?.data?.message === 'User Not Found or is Deleted') {
+      if (
+        error?.response?.data?.message === 'User Not Found or is Deleted' ||
+        error?.response?.data?.message === 'access_token is needed'
+      ) {
         forceSignOut();
       } else if (error?.response?.status === 403) {
         try {

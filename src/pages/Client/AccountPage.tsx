@@ -1,7 +1,10 @@
 import { useSelector } from 'react-redux';
 import { Container, Section } from '~/components/Common';
-import { EditUserGeneralModule, EditUserPasswordModule } from '~/modules';
-import EditUserHeadingModule from '~/modules/EditUserHeadingModule';
+import {
+  EditUserGeneralModule,
+  EditUserPasswordModule,
+  EditUserHeadingModule,
+} from '~/modules';
 import { IRootState } from '~/store/rootReducer';
 
 interface IAccountPage {}

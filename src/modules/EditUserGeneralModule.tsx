@@ -10,7 +10,7 @@ import { forceRefetchThisUserData } from '~/store/auth/auth.slice';
 import { IRootState } from '~/store/rootReducer';
 import { UserDataType } from '~/store/rootType';
 import { MyToast } from '~/utils';
-import EditBaseModule from './EditBaseModule';
+import { BaseModule } from './BaseModule';
 
 interface IEditUserGeneralModule {
   role: 'ADMIN' | 'MANAGER' | 'SELF';
@@ -97,7 +97,7 @@ const EditUserGeneralModule: React.FC<IEditUserGeneralModule> = ({
     }
   };
   return (
-    <EditBaseModule
+    <BaseModule
       handleSubmit={handleSubmitGeneral}
       onSubmitHandler={onSubmitGeneralHandler}
       errors={errorsGeneral}
@@ -134,7 +134,7 @@ const EditUserGeneralModule: React.FC<IEditUserGeneralModule> = ({
         ]}
         direction="horizontal"
       />
-    </EditBaseModule>
+    </BaseModule>
   );
 };
 

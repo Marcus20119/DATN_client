@@ -23,6 +23,7 @@ const CalenderPage = lazy(() => import('./pages/Client/CalenderPage'));
 const MonitorPage = lazy(() => import('./pages/Client/Monitor/MonitorPage'));
 const AccountPage = lazy(() => import('./pages/Client/AccountPage'));
 const StaffInfoPage = lazy(() => import('./pages/Client/StaffInfoPage'));
+
 const AdminManageUserPage = lazy(
   () => import('./pages/Admin/ManageUserPage/AdminManageUserPage')
 );
@@ -36,12 +37,20 @@ const AdminEditStaffPage = lazy(
 const AdminAddNewUserPage = lazy(
   () => import('./pages/Admin/AdminAddNewUserPage')
 );
+const AdminAddNewStaffPage = lazy(
+  () => import('./pages/Admin/AdminAddNewStaffPage')
+);
+
 const ManagerManageUserPage = lazy(
   () => import('./pages/Manager/ManageUserPage/ManagerManageUserPage')
 );
 const ManagerEditUserPage = lazy(
   () => import('./pages/Manager/ManagerEditUserPage')
 );
+const ManagerAddNewUserPage = lazy(
+  () => import('./pages/Manager/ManagerAddNewUserPage')
+);
+
 const TestPage = lazy(() => import('./pages/TestPage'));
 
 function App() {
@@ -92,10 +101,12 @@ function App() {
             <Route path="edit-user/:id" element={<AdminEditUserPage />} />
             <Route path="edit-staff/:id" element={<AdminEditStaffPage />} />
             <Route path="add-new-user" element={<AdminAddNewUserPage />} />
+            <Route path="add-new-staff" element={<AdminAddNewStaffPage />} />
           </Route>
           <Route path="manager" element={<ProtectedManager />}>
             <Route path="manage-user" element={<ManagerManageUserPage />} />
             <Route path="edit-user/:id" element={<ManagerEditUserPage />} />
+            <Route path="add-new-user" element={<ManagerAddNewUserPage />} />
           </Route>
           <Route path="test" element={<TestPage />} />
         </Route>

@@ -1,15 +1,12 @@
 import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { useSelector } from 'react-redux';
-import * as yup from 'yup';
 import { privateAxios } from '~/axiosConfig';
 
 import { Input, InputTogglePassword, Radio, Switch } from '~/components/Form';
-import { IRootState } from '~/store/rootReducer';
-import { UserDataType } from '~/store/rootType';
 import { MyToast } from '~/utils';
-import EditBaseModule from './EditBaseModule';
+import { BaseModule } from './BaseModule';
 
 interface IAddNewUserModule {
   role: 'ADMIN' | 'MANAGER';
@@ -66,22 +63,21 @@ const AddNewUserModule: React.FC<IAddNewUserModule> = ({ role }) => {
   const onSubmitAddNewUserHandler = async (data: any) => {
     setErrorSubmitAddNewUser('');
     try {
-      console.log('data:', data);
       switch (role) {
         case 'ADMIN': {
           await privateAxios.request({
-            method: 'PATCH',
+            method: 'POST',
             url: '/p/add-new-user',
             data,
           });
           break;
         }
         case 'MANAGER': {
-          // await privateAxios.request({
-          //   method: 'PATCH',
-          //   url: '/u/2/user/edit/' + id,
-          //   data,
-          // });
+          await privateAxios.request({
+            method: 'POST',
+            url: '/p/add-new-user',
+            data,
+          });
           break;
         }
 
@@ -96,7 +92,7 @@ const AddNewUserModule: React.FC<IAddNewUserModule> = ({ role }) => {
     }
   };
   return (
-    <EditBaseModule
+    <BaseModule
       handleSubmit={handleSubmitAddNewUser}
       onSubmitHandler={onSubmitAddNewUserHandler}
       errors={errorsAddNewUser}
@@ -172,7 +168,7 @@ const AddNewUserModule: React.FC<IAddNewUserModule> = ({ role }) => {
         label="Activate"
         direction="horizontal"
       />
-    </EditBaseModule>
+    </BaseModule>
   );
 };
 

@@ -8,8 +8,8 @@ import {
   EditUserGeneralModule,
   EditUserPasswordModule,
   EditUserProjectModule,
+  EditUserHeadingModule,
 } from '~/modules';
-import EditUserHeadingModule from '~/modules/EditUserHeadingModule';
 import { initialUserData, UserDataType } from '~/store/rootType';
 
 interface IManagerEditUserPage {}

@@ -45,7 +45,7 @@ export type StaffDataType = {
   languages: string[];
   address: string;
   work_unit: string;
-  day_of_birth: Date | null;
+  day_of_birth: string;
   created_at: Date | null;
   updated_at: Date | null;
 };
@@ -65,7 +65,7 @@ export const initialStaffData: StaffDataType = {
   address: '',
   languages: [],
   work_unit: '',
-  day_of_birth: null,
+  day_of_birth: '',
   created_at: null,
   updated_at: null,
 };

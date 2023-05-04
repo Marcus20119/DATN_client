@@ -96,6 +96,8 @@ const AdminManageStaffPage: React.FC<IAdminManageStaffPage> = () => {
       <Section
         sectionTitle="QUẢN LÝ NHÂN VIÊN"
         isLoading={loadingGetStaffsData}
+        navigateLabel="Thêm nhân viên"
+        navigatePath="/admin/add-new-staff"
       >
         <div className="w-full mb-4">
           <div className="flex justify-end items-center w-full mb-4">

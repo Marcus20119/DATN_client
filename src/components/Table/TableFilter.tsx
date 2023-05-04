@@ -1,7 +1,6 @@
-import { Fragment, useEffect, useState } from 'react';
 import { Combobox, Transition } from '@headlessui/react';
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
-import { UserDataType } from '~/store/rootType';
+import { Fragment, useEffect, useState } from 'react';
 
 type ITableFilter = {
   setOrderField: (state: any) => void;
@@ -55,7 +54,7 @@ const TableFilter: React.FC<ITableFilter> = ({
           type.name
             .toLowerCase()
             .replace(/\s+/g, '')
-            .includes(queryField.toLowerCase().replace(/\s+/g, ''))
+            .includes(queryType.toLowerCase().replace(/\s+/g, ''))
         );
 
   useEffect(() => {
@@ -65,7 +64,7 @@ const TableFilter: React.FC<ITableFilter> = ({
 
   return (
     <div className="relative z-20 inline-flex items-center gap-2">
-      <span className="text-[#212a39] pr-3 font-bold mt-1">Sort:</span>
+      <span className="text-[#212a39] pr-3 font-bold mt-1">Sắp xếp theo:</span>
       <div className="w-[180px]">
         <Combobox value={selectedField} onChange={setSelectedField}>
           <div className="relative mt-1">

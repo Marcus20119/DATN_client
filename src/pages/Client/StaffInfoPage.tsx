@@ -42,7 +42,7 @@ const StaffInfoPage: React.FC<IStaffInfoPage> = ({}) => {
     { name: 'Tốt nghiệp ĐH chuyên ngành', value: thisStaffData.major },
     { name: 'Học vị', value: thisStaffData.degree },
     { name: 'Kinh nghiệm', value: thisStaffData.exp + ' năm' },
-    { name: 'Ngoại ngữ', value: thisStaffData.languages.join(', ') },
+    { name: 'Ngoại ngữ', value: ReadData.language(thisStaffData.languages) },
     { name: 'Địa chỉ liên hệ', value: thisStaffData.address },
     { name: 'Email', value: thisStaffData.email },
     { name: 'Điện thoại', value: thisStaffData.phone_number },
@@ -60,7 +60,7 @@ const StaffInfoPage: React.FC<IStaffInfoPage> = ({}) => {
                   name: thisStaffData.avatar,
                 })}
                 alt={thisStaffData.full_name}
-                className="w-full object-contain object-center rounded-sm"
+                className="w-full object-cover object-center rounded-sm h-[360px]"
               />
               <span className="italic text-main-blue font-semibold">
                 {thisStaffData.full_name}
