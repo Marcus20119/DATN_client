@@ -1,5 +1,6 @@
 import { useSelector } from 'react-redux';
 import { Container, Section } from '~/components/Common';
+import { useScrollOnTop } from '~/hooks';
 import {
   EditUserGeneralModule,
   EditUserPasswordModule,
@@ -10,6 +11,7 @@ import { IRootState } from '~/store/rootReducer';
 interface IAccountPage {}
 
 const AccountPage: React.FC<IAccountPage> = ({}) => {
+  useScrollOnTop();
   const { userData } = useSelector((state: IRootState) => state.auth);
   return (
     <Container>

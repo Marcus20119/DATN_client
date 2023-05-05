@@ -1,13 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { StaffDataType, UserDataType } from '../rootType';
+import { ProjectDataType, StaffDataType, UserDataType } from '../rootType';
 
 type InitialStateType = {
   usersData: UserDataType[];
   staffsData: StaffDataType[];
+  projectsData: ProjectDataType[];
   loadingGetUsersData: boolean;
   loadingGetStaffsData: boolean;
+  loadingGetProjectsData: boolean;
   toggleForceRefetchAdminUsersData: boolean;
   toggleForceRefetchAdminStaffsData: boolean;
+  toggleForceRefetchAdminProjectsData: boolean;
   tableTotalPage: number;
 };
 type AdminStateTypeBase<K extends keyof InitialStateType> = {
@@ -21,10 +24,13 @@ type AdminStateType = {
 const initialState: InitialStateType = {
   usersData: [],
   staffsData: [],
+  projectsData: [],
   loadingGetUsersData: false,
   loadingGetStaffsData: false,
+  loadingGetProjectsData: false,
   toggleForceRefetchAdminUsersData: false,
   toggleForceRefetchAdminStaffsData: false,
+  toggleForceRefetchAdminProjectsData: false,
   tableTotalPage: 1,
 };
 
@@ -42,7 +48,13 @@ export const adminSlice = createSlice({
     }),
     forceRefetchAdminStaffsData: state => ({
       ...state,
-      toggleForceRefetchAdminUsersData: !state.toggleForceRefetchAdminUsersData,
+      toggleForceRefetchAdminStaffsData:
+        !state.toggleForceRefetchAdminStaffsData,
+    }),
+    forceRefetchAdminProjectsData: state => ({
+      ...state,
+      toggleForceRefetchAdminProjectsData:
+        !state.toggleForceRefetchAdminProjectsData,
     }),
   },
 });
@@ -52,6 +64,7 @@ export const {
   setAdminState,
   forceRefetchAdminUsersData,
   forceRefetchAdminStaffsData,
+  forceRefetchAdminProjectsData,
 } = adminSlice.actions;
 
 export default adminSlice.reducer;

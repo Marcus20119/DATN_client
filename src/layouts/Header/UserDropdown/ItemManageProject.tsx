@@ -1,5 +1,6 @@
 import { Menu } from '@headlessui/react';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { setBaseState } from '~/store/base/base.slice';
 import { buttonClassName, menuColors } from './common';
 
@@ -10,7 +11,8 @@ const ItemManageProject: React.FC<IItemManageProject> = () => {
   return (
     <Menu.Item>
       {({ active }) => (
-        <button
+        <Link
+          to="/admin/manage-project?tab=Active%20Project&page=1"
           className={buttonClassName(active)}
           style={{
             backgroundColor: active ? menuColors.fillActive : '',
@@ -21,7 +23,7 @@ const ItemManageProject: React.FC<IItemManageProject> = () => {
         >
           <FileIcon active={active} />
           Quản lý dự án
-        </button>
+        </Link>
       )}
     </Menu.Item>
   );

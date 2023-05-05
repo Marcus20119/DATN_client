@@ -8,45 +8,48 @@ import Paginate from '~/components/Paginate/Paginate';
 import { TableFilter } from '~/components/Table';
 import TableTab from '~/components/Table/TableTab';
 import { useNavigateQuery, useScrollOnTop } from '~/hooks';
-import { actionAdminGetAllDataFromStaff } from '~/store/admin/admin.action';
+import { actionAdminGetAllDataFromProject } from '~/store/admin/admin.action';
 import { IRootState } from '~/store/rootReducer';
 import {
-  GetAllDataFromStaffType,
-  ManageStaffTabType,
-  StaffDataType,
+  GetAllDataFromProjectType,
+  ManageProjectTabType,
+  ProjectDataType,
 } from '~/store/rootType';
 import { SearchParams } from '~/types';
-import AdminManageStaffTable from './AdminManageStaffTable';
+import AdminManageProjectTable from './AdminManageProjectTable';
 
-interface IAdminManageStaffPage {}
+interface IAdminManageProjectPage {}
 
-const tableTabs: ManageStaffTabType[] = ['Active Staff', 'Deleted Staff'];
+const tableTabs: ManageProjectTabType[] = [
+  'Active Project',
+  'Finished Project',
+];
 const fieldsList: {
   id: number;
   name: string;
-  type: keyof StaffDataType;
+  type: keyof ProjectDataType;
 }[] = [
   { id: 1, name: 'ID', type: 'id' },
-  { id: 2, name: 'Tên nhân viên', type: 'full_name' },
-  { id: 3, name: 'Email', type: 'email' },
-  { id: 4, name: 'SĐT', type: 'phone_number' },
-  { id: 5, name: 'Giới tính', type: 'gender' },
+  { id: 2, name: 'Tên dự án', type: 'name' },
+  { id: 3, name: 'Mã dự án', type: 'project_key' },
+  { id: 4, name: 'Số người dùng', type: 'user_count' },
+  { id: 5, name: 'Số nhân viên', type: 'staff_count' },
   { id: 6, name: 'Ngày tạo', type: 'created_at' },
 ];
 
-const AdminManageStaffPage: React.FC<IAdminManageStaffPage> = () => {
+const AdminManageProjectPage: React.FC<IAdminManageProjectPage> = () => {
   useScrollOnTop();
   const dispatch = useDispatch();
   const { search } = useLocation();
   const params = queryString.parse(search) as SearchParams;
   const {
-    loadingGetStaffsData,
+    loadingGetProjectsData,
     tableTotalPage,
-    toggleForceRefetchAdminStaffsData,
+    toggleForceRefetchAdminProjectsData,
   } = useSelector((state: IRootState) => state.admin);
 
-  const [tableCurrentTab, setTableCurrentTab] = useState<ManageStaffTabType>(
-    params.tab as ManageStaffTabType
+  const [tableCurrentTab, setTableCurrentTab] = useState<ManageProjectTabType>(
+    params.tab as ManageProjectTabType
   );
   const [tableCurrentPage, setTableCurrentPage] = useState<number>(
     Number.parseInt(params.page)
@@ -56,7 +59,7 @@ const AdminManageStaffPage: React.FC<IAdminManageStaffPage> = () => {
   const didMountRef = useRef(false);
   useEffect(() => {
     if (didMountRef.current) {
-      setTableCurrentTab(params.tab as ManageStaffTabType);
+      setTableCurrentTab(params.tab as ManageProjectTabType);
       setTableCurrentPage(Number.parseInt(params.page));
     }
     didMountRef.current = true;
@@ -64,14 +67,14 @@ const AdminManageStaffPage: React.FC<IAdminManageStaffPage> = () => {
   }, [search]);
 
   const [orderField, setOrderField] =
-    useState<GetAllDataFromStaffType['query']['orderField']>('id');
+    useState<GetAllDataFromProjectType['query']['orderField']>('id');
   const [orderType, setOrderType] =
-    useState<GetAllDataFromStaffType['query']['orderType']>('ASC');
+    useState<GetAllDataFromProjectType['query']['orderType']>('ASC');
 
   // Fetch dữ liệu với dữ liệu từ query
   useEffect(() => {
     dispatch(
-      actionAdminGetAllDataFromStaff({
+      actionAdminGetAllDataFromProject({
         query: { orderField, orderType, page: tableCurrentPage },
         type: tableCurrentTab,
       })
@@ -82,22 +85,22 @@ const AdminManageStaffPage: React.FC<IAdminManageStaffPage> = () => {
     orderType,
     tableCurrentPage,
     tableCurrentTab,
-    toggleForceRefetchAdminStaffsData,
+    toggleForceRefetchAdminProjectsData,
   ]);
 
   // Thay đổi query
   useNavigateQuery({
-    newPath: `/admin/manage-staff?tab=${tableCurrentTab}&page=${tableCurrentPage}`,
+    newPath: `/admin/manage-project?tab=${tableCurrentTab}&page=${tableCurrentPage}`,
     rerenderConditions: [tableCurrentPage, tableCurrentTab],
   });
 
   return (
     <Container>
       <Section
-        sectionTitle="QUẢN LÝ NHÂN VIÊN"
-        isLoading={loadingGetStaffsData}
-        navigateLabel="Thêm nhân viên"
-        navigatePath="/admin/add-new-staff"
+        sectionTitle="QUẢN LÝ DỰ ÁN"
+        isLoading={loadingGetProjectsData}
+        // navigateLabel="Thêm nhân viên"
+        // navigatePath="/admin/add-new-staff"
       >
         <div className="w-full mb-4">
           <div className="flex justify-end items-center w-full mb-4">
@@ -111,13 +114,13 @@ const AdminManageStaffPage: React.FC<IAdminManageStaffPage> = () => {
             <TableTab
               tableTabs={tableTabs}
               tableCurrentTab={tableCurrentTab}
-              handleSetTab={(tab: ManageStaffTabType) => {
+              handleSetTab={(tab: ManageProjectTabType) => {
                 setTableCurrentTab(tab);
                 setTableCurrentPage(1);
               }}
-              disabled={loadingGetStaffsData}
+              disabled={loadingGetProjectsData}
             />
-            <AdminManageStaffTable
+            <AdminManageProjectTable
               currentTab={tableCurrentTab}
               currentPage={tableCurrentPage}
             />
@@ -133,4 +136,4 @@ const AdminManageStaffPage: React.FC<IAdminManageStaffPage> = () => {
   );
 };
 
-export default AdminManageStaffPage;
+export default AdminManageProjectPage;

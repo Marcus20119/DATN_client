@@ -30,6 +30,9 @@ const AdminManageUserPage = lazy(
 const AdminManageStaffPage = lazy(
   () => import('./pages/Admin/ManageStaffPage/AdminManageStaffPage')
 );
+const AdminManageProjectPage = lazy(
+  () => import('./pages/Admin/ManageProjectPage/AdminManageProjectPage')
+);
 const AdminEditUserPage = lazy(() => import('./pages/Admin/AdminEditUserPage'));
 const AdminEditStaffPage = lazy(
   () => import('./pages/Admin/AdminEditStaffPage')
@@ -94,10 +97,12 @@ function App() {
             <Route path="monitor" element={<MonitorPage />} />
             <Route path="account" element={<AccountPage />} />
             <Route path="staff-info/:id" element={<StaffInfoPage />} />
+            <Route path="project-info" element={<ProjectInfoPage />} />
           </Route>
           <Route path="admin" element={<ProtectedAdmin />}>
             <Route path="manage-user" element={<AdminManageUserPage />} />
             <Route path="manage-staff" element={<AdminManageStaffPage />} />
+            <Route path="manage-project" element={<AdminManageProjectPage />} />
             <Route path="edit-user/:id" element={<AdminEditUserPage />} />
             <Route path="edit-staff/:id" element={<AdminEditStaffPage />} />
             <Route path="add-new-user" element={<AdminAddNewUserPage />} />

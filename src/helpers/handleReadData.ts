@@ -20,7 +20,9 @@ class ReadDataClass {
     }
   }
   avatar({ bucket, name }: { bucket: 'staff_avatar'; name: string }) {
-    return `https://hibudsswlhbjzbxalgmn.supabase.co/storage/v1/object/public/${bucket}/${name}`;
+    return `https://hibudsswlhbjzbxalgmn.supabase.co/storage/v1/object/public/${bucket}/${
+      name || 'no-user.png'
+    }`;
   }
   language(languages: string[]) {
     const readLanguage = languages.map(lang => {

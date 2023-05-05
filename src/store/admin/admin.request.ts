@@ -1,6 +1,11 @@
 import { privateAxios } from '~/axiosConfig';
-import { GetAllDataFromUserType, UserDataType } from '../rootType';
-import { GetAllDataFromStaffType } from './admin.type';
+import {
+  GetAllDataFromProjectType,
+  GetAllDataFromStaffType,
+  GetAllDataFromUserType,
+  StaffDataType,
+  UserDataType,
+} from '../rootType';
 
 export function requestAdminGetAllDataFromUser(
   payload: GetAllDataFromUserType
@@ -20,16 +25,37 @@ export function requestAdminGetAllDataFromStaff(
     params: payload.query,
   });
 }
+export function requestAdminGetAllDataFromProject(
+  payload: GetAllDataFromProjectType
+) {
+  return privateAxios.request({
+    method: 'GET',
+    url: '/g/projects/' + payload.type,
+    params: payload.query,
+  });
+}
 export function requestAdminSoftDeleteUser(payload: UserDataType['id']) {
   return privateAxios.request({
     method: 'PATCH',
     url: '/u/3/user/soft-delete/' + payload,
   });
 }
+export function requestAdminSoftDeleteStaff(payload: StaffDataType['id']) {
+  return privateAxios.request({
+    method: 'PATCH',
+    url: '/u/staff/soft-delete/' + payload,
+  });
+}
 export function requestAdminRestoreUser(payload: UserDataType['id']) {
   return privateAxios.request({
     method: 'PATCH',
     url: '/u/3/user/restore/' + payload,
+  });
+}
+export function requestAdminRestoreStaff(payload: StaffDataType['id']) {
+  return privateAxios.request({
+    method: 'PATCH',
+    url: '/u/staff/restore/' + payload,
   });
 }
 export function requestAdminActivateUser(payload: UserDataType['id']) {

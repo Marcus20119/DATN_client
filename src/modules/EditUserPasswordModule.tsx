@@ -24,9 +24,9 @@ const schemaPasswordSelf = yup.object({
   old_password: yup.string().required('Không được để trống mục này'),
   new_password: yup
     .string()
+    .required('Không được để trống mục này')
     .max(8, 'Yêu cầu 8 ký tự')
-    .min(8, 'Yêu cầu 8 ký tự')
-    .required('Không được để trống mục này'),
+    .min(8, 'Yêu cầu 8 ký tự'),
 });
 
 const EditUserPasswordModule: React.FC<IEditUserPasswordModule> = ({

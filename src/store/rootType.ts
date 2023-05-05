@@ -30,6 +30,20 @@ export const initialUserData: UserDataType = {
   updated_at: null,
 };
 
+export type ManageUserTabType =
+  | 'Activated User'
+  | 'Deactivated User'
+  | 'Deleted User';
+
+export type GetAllDataFromUserType = {
+  query: {
+    orderField: keyof UserDataType;
+    orderType: 'DESC' | 'ASC';
+    page: number;
+  };
+  type: ManageUserTabType;
+};
+
 export type StaffDataType = {
   id: number;
   full_name: string;
@@ -70,16 +84,50 @@ export const initialStaffData: StaffDataType = {
   updated_at: null,
 };
 
-export type ManageUserTabType =
-  | 'Activated User'
-  | 'Deactivated User'
-  | 'Deleted User';
+export type ManageStaffTabType = 'Active Staff' | 'Deleted Staff';
 
-export type GetAllDataFromUserType = {
+export type GetAllDataFromStaffType = {
   query: {
-    orderField: keyof UserDataType;
+    orderField: keyof StaffDataType;
     orderType: 'DESC' | 'ASC';
     page: number;
   };
-  type: ManageUserTabType;
+  type: ManageStaffTabType;
+};
+
+export type ProjectDataType = {
+  id: number;
+  name: string;
+  project_key: string;
+  staff_count: number;
+  user_count: number;
+  staff_ids: number[];
+  user_ids: number[];
+  status: number;
+  created_at: Date | null;
+  updated_at: Date | null;
+};
+
+export const initialProjectData: ProjectDataType = {
+  id: 0,
+  name: '',
+  project_key: '',
+  staff_count: 0,
+  user_count: 0,
+  staff_ids: [],
+  user_ids: [],
+  status: 0,
+  created_at: null,
+  updated_at: null,
+};
+
+export type ManageProjectTabType = 'Active Project' | 'Finished Project';
+
+export type GetAllDataFromProjectType = {
+  query: {
+    orderField: keyof ProjectDataType;
+    orderType: 'DESC' | 'ASC';
+    page: number;
+  };
+  type: ManageProjectTabType;
 };

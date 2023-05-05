@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { TableBase, TableLoading } from '~/components/Table';
 import {
   DeleteButton,
@@ -7,8 +7,9 @@ import {
 } from '~/components/Table/ActionButton';
 import { ViewButton } from '~/components/Table/ActionButton/ViewButton';
 import { ReadData } from '~/helpers';
-import { ManageStaffTabType } from '~/store/admin/admin.type';
+import { handleShowBaseConfirmModal } from '~/store/base/base.slice';
 import { IRootState } from '~/store/rootReducer';
+import { ManageStaffTabType } from '~/store/rootType';
 
 interface IAdminManageStaffTable {
   currentPage: number;
@@ -19,10 +20,31 @@ const AdminManageStaffTable: React.FC<IAdminManageStaffTable> = ({
   currentPage,
   currentTab,
 }) => {
+  const dispatch = useDispatch();
   const { staffsData, loadingGetStaffsData } = useSelector(
     (state: IRootState) => state.admin
   );
 
+  const handleSoftDelete = (id: number) => {
+    dispatch(
+      handleShowBaseConfirmModal({
+        title: 'XÁC NHẬN !',
+        description: 'Bạn có chắc chắn muốn xóa nhân viên này ?',
+        confirmButtonLabel: 'Xóa',
+        confirmAction: { type: 'ADMIN/SOFT-DELETE-STAFF', payload: id },
+      })
+    );
+  };
+  const handleRestore = (id: number) => {
+    dispatch(
+      handleShowBaseConfirmModal({
+        title: 'XÁC NHẬN !',
+        description: 'Bạn có chắc chắn muốn khôi phục nhân viên này ?',
+        confirmButtonLabel: 'Khôi phục',
+        confirmAction: { type: 'ADMIN/RESTORE-STAFF', payload: id },
+      })
+    );
+  };
   return (
     <TableBase>
       <thead>
@@ -64,7 +86,11 @@ const AdminManageStaffTable: React.FC<IAdminManageStaffTable> = ({
                     <>
                       <ViewButton path={`/client/staff-info/${staffData.id}`} />
                       <EditButton path={`/admin/edit-staff/${staffData.id}`} />
-                      <DeleteButton onClick={() => {}} />
+                      <DeleteButton
+                        onClick={() => {
+                          handleSoftDelete(staffData.id);
+                        }}
+                      />
                     </>
                   )}
 
@@ -72,7 +98,11 @@ const AdminManageStaffTable: React.FC<IAdminManageStaffTable> = ({
                     <>
                       <EditButton path={``} />
                       <DeleteButton onClick={() => {}} />
-                      <RestoreButton onClick={() => {}} />
+                      <RestoreButton
+                        onClick={() => {
+                          handleRestore(staffData.id);
+                        }}
+                      />
                     </>
                   )}
                 </div>

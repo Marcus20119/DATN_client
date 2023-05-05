@@ -102,6 +102,8 @@ const AdminManageUserPage: React.FC<IAdminManageUserPage> = () => {
       <Section
         sectionTitle="QUẢN LÝ NGƯỜI DÙNG"
         isLoading={loadingGetUsersData}
+        navigatePath="/admin/add-new-user"
+        navigateLabel="Thêm người dùng"
       >
         <div className="w-full mb-4">
           <div className="flex justify-end items-center w-full mb-4">

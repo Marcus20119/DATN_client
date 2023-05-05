@@ -2,10 +2,13 @@ import { StaffDataType } from '../rootType';
 import {
   actionAdminActivateUser,
   actionAdminDeactivateUser,
+  actionAdminGetAllDataFromProject,
   actionAdminGetAllDataFromStaff,
   actionAdminGetAllDataFromUser,
   actionAdminHardDeleteUser,
+  actionAdminRestoreStaff,
   actionAdminRestoreUser,
+  actionAdminSoftDeleteStaff,
   actionAdminSoftDeleteUser,
 } from './admin.action';
 import {
@@ -13,17 +16,6 @@ import {
   forceRefetchAdminUsersData,
   forceRefetchAdminStaffsData,
 } from './admin.slice';
-
-export type ManageStaffTabType = 'Active Staff' | 'Deleted Staff';
-
-export type GetAllDataFromStaffType = {
-  query: {
-    orderField: keyof StaffDataType;
-    orderType: 'DESC' | 'ASC';
-    page: number;
-  };
-  type: ManageStaffTabType;
-};
 
 type AdminActionTypeInitial = {
   'admin/setAdminState': Parameters<typeof setAdminState>[0];
@@ -39,8 +31,13 @@ type AdminActionTypeInitial = {
   'ADMIN/GET-ALL-DATA-FROM-STAFF': Parameters<
     typeof actionAdminGetAllDataFromStaff
   >[0];
+  'ADMIN/GET-ALL-DATA-FROM-PROJECT': Parameters<
+    typeof actionAdminGetAllDataFromProject
+  >[0];
   'ADMIN/SOFT-DELETE-USER': Parameters<typeof actionAdminSoftDeleteUser>[0];
+  'ADMIN/SOFT-DELETE-STAFF': Parameters<typeof actionAdminSoftDeleteStaff>[0];
   'ADMIN/RESTORE-USER': Parameters<typeof actionAdminRestoreUser>[0];
+  'ADMIN/RESTORE-STAFF': Parameters<typeof actionAdminRestoreStaff>[0];
   'ADMIN/ACTIVATE-USER': Parameters<typeof actionAdminActivateUser>[0];
   'ADMIN/DEACTIVATE-USER': Parameters<typeof actionAdminDeactivateUser>[0];
   'ADMIN/HARD-DELETE-USER': Parameters<typeof actionAdminHardDeleteUser>[0];

@@ -21,7 +21,7 @@ const ItemManageStaff: React.FC<IItemManageStaff> = () => {
             dispatch(setBaseState({ state: 'showMenu', value: false }))
           }
         >
-          <FileIcon active={active} />
+          <StaffIcon active={active} />
           Quản lý nhân viên
         </Link>
       )}
@@ -31,7 +31,7 @@ const ItemManageStaff: React.FC<IItemManageStaff> = () => {
 
 export default ItemManageStaff;
 
-function FileIcon({ active }: { active: boolean }) {
+function StaffIcon({ active }: { active: boolean }) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

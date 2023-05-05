@@ -2,21 +2,30 @@ import { call, put } from 'redux-saga/effects';
 import { handleHideBaseModal, setBaseState } from '../base/base.slice';
 
 import {
+  GetAllDataFromProjectType,
+  GetAllDataFromStaffType,
   GetAllDataFromUserType,
+  ProjectDataType,
   StaffDataType,
   UserDataType,
 } from '../rootType';
 import {
   requestAdminActivateUser,
   requestAdminDeactivateUser,
+  requestAdminGetAllDataFromProject,
   requestAdminGetAllDataFromStaff,
   requestAdminGetAllDataFromUser,
   requestAdminHardDeleteUser,
+  requestAdminRestoreStaff,
   requestAdminRestoreUser,
+  requestAdminSoftDeleteStaff,
   requestAdminSoftDeleteUser,
 } from './admin.request';
-import { forceRefetchAdminUsersData, setAdminState } from './admin.slice';
-import { GetAllDataFromStaffType } from './admin.type';
+import {
+  forceRefetchAdminStaffsData,
+  forceRefetchAdminUsersData,
+  setAdminState,
+} from './admin.slice';
 
 export function* handleAdminGetAllDataFromUser(action: {
   type: string;
@@ -40,7 +49,7 @@ export function* handleAdminGetAllDataFromUser(action: {
   }
 }
 
-export function* handleAdminGetAllDataFromStaffs(action: {
+export function* handleAdminGetAllDataFromStaff(action: {
   type: string;
   payload: GetAllDataFromStaffType;
 }) {
@@ -65,6 +74,31 @@ export function* handleAdminGetAllDataFromStaffs(action: {
   }
 }
 
+export function* handleAdminGetAllDataFromProject(action: {
+  type: string;
+  payload: GetAllDataFromProjectType;
+}) {
+  yield put(setAdminState({ state: 'loadingGetProjectsData', value: true }));
+  try {
+    const { data } = yield call(
+      requestAdminGetAllDataFromProject,
+      action.payload
+    );
+    if (data) {
+      const projectsData: ProjectDataType[] = data.data;
+      const tableTotalPage: number = data.totalPages;
+      yield put(setAdminState({ state: 'projectsData', value: projectsData }));
+      yield put(
+        setAdminState({ state: 'tableTotalPage', value: tableTotalPage })
+      );
+    }
+  } catch (err) {
+    console.log(err);
+  } finally {
+    yield put(setAdminState({ state: 'loadingGetProjectsData', value: false }));
+  }
+}
+
 export function* handleAdminSoftDeleteUser(action: {
   type: string;
   payload: UserDataType['id'];
@@ -80,6 +114,21 @@ export function* handleAdminSoftDeleteUser(action: {
     yield put(setBaseState({ state: 'loadingModalConfirm', value: false }));
   }
 }
+export function* handleAdminSoftDeleteStaff(action: {
+  type: string;
+  payload: StaffDataType['id'];
+}) {
+  yield put(setBaseState({ state: 'loadingModalConfirm', value: true }));
+  try {
+    yield call(requestAdminSoftDeleteStaff, action.payload);
+    yield put(handleHideBaseModal());
+    yield put(forceRefetchAdminStaffsData());
+  } catch (err) {
+    console.log(err);
+  } finally {
+    yield put(setBaseState({ state: 'loadingModalConfirm', value: false }));
+  }
+}
 export function* handleAdminRestoreUser(action: {
   type: string;
   payload: UserDataType['id'];
@@ -89,6 +138,21 @@ export function* handleAdminRestoreUser(action: {
     yield call(requestAdminRestoreUser, action.payload);
     yield put(handleHideBaseModal());
     yield put(forceRefetchAdminUsersData());
+  } catch (err) {
+    console.log(err);
+  } finally {
+    yield put(setBaseState({ state: 'loadingModalConfirm', value: false }));
+  }
+}
+export function* handleAdminRestoreStaff(action: {
+  type: string;
+  payload: StaffDataType['id'];
+}) {
+  yield put(setBaseState({ state: 'loadingModalConfirm', value: true }));
+  try {
+    yield call(requestAdminRestoreStaff, action.payload);
+    yield put(handleHideBaseModal());
+    yield put(forceRefetchAdminStaffsData());
   } catch (err) {
     console.log(err);
   } finally {
