@@ -30,7 +30,7 @@ const Header: React.FC<IHeader> = () => {
   }, []);
 
   return (
-    <div className="z-50 relative cursor-default w-full ">
+    <div className="z-[200] relative cursor-default w-full ">
       <div
         className={`bg-[#1a273a] ${
           !isReachScrolling

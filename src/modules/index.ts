@@ -1,3 +1,4 @@
+export * from './Monitor';
 export * from './ManageUserActionModule';
 export * from './EditUserGeneralModule';
 export * from './EditUserProjectModule';

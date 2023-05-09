@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux';
-import { Container } from '~/components/Common';
+import { Container, Section } from '~/components/Common';
 import { useScrollOnTop } from '~/hooks';
+import MonitorXLNT from '~/modules/Monitor/MonitorXLNT';
 import { IRootState } from '~/store/rootReducer';
 import ReadData from './ReadData';
 import WriteData from './WriteData';
@@ -9,14 +10,18 @@ type IMonitorPage = {};
 
 const MonitorPage: React.FC<IMonitorPage> = () => {
   useScrollOnTop();
-  const { isReachScrolling } = useSelector((state: IRootState) => state.base);
+  const { userData, loadingGetThisUserData } = useSelector(
+    (state: IRootState) => state.auth
+  );
 
   return (
-    <Container className={`!items-start h-[1000px] mt-10`}>
-      <div className="flex flex-col gap-32 w-full mt-4">
-        <ReadData />
-        <WriteData />
-      </div>
+    <Container>
+      <Section
+        sectionTitle="MÀN HÌNH GIÁM SÁT"
+        isLoading={loadingGetThisUserData}
+      >
+        {userData.project_key === 'XLNT' && <MonitorXLNT />}
+      </Section>
     </Container>
   );
 };
