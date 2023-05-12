@@ -78,7 +78,7 @@ const AdminManageProjectTable: React.FC<IAdminManageProjectTable> = ({
                   {currentTab === 'Active Project' && (
                     <>
                       <ViewButton
-                        path={`/client/staff-info/${projectData.id}`}
+                        path={`/client/project-info/${projectData.id}`}
                       />
                       <EditButton
                         path={`/admin/edit-staff/${projectData.id}`}

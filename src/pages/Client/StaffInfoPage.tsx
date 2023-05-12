@@ -15,7 +15,6 @@ const StaffInfoPage: React.FC<IStaffInfoPage> = ({}) => {
   const [thisStaffData, setThisStaffData] =
     useState<StaffDataType>(initialStaffData);
   const [fetchDataLoading, setFetchDataLoading] = useState<boolean>(false);
-  console.log('thisStaffData:', thisStaffData);
   useEffect(() => {
     (async () => {
       setFetchDataLoading(true);
@@ -32,6 +31,7 @@ const StaffInfoPage: React.FC<IStaffInfoPage> = ({}) => {
       }
     })();
   }, [id]);
+
   let staffFields: { name: string; value: string }[] = [
     { name: 'Họ và tên', value: thisStaffData.full_name },
     { name: 'Giới tính', value: ReadData.gender(thisStaffData.gender) },

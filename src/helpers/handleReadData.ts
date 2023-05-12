@@ -41,6 +41,16 @@ class ReadDataClass {
     });
     return readLanguage.join(', ');
   }
+  projectStatus(status: number) {
+    switch (status) {
+      case 0:
+        return 'Đang phát triển';
+      case 1:
+        return 'Đã hoàn thành';
+      default:
+        return '';
+    }
+  }
 }
 
 export const ReadData = new ReadDataClass();

@@ -103,6 +103,8 @@ export type ProjectDataType = {
   user_count: number;
   staff_ids: number[];
   user_ids: number[];
+  staffs_data?: Pick<StaffDataType, 'id' | 'full_name'>[];
+  users_data?: Pick<UserDataType, 'id' | 'user_name' | 'role_id'>[];
   status: number;
   created_at: Date | null;
   updated_at: Date | null;

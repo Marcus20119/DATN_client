@@ -23,6 +23,7 @@ const CalenderPage = lazy(() => import('./pages/Client/CalenderPage'));
 const MonitorPage = lazy(() => import('./pages/Client/Monitor/MonitorPage'));
 const AccountPage = lazy(() => import('./pages/Client/AccountPage'));
 const StaffInfoPage = lazy(() => import('./pages/Client/StaffInfoPage'));
+const GeneralPage = lazy(() => import('./pages/Client/GeneralPage'));
 
 const AdminManageUserPage = lazy(
   () => import('./pages/Admin/ManageUserPage/AdminManageUserPage')
@@ -83,9 +84,7 @@ function App() {
               <Navigate
                 replace
                 to={
-                  userData.role_id === 3
-                    ? '/client/process'
-                    : '/client/project-info'
+                  userData.role_id === 3 ? '/client/process' : '/client/general'
                 }
               />
             }
@@ -96,8 +95,9 @@ function App() {
             <Route path="calender" element={<CalenderPage />} />
             <Route path="monitor" element={<MonitorPage />} />
             <Route path="account" element={<AccountPage />} />
+            <Route path="general" element={<GeneralPage />} />
             <Route path="staff-info/:id" element={<StaffInfoPage />} />
-            <Route path="project-info" element={<ProjectInfoPage />} />
+            <Route path="project-info/:id" element={<ProjectInfoPage />} />
           </Route>
           <Route path="admin" element={<ProtectedAdmin />}>
             <Route path="manage-user" element={<AdminManageUserPage />} />

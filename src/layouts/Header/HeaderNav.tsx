@@ -9,7 +9,7 @@ const navData: {
 }[] = [
   {
     name: 'THÔNG TIN CHUNG',
-    path: '/client/project-info',
+    path: '/client/general',
   },
   {
     name: 'TIẾN ĐỘ',
