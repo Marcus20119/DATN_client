@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { Container, Section } from '~/components/Common';
 import { useScrollOnTop } from '~/hooks';
-import MonitorXLNT from '~/modules/Monitor/MonitorXLNT';
+import { MonitorXLNT } from '~/modules/Monitor/MonitorXLNT';
 import { IRootState } from '~/store/rootReducer';
 import ReadData from './ReadData';
 import WriteData from './WriteData';

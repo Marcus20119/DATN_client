@@ -70,3 +70,33 @@
     background-color: #5578ad22 !important;
   }
 }
+
+.table-PLC {
+  width: 100%;
+  min-width: fit-content;
+
+  th,
+  td {
+    border: 1px solid #212a3950;
+  }
+  th {
+    padding: 12px 0;
+    background-color: #5578ad22;
+  }
+
+  td:first-child {
+    text-align: left;
+    font-weight: 500;
+    font-size: 16px;
+  }
+
+  td {
+    font-size: 13px;
+    color: #212a39;
+    // white-space: nowrap;
+  }
+
+  td {
+    padding: 10px;
+  }
+}

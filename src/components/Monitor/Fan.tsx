@@ -1,8 +1,8 @@
 interface IFan {
-  active: boolean;
+  isActive: boolean;
 }
 
-const Fan: React.FC<IFan> = ({ active }) => {
+const Fan: React.FC<IFan> = ({ isActive }) => {
   return (
     <div className="relative w-full h-0 pt-[100%]">
       {/* CELL PART */}
@@ -39,7 +39,9 @@ const Fan: React.FC<IFan> = ({ active }) => {
       </div>
       {/* BLADE PART */}
       <div
-        className={`z-[1] absolute inset-[5%] ${active ? 'animate-spin' : ''}`}
+        className={`z-[1] absolute inset-[5%] ${
+          isActive ? 'animate-spin' : ''
+        }`}
       >
         {Array(4)
           .fill(null)
@@ -50,7 +52,7 @@ const Fan: React.FC<IFan> = ({ active }) => {
               style={{ transform: `rotate(${index * 90}deg)` }}
             >
               <div
-                className={`w-[20%] h-1/2 bg-[#77777745] border-2 border-gray-500 rounded-[50%]`}
+                className={`w-[20%] h-1/2 bg-[#77777740] border-2 border-gray-500 rounded-[50%]`}
               >
                 &nbsp;
               </div>
