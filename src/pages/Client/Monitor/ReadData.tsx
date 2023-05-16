@@ -3,12 +3,12 @@ import { useEffect, useState } from 'react';
 import { InputDisable } from '~/components/Form';
 import { Heading } from '~/components/Heading';
 import { realTimeDb } from '~/firebase/firebase-config';
-import { PLCDataType } from './common';
+import { XLNTDataType } from '~/types';
 
 type IReadData = {};
 
 const ReadData: React.FC<IReadData> = () => {
-  const [testData, setTestData] = useState<PLCDataType>({
+  const [testData, setTestData] = useState<XLNTDataType>({
     BtnOn1: false,
     BtnOn2: false,
     BtnOn3: false,
@@ -33,7 +33,7 @@ const ReadData: React.FC<IReadData> = () => {
   useEffect(() => {
     const starCountRef = ref(realTimeDb, 'XLNT_PLC');
     onValue(starCountRef, snapshot => {
-      const data: PLCDataType = snapshot.val();
+      const data: XLNTDataType = snapshot.val();
       if (data) {
         setTestData(data);
       }

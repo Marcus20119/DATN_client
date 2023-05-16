@@ -147,7 +147,7 @@ const MonitorXLNT: React.FC<IMonitorXLNT> = ({}) => {
         isLoading={loadingGetThisUserData}
       >
         <div className="w-full bg-main-blue/5 mt-2 p-5 border-2 border-main-blue-80/80 rounded-md">
-          <div className="w-full h-fit mb-2">
+          <div className="w-full h-fit">
             <TableBase type="PLC">
               <thead>
                 <tr>

@@ -7,7 +7,7 @@ import { ButtonPrimary } from '~/components/Button';
 import { Input } from '~/components/Form';
 import { Heading } from '~/components/Heading';
 import { realTimeDb } from '~/firebase/firebase-config';
-import { PLCDataType } from './common';
+import { XLNTDataType } from '~/types';
 
 type IWriteData = {};
 
@@ -38,7 +38,7 @@ const schema = yup.object({
 });
 
 const WriteData: React.FC<IWriteData> = () => {
-  function writeUserData({ BtnOn1 }: Partial<PLCDataType>) {
+  function writeUserData({ BtnOn1 }: Partial<XLNTDataType>) {
     set(ref(realTimeDb, 'XLNT_WEB/BtnOn1'), BtnOn1);
   }
 
@@ -53,7 +53,7 @@ const WriteData: React.FC<IWriteData> = () => {
   });
   // Handle submit
   const onSubmitHandler = async (data: any) => {
-    const writeData: Partial<PLCDataType> = {
+    const writeData: Partial<XLNTDataType> = {
       BtnOn1: data.BtnOn1 === 'false' ? false : true,
     };
     writeUserData(writeData);

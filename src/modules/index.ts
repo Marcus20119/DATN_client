@@ -1,4 +1,5 @@
 export * from './Monitor';
+export * from './Operate';
 export * from './ManageUserActionModule';
 export * from './EditUserGeneralModule';
 export * from './EditUserProjectModule';

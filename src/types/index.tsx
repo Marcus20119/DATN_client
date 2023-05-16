@@ -1,4 +1,4 @@
-export type PLCDataType = {
+export type XLNTDataType = {
   BtnOn1: boolean;
   BtnOn2: boolean;
   BtnOn3: boolean;

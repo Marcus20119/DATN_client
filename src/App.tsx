@@ -20,7 +20,8 @@ import { IRootState } from './store/rootReducer';
 const ProjectInfoPage = lazy(() => import('./pages/Client/ProjectInfoPage'));
 const ProcessPage = lazy(() => import('./pages/Client/ProcessPage'));
 const CalenderPage = lazy(() => import('./pages/Client/CalenderPage'));
-const MonitorPage = lazy(() => import('./pages/Client/Monitor/MonitorPage'));
+const MonitorPage = lazy(() => import('./pages/Client/MonitorPage'));
+const OperatePage = lazy(() => import('./pages/Client/OperatePage'));
 const AccountPage = lazy(() => import('./pages/Client/AccountPage'));
 const StaffInfoPage = lazy(() => import('./pages/Client/StaffInfoPage'));
 const GeneralPage = lazy(() => import('./pages/Client/GeneralPage'));
@@ -94,6 +95,7 @@ function App() {
             <Route path="process" element={<ProcessPage />} />
             <Route path="calender" element={<CalenderPage />} />
             <Route path="monitor" element={<MonitorPage />} />
+            <Route path="operate" element={<OperatePage />} />
             <Route path="account" element={<AccountPage />} />
             <Route path="general" element={<GeneralPage />} />
             <Route path="staff-info/:id" element={<StaffInfoPage />} />
