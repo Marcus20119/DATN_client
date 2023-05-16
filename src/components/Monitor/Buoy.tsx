@@ -43,4 +43,4 @@ const Buoy: React.FC<IBuoy> = ({ active }) => {
   );
 };
 
-export default Buoy;
+export { Buoy };

@@ -15,14 +15,7 @@ const MonitorPage: React.FC<IMonitorPage> = () => {
   );
 
   return (
-    <Container>
-      <Section
-        sectionTitle="MÀN HÌNH GIÁM SÁT"
-        isLoading={loadingGetThisUserData}
-      >
-        {userData.project_key === 'XLNT' && <MonitorXLNT />}
-      </Section>
-    </Container>
+    <Container>{userData.project_key === 'XLNT' && <MonitorXLNT />}</Container>
   );
 };
 

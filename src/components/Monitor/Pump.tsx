@@ -1,5 +1,6 @@
 interface IPump {
   isActive: boolean;
+  isError: boolean;
   name: string;
   pipeUpLength?: number;
   pipeRightLength?: number;
@@ -7,12 +8,15 @@ interface IPump {
 
 const Pump: React.FC<IPump> = ({
   isActive,
+  isError,
   name,
   pipeUpLength = 50,
   pipeRightLength = 50,
 }) => {
   let appearance = `${
-    isActive
+    isError
+      ? 'border-red-800 bg-red-400'
+      : isActive
       ? 'border-green-700 bg-plc-active'
       : 'border-gray-500 bg-plc-inactive/50'
   }`;
@@ -45,7 +49,11 @@ const Pump: React.FC<IPump> = ({
         <div className="absolute left-[calc(100%_+_2px)] top-1/2 -translate-y-1/2 w-[25%] h-0 pt-[25%]">
           <div
             className={`z-[12] absolute top-0 left-0 w-[35%] h-[35%] border-r-2 border-b-2 rounded-br-sm bg-[#CCD7E3] ${
-              isActive ? 'border-green-700' : 'border-gray-500'
+              isError
+                ? 'border-red-800'
+                : isActive
+                ? 'border-green-700'
+                : 'border-gray-500'
             }`}
           >
             &nbsp;
@@ -109,7 +117,11 @@ const Pump: React.FC<IPump> = ({
               <div
                 key={`pump-line-${index}`}
                 className={`w-[2px] h-[80%] ${
-                  isActive ? 'bg-green-700' : 'bg-gray-500'
+                  isError
+                    ? 'bg-red-800'
+                    : isActive
+                    ? 'bg-green-700'
+                    : 'bg-gray-500'
                 }`}
               >
                 &nbsp;

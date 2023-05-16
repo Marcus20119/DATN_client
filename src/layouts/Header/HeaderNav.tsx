@@ -12,12 +12,12 @@ const navData: {
     path: '/client/general',
   },
   {
-    name: 'TIẾN ĐỘ',
-    path: '/client/process',
+    name: 'GIÁM SÁT',
+    path: '/client/monitor',
   },
   {
-    name: 'LỊCH LÀM VIỆC',
-    path: '/client/calender',
+    name: 'ĐIỀU KHIỂN',
+    path: '/client/operate',
   },
 ];
 
