@@ -1,6 +1,44 @@
 class ReadDataClass {
-  day(day: string | Date | null) {
-    return day?.toString().split('T')[0] || '';
+  day(timestamptzValue: any) {
+    const dateObj = new Date(timestamptzValue);
+
+    const month = dateObj.getMonth() + 1; // Months are zero-based, so add 1
+    const day = dateObj.getDate();
+    const year = dateObj.getFullYear();
+
+    // Step 5: Format the date as "MM/dd/yyyy"
+    const formattedDate = `${day.toString().padStart(2, '0')}/${month
+      .toString()
+      .padStart(2, '0')}/${year}`;
+
+    // Step 6: Combine the formatted time and date
+    return `${formattedDate}`;
+  }
+  time(timestamptzValue: any) {
+    const dateObj = new Date(timestamptzValue);
+
+    // Step 2: Extract the time components (hours, minutes, and seconds)
+    const hours = dateObj.getHours();
+    const minutes = dateObj.getMinutes();
+    const seconds = dateObj.getSeconds();
+
+    // Step 3: Format the time as "hh:mm:ss"
+    const formattedTime = `${hours.toString().padStart(2, '0')}:${minutes
+      .toString()
+      .padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+
+    // Step 4: Extract the date components (month, day, and year)
+    const month = dateObj.getMonth() + 1; // Months are zero-based, so add 1
+    const day = dateObj.getDate();
+    const year = dateObj.getFullYear();
+
+    // Step 5: Format the date as "MM/dd/yyyy"
+    const formattedDate = `${day.toString().padStart(2, '0')}/${month
+      .toString()
+      .padStart(2, '0')}/${year}`;
+
+    // Step 6: Combine the formatted time and date
+    return `${formattedTime}   ${formattedDate}`;
   }
   gender(gender: number) {
     return gender === -1 ? '-' : gender === 0 ? 'Nam' : 'Nữ';
@@ -10,7 +48,7 @@ class ReadDataClass {
       case 0:
         return 'Basic Client';
       case 1:
-        return 'Engineer';
+        return 'Operator';
       case 2:
         return 'Manager';
       case 3:
@@ -50,6 +88,18 @@ class ReadDataClass {
       default:
         return '';
     }
+  }
+  DInt(arr: number[]) {
+    const binaryArray: string[] = arr.map(item => {
+      let binary = (item >>> 0).toString(2);
+      if (binary.length < 16) {
+        binary = binary.padStart(16, '0');
+      } else if (binary.length > 16) {
+        binary = binary.slice(-16);
+      }
+      return binary;
+    });
+    return parseInt(binaryArray.join(''), 2);
   }
 }
 

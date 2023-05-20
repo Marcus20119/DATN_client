@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { onValue, ref } from 'firebase/database';
+
 import { ButtonPrimary } from '~/components/Button';
 import { Section } from '~/components/Common';
 import { InputDisable } from '~/components/Form';
@@ -12,10 +14,14 @@ import {
   ElectricalCabinet,
   Laptop,
   Lamp,
+  CountDownToggleTime,
 } from '~/components/Monitor';
 import { OutputPLC } from '~/components/PLC';
 import { TableBase } from '~/components/Table';
 import { IRootState } from '~/store/rootReducer';
+import { XLNTDataType, XLNTInitialData } from '~/types';
+import { realTimeDb } from '~/firebase/firebase-config';
+import { ReadData } from '~/helpers';
 
 interface IMonitorXLNT {}
 
@@ -35,6 +41,18 @@ const MonitorXLNT: React.FC<IMonitorXLNT> = ({}) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tankRef.current]);
+
+  const [XLNTData, setXLNTData] = useState<XLNTDataType>(XLNTInitialData);
+  useEffect(() => {
+    const starCountRef = ref(realTimeDb, 'XLNT_PLC');
+    onValue(starCountRef, snapshot => {
+      const data: XLNTDataType = snapshot.val();
+      if (data) {
+        setXLNTData(data);
+      }
+    });
+  }, []);
+
   return (
     <div className="flex flex-col gap-3">
       <Section
@@ -50,7 +68,7 @@ const MonitorXLNT: React.FC<IMonitorXLNT> = ({}) => {
                     QUẠT HÚT MÙI
                   </strong>
                   <div className="relative w-[80px]">
-                    <Fan isActive={false} isError={false} />
+                    <Fan isActive={XLNTData.Status_Fan} isError={false} />
                   </div>
                 </div>
                 <div className="z-10 absolute bottom-[5%] right-[5%] w-[150px]">
@@ -69,16 +87,16 @@ const MonitorXLNT: React.FC<IMonitorXLNT> = ({}) => {
                 </div>
                 <div className="z-10 absolute top-full right-[30%] w-[100px] -translate-y-full">
                   <Pump
-                    isActive={true}
-                    isError={true}
+                    isActive={XLNTData.Status_Pump1}
+                    isError={XLNTData.Error_Pump1}
                     name="BƠM 1"
                     pipeRightLength={(tankWidth * 20) / 100}
                   />
                 </div>
                 <div className="z-10 absolute top-full right-[10%] w-[100px] -translate-y-full">
                   <Pump
-                    isActive={false}
-                    isError={false}
+                    isActive={XLNTData.Status_Pump2}
+                    isError={XLNTData.Error_Pump2}
                     name="BƠM 2"
                     pipeUpLength={(tankHeight * 40) / 100}
                     pipeRightLength={(tankWidth * 12) / 100}
@@ -89,8 +107,8 @@ const MonitorXLNT: React.FC<IMonitorXLNT> = ({}) => {
                     MỨC NƯỚC TRONG BỂ
                   </strong>
                   <div className="relative flex flex-col gap-2 w-full">
-                    <Lamp isActive={true} text="ĐẦY" />
-                    <Lamp isActive={false} text="CẠN" />
+                    <Lamp isActive={XLNTData.Status_Buoy} text="ĐẦY" />
+                    <Lamp isActive={!XLNTData.Status_Buoy} text="CẠN" />
                   </div>
                 </div>
               </div>
@@ -109,31 +127,59 @@ const MonitorXLNT: React.FC<IMonitorXLNT> = ({}) => {
                   <tr>
                     <td className="!text-left">BƠM BỂ ĐIỀU HÒA</td>
                     <td>
-                      <OutputPLC name="T1" value="0" unit="Phút" />
+                      <OutputPLC
+                        name="T_On_Pump_Min"
+                        value={ReadData.DInt(XLNTData.T_On_Pump_Min)}
+                        unit="Phút"
+                      />
                     </td>
                     <td>
-                      <OutputPLC name="T2" value="0" unit="Phút" />
+                      <OutputPLC
+                        name="T_Off_Pump_Min"
+                        value={ReadData.DInt(XLNTData.T_Off_Pump_Min)}
+                        unit="Phút"
+                      />
                     </td>
                     <td>
-                      <div className="flex gap-2">
-                        <OutputPLC name="m1" value="0" unit="Phút" />
-                        <OutputPLC name="s1" value="0" unit="Giây" />
-                      </div>
+                      <CountDownToggleTime
+                        minuteName="T_On_Pump_Current_Min"
+                        secondName="T_On_Pump_Current_Sec"
+                        tOn={
+                          XLNTData.Status_Pump1
+                            ? ReadData.DInt(XLNTData.T_Left_On_Pump1_Sec)
+                            : XLNTData.Status_Pump2
+                            ? ReadData.DInt(XLNTData.T_Left_On_Pump2_Sec)
+                            : 0
+                        }
+                        tOff={ReadData.DInt(XLNTData.T_Left_Off_Pump_Sec)}
+                        isTOn={XLNTData.Status_Pump1 || XLNTData.Status_Pump2}
+                      />
                     </td>
                   </tr>
                   <tr>
                     <td className="!text-left">QUẠT HÚT MÙI CAO ÁP</td>
                     <td>
-                      <OutputPLC name="T3" value="0" unit="Phút" />
+                      <OutputPLC
+                        name="T_On_Fan_Min"
+                        value={ReadData.DInt(XLNTData.T_On_Fan_Min)}
+                        unit="Phút"
+                      />
                     </td>
                     <td>
-                      <OutputPLC name="T4" value="0" unit="Phút" />
+                      <OutputPLC
+                        name="T_Off_Fan_Min"
+                        value={ReadData.DInt(XLNTData.T_Off_Fan_Min)}
+                        unit="Phút"
+                      />
                     </td>
                     <td>
-                      <div className="flex gap-2">
-                        <OutputPLC name="m2" value="0" unit="Phút" />
-                        <OutputPLC name="s2" value="0" unit="Giây" />
-                      </div>
+                      <CountDownToggleTime
+                        minuteName="T_On_Fan_Current_Min"
+                        secondName="T_On_Fan_Current_Sec"
+                        tOn={ReadData.DInt(XLNTData.T_Left_On_Fan_Sec)}
+                        tOff={ReadData.DInt(XLNTData.T_Left_Off_Fan_Sec)}
+                        isTOn={XLNTData.Status_Fan}
+                      />
                     </td>
                   </tr>
                 </tbody>

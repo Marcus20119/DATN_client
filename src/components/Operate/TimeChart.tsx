@@ -31,7 +31,7 @@ const TimeChart: React.FC<ITimeChart> = ({ title, data, grid }) => {
     }
   };
   const gridClass = (currentCell: number): string => {
-    if (currentCell === 0) return 'border-r-2 border-dashed border-gray-400';
+    if (currentCell === 0) return 'border-r-2 border-dashed border-gray-500/70';
     return '';
   };
   return (

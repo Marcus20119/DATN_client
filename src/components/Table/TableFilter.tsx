@@ -10,6 +10,7 @@ type ITableFilter = {
     name: string;
     type: any;
   }[];
+  initialType?: 'ASC' | 'DESC';
 };
 
 const types: {
@@ -25,6 +26,7 @@ const TableFilter: React.FC<ITableFilter> = ({
   setOrderField,
   setOrderType,
   fieldsList: fields,
+  initialType = 'ASC',
 }) => {
   const [selectedField, setSelectedField] = useState(fields[0]);
   const [queryField, setQueryField] = useState('');
@@ -44,7 +46,9 @@ const TableFilter: React.FC<ITableFilter> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedField]);
 
-  const [selectedType, setSelectedType] = useState(types[0]);
+  const [selectedType, setSelectedType] = useState(
+    initialType === 'ASC' ? types[0] : types[1]
+  );
   const [queryType, setQueryType] = useState('');
 
   const filteredType =

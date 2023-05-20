@@ -1,5 +1,6 @@
 import { Menu } from '@headlessui/react';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { setBaseState } from '~/store/base/base.slice';
 import { buttonClassName, menuColors } from './common';
 
@@ -10,7 +11,8 @@ const ItemExport: React.FC<IItemExport> = () => {
   return (
     <Menu.Item>
       {({ active }) => (
-        <button
+        <Link
+          to="/client/export?page=1"
           className={buttonClassName(active)}
           style={{
             backgroundColor: active ? menuColors.fillActive : '',
@@ -20,8 +22,8 @@ const ItemExport: React.FC<IItemExport> = () => {
           }
         >
           <DownloadIcon active={active} />
-          Xuất báo cáo
-        </button>
+          Xuất dữ liệu lỗi
+        </Link>
       )}
     </Menu.Item>
   );

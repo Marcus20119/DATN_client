@@ -15,10 +15,11 @@
   }
 
   .water-fill {
-    -webkit-animation: wave 4s infinite linear;
-    animation: wave 4s infinite linear;
+    // -webkit-animation: wave 4s infinite linear;
+    // animation: wave 4s infinite linear;
     height: 100%;
     background-color: #0077cc;
+    x: 0%;
   }
 
   @keyframes wave {

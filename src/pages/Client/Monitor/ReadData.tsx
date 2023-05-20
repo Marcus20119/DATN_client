@@ -8,37 +8,37 @@ import { XLNTDataType } from '~/types';
 type IReadData = {};
 
 const ReadData: React.FC<IReadData> = () => {
-  const [testData, setTestData] = useState<XLNTDataType>({
-    BtnOn1: false,
-    BtnOn2: false,
-    BtnOn3: false,
-    BtnOff: false,
-    AUTO: false,
-    MANUAL: false,
-    OR1: false,
-    OR2: false,
-    OR3: false,
-    T_run: [0, 0],
-    MTK1: false,
-    MTK2: false,
-    MTK3: false,
-    Buzzer: false,
-    LampRun1: false,
-    LampRun2: false,
-    LampRun3: false,
-    LampError1: false,
-    LampError2: false,
-    LampError3: false,
-  });
-  useEffect(() => {
-    const starCountRef = ref(realTimeDb, 'XLNT_PLC');
-    onValue(starCountRef, snapshot => {
-      const data: XLNTDataType = snapshot.val();
-      if (data) {
-        setTestData(data);
-      }
-    });
-  }, []);
+  // const [testData, setTestData] = useState<XLNTDataType>({
+  //   BtnOn1: false,
+  //   BtnOn2: false,
+  //   BtnOn3: false,
+  //   BtnOff: false,
+  //   AUTO: false,
+  //   MANUAL: false,
+  //   OR1: false,
+  //   OR2: false,
+  //   OR3: false,
+  //   T_run: [0, 0],
+  //   MTK1: false,
+  //   MTK2: false,
+  //   MTK3: false,
+  //   Buzzer: false,
+  //   LampRun1: false,
+  //   LampRun2: false,
+  //   LampRun3: false,
+  //   LampError1: false,
+  //   LampError2: false,
+  //   LampError3: false,
+  // });
+  // useEffect(() => {
+  //   const starCountRef = ref(realTimeDb, 'XLNT_PLC');
+  //   onValue(starCountRef, snapshot => {
+  //     const data: XLNTDataType = snapshot.val();
+  //     if (data) {
+  //       setTestData(data);
+  //     }
+  //   });
+  // }, []);
   return (
     <div>
       <Heading
@@ -73,7 +73,7 @@ const ReadData: React.FC<IReadData> = () => {
           value={testData.tagString.toString()}
         />
       </div> */}
-      <p>{JSON.stringify(testData)}</p>
+      {/* <p>{JSON.stringify(testData)}</p> */}
     </div>
   );
 };

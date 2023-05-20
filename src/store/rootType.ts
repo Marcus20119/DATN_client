@@ -133,3 +133,24 @@ export type GetAllDataFromProjectType = {
   };
   type: ManageProjectTabType;
 };
+
+export type ErrorDataType = {
+  id: number;
+  error_message: string;
+  created_at: Date | null;
+};
+
+export const initialErrorData: ErrorDataType = {
+  id: 0,
+  error_message: '',
+  created_at: null,
+};
+
+export type GetAllDataFromErrorType = {
+  query: {
+    orderField: keyof ProjectDataType;
+    orderType: 'DESC' | 'ASC';
+    page: number;
+  };
+  project_id: UserDataType['project_id'];
+};

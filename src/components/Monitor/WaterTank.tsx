@@ -1,10 +1,12 @@
+import { memo } from 'react';
 import './WaterTank.scss';
 
 interface IWaterTank {
   waterHeight: number;
 }
 
-const WaterTank: React.FC<IWaterTank> = ({ waterHeight: height }) => {
+const WaterTank: React.FC<IWaterTank> = memo(({ waterHeight: height }) => {
+  console.log('rerenderwater');
   return (
     <div id="water-tank" className="water-tank h-full">
       <svg
@@ -34,6 +36,6 @@ const WaterTank: React.FC<IWaterTank> = ({ waterHeight: height }) => {
       </svg>
     </div>
   );
-};
+});
 
 export { WaterTank };

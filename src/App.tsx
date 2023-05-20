@@ -22,6 +22,7 @@ const ProcessPage = lazy(() => import('./pages/Client/ProcessPage'));
 const CalenderPage = lazy(() => import('./pages/Client/CalenderPage'));
 const MonitorPage = lazy(() => import('./pages/Client/MonitorPage'));
 const OperatePage = lazy(() => import('./pages/Client/OperatePage'));
+const ExportPage = lazy(() => import('./pages/Client/ExportPage'));
 const AccountPage = lazy(() => import('./pages/Client/AccountPage'));
 const StaffInfoPage = lazy(() => import('./pages/Client/StaffInfoPage'));
 const GeneralPage = lazy(() => import('./pages/Client/GeneralPage'));
@@ -96,6 +97,7 @@ function App() {
             <Route path="calender" element={<CalenderPage />} />
             <Route path="monitor" element={<MonitorPage />} />
             <Route path="operate" element={<OperatePage />} />
+            <Route path="export" element={<ExportPage />} />
             <Route path="account" element={<AccountPage />} />
             <Route path="general" element={<GeneralPage />} />
             <Route path="staff-info/:id" element={<StaffInfoPage />} />

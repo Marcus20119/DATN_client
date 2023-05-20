@@ -2,7 +2,7 @@ import Field from '../Form/Field';
 
 export type IOutputPLC = {
   name: string;
-  value: string;
+  value: string | number;
   className?: string;
   unit?: string;
 };

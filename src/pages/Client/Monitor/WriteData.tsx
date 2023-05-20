@@ -38,9 +38,9 @@ const schema = yup.object({
 });
 
 const WriteData: React.FC<IWriteData> = () => {
-  function writeUserData({ BtnOn1 }: Partial<XLNTDataType>) {
-    set(ref(realTimeDb, 'XLNT_WEB/BtnOn1'), BtnOn1);
-  }
+  // function writeUserData({ BtnOn1 }: Partial<XLNTDataType>) {
+  //   set(ref(realTimeDb, 'XLNT_WEB/BtnOn1'), BtnOn1);
+  // }
 
   const {
     control,
@@ -52,16 +52,16 @@ const WriteData: React.FC<IWriteData> = () => {
     mode: 'onSubmit',
   });
   // Handle submit
-  const onSubmitHandler = async (data: any) => {
-    const writeData: Partial<XLNTDataType> = {
-      BtnOn1: data.BtnOn1 === 'false' ? false : true,
-    };
-    writeUserData(writeData);
-    try {
-    } catch (err: any) {
-      console.log(err);
-    }
-  };
+  // const onSubmitHandler = async (data: any) => {
+  //   const writeData: Partial<XLNTDataType> = {
+  //     BtnOn1: data.BtnOn1 === 'false' ? false : true,
+  //   };
+  //   writeUserData(writeData);
+  //   try {
+  //   } catch (err: any) {
+  //     console.log(err);
+  //   }
+  // };
   return (
     <div>
       <Heading
@@ -70,7 +70,7 @@ const WriteData: React.FC<IWriteData> = () => {
         className="font-bold text-main-blue text-2xl mb-3"
       />
       <form
-        onSubmit={handleSubmit(onSubmitHandler)}
+        // onSubmit={handleSubmit(onSubmitHandler)}
         className="flex flex-col gap-4 w-full"
         // autoComplete="off"
         noValidate
