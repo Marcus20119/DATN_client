@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { onValue, ref } from 'firebase/database';
+import { onValue, ref, set } from 'firebase/database';
 
 import { ButtonPrimary } from '~/components/Button';
 import { Section } from '~/components/Common';
@@ -21,9 +21,15 @@ import { TableBase } from '~/components/Table';
 import { IRootState } from '~/store/rootReducer';
 import { XLNTDataType, XLNTInitialData } from '~/types';
 import { realTimeDb } from '~/firebase/firebase-config';
-import { ReadData } from '~/helpers';
+import { PLC } from '~/helpers';
 
 interface IMonitorXLNT {}
+
+const XLNT_CONSTANTS = {
+  lifeTime_Pump1: 100,
+  lifeTime_Pump2: 100,
+  lifeTime_Fan: 50,
+};
 
 const MonitorXLNT: React.FC<IMonitorXLNT> = ({}) => {
   const { userData, loadingGetThisUserData } = useSelector(
@@ -52,6 +58,13 @@ const MonitorXLNT: React.FC<IMonitorXLNT> = ({}) => {
       }
     });
   }, []);
+
+  const writeReset = (variable: keyof XLNTDataType) => {
+    set(ref(realTimeDb, `XLNT_WEB/${variable}`), true);
+    setTimeout(() => {
+      set(ref(realTimeDb, `XLNT_WEB/${variable}`), false);
+    }, 1000);
+  };
 
   return (
     <div className="flex flex-col gap-3">
@@ -129,14 +142,14 @@ const MonitorXLNT: React.FC<IMonitorXLNT> = ({}) => {
                     <td>
                       <OutputPLC
                         name="T_On_Pump_Min"
-                        value={ReadData.DInt(XLNTData.T_On_Pump_Min)}
+                        value={PLC.ReadDInt(XLNTData.T_On_Pump_Min)}
                         unit="Phút"
                       />
                     </td>
                     <td>
                       <OutputPLC
                         name="T_Off_Pump_Min"
-                        value={ReadData.DInt(XLNTData.T_Off_Pump_Min)}
+                        value={PLC.ReadDInt(XLNTData.T_Off_Pump_Min)}
                         unit="Phút"
                       />
                     </td>
@@ -146,12 +159,12 @@ const MonitorXLNT: React.FC<IMonitorXLNT> = ({}) => {
                         secondName="T_On_Pump_Current_Sec"
                         tOn={
                           XLNTData.Status_Pump1
-                            ? ReadData.DInt(XLNTData.T_Left_On_Pump1_Sec)
+                            ? PLC.ReadDInt(XLNTData.T_Left_On_Pump1_Sec)
                             : XLNTData.Status_Pump2
-                            ? ReadData.DInt(XLNTData.T_Left_On_Pump2_Sec)
+                            ? PLC.ReadDInt(XLNTData.T_Left_On_Pump2_Sec)
                             : 0
                         }
-                        tOff={ReadData.DInt(XLNTData.T_Left_Off_Pump_Sec)}
+                        tOff={PLC.ReadDInt(XLNTData.T_Left_Off_Pump_Sec)}
                         isTOn={XLNTData.Status_Pump1 || XLNTData.Status_Pump2}
                       />
                     </td>
@@ -161,14 +174,14 @@ const MonitorXLNT: React.FC<IMonitorXLNT> = ({}) => {
                     <td>
                       <OutputPLC
                         name="T_On_Fan_Min"
-                        value={ReadData.DInt(XLNTData.T_On_Fan_Min)}
+                        value={PLC.ReadDInt(XLNTData.T_On_Fan_Min)}
                         unit="Phút"
                       />
                     </td>
                     <td>
                       <OutputPLC
                         name="T_Off_Fan_Min"
-                        value={ReadData.DInt(XLNTData.T_Off_Fan_Min)}
+                        value={PLC.ReadDInt(XLNTData.T_Off_Fan_Min)}
                         unit="Phút"
                       />
                     </td>
@@ -176,8 +189,8 @@ const MonitorXLNT: React.FC<IMonitorXLNT> = ({}) => {
                       <CountDownToggleTime
                         minuteName="T_On_Fan_Current_Min"
                         secondName="T_On_Fan_Current_Sec"
-                        tOn={ReadData.DInt(XLNTData.T_Left_On_Fan_Sec)}
-                        tOff={ReadData.DInt(XLNTData.T_Left_Off_Fan_Sec)}
+                        tOn={PLC.ReadDInt(XLNTData.T_Left_On_Fan_Sec)}
+                        tOff={PLC.ReadDInt(XLNTData.T_Left_Off_Fan_Sec)}
                         isTOn={XLNTData.Status_Fan}
                       />
                     </td>
@@ -208,46 +221,109 @@ const MonitorXLNT: React.FC<IMonitorXLNT> = ({}) => {
                 <tr>
                   <td className="!text-left">BƠM 1 BỂ ĐIỀU HÒA</td>
                   <td>
-                    <OutputPLC name="T_LIFE_1" value="0" unit="Giờ" />
+                    <OutputPLC
+                      name="T_LIFE_1"
+                      value={XLNT_CONSTANTS.lifeTime_Pump1}
+                      unit="Giờ"
+                    />
                   </td>
                   <td>
-                    <OutputPLC name="T_RUN_1" value="0" unit="Giờ" />
+                    <OutputPLC
+                      name="T_RUN_1"
+                      value={Math.floor(
+                        PLC.ReadDInt(XLNTData.T_Sum_Pump1_Min) / 60
+                      )}
+                      unit="Giờ"
+                    />
                   </td>
                   <td>
-                    <OutputPLC name="T_LEFT_1" value="0" unit="Giờ" />
+                    <OutputPLC
+                      name="T_LEFT_1"
+                      value={
+                        XLNT_CONSTANTS.lifeTime_Pump1 -
+                        Math.floor(PLC.ReadDInt(XLNTData.T_Sum_Pump1_Min) / 60)
+                      }
+                      unit="Giờ"
+                    />
                   </td>
                   <td>
-                    <ButtonPrimary>RESET</ButtonPrimary>
+                    <ButtonPrimary
+                      onClick={() => writeReset('Reset_T_Sum_Pump1')}
+                    >
+                      RESET
+                    </ButtonPrimary>
                   </td>
                 </tr>
                 <tr>
                   <td className="!text-left">BƠM 2 BỂ ĐIỀU HÒA</td>
                   <td>
-                    <OutputPLC name="T_LIFE_2" value="0" unit="Giờ" />
+                    <OutputPLC
+                      name="T_LIFE_2"
+                      value={XLNT_CONSTANTS.lifeTime_Pump2}
+                      unit="Giờ"
+                    />
                   </td>
                   <td>
-                    <OutputPLC name="T_RUN_2" value="0" unit="Giờ" />
+                    <OutputPLC
+                      name="T_RUN_2"
+                      value={Math.floor(
+                        PLC.ReadDInt(XLNTData.T_Sum_Pump2_Min) / 60
+                      )}
+                      unit="Giờ"
+                    />
                   </td>
                   <td>
-                    <OutputPLC name="T_LEFT_2" value="0" unit="Giờ" />
+                    <OutputPLC
+                      name="T_LEFT_2"
+                      value={
+                        XLNT_CONSTANTS.lifeTime_Pump2 -
+                        Math.floor(PLC.ReadDInt(XLNTData.T_Sum_Pump2_Min) / 60)
+                      }
+                      unit="Giờ"
+                    />
                   </td>
                   <td>
-                    <ButtonPrimary>RESET</ButtonPrimary>
+                    <ButtonPrimary
+                      onClick={() => writeReset('Reset_T_Sum_Pump2')}
+                    >
+                      RESET
+                    </ButtonPrimary>
                   </td>
                 </tr>
                 <tr>
                   <td className="!text-left">QUẠT HÚT MÙI CAO ÁP</td>
                   <td>
-                    <OutputPLC name="T_LIFE_3" value="0" unit="Giờ" />
+                    <OutputPLC
+                      name="T_LIFE_3"
+                      value={XLNT_CONSTANTS.lifeTime_Fan}
+                      unit="Giờ"
+                    />
                   </td>
                   <td>
-                    <OutputPLC name="T_RUN_3" value="0" unit="Giờ" />
+                    <OutputPLC
+                      name="T_RUN_3"
+                      value={Math.floor(
+                        PLC.ReadDInt(XLNTData.T_Sum_Fan_Min) / 60
+                      )}
+                      unit="Giờ"
+                    />
                   </td>
                   <td>
-                    <OutputPLC name="T_LEFT_3" value="0" unit="Giờ" />
+                    <OutputPLC
+                      name="T_LEFT_3"
+                      value={
+                        XLNT_CONSTANTS.lifeTime_Fan -
+                        Math.floor(PLC.ReadDInt(XLNTData.T_Sum_Fan_Min) / 60)
+                      }
+                      unit="Giờ"
+                    />
                   </td>
                   <td>
-                    <ButtonPrimary>RESET</ButtonPrimary>
+                    <ButtonPrimary
+                      onClick={() => writeReset('Reset_T_Sum_Fan')}
+                    >
+                      RESET
+                    </ButtonPrimary>
                   </td>
                 </tr>
               </tbody>

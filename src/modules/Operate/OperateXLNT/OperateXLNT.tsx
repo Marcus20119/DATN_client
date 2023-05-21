@@ -1,42 +1,74 @@
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { onValue, ref, set } from 'firebase/database';
+import { useEffect, useState } from 'react';
 
 import { ButtonPrimary } from '~/components/Button';
 import { Section } from '~/components/Common';
 import { TableBase } from '~/components/Table';
 import { InputPLC } from '~/components/PLC';
-import { YupMethod } from '~/helpers';
+import { PLC, YupMethod } from '~/helpers';
 import TimeChartPump from './TimeChartPump';
 import TimeChartFan from './TimeChartFan';
+import { XLNTDataType, XLNTInitialData } from '~/types';
+import { realTimeDb } from '~/firebase/firebase-config';
+import { delay } from '~/utils';
 
 interface IOperateXLNT {}
 
 const schemaPump = yup.object({
-  T1: yup
+  T_On_Pump_Min: yup
     .string()
     .required('Không để trống')
     .test('Digits only', 'Chỉ nhận số nguyên', YupMethod.digitsOnly),
-  T2: yup
+  T_Off_Pump_Min: yup
     .string()
     .required('Không để trống')
     .test('Digits only', 'Chỉ nhận số nguyên', YupMethod.digitsOnly),
 });
 const schemaFan = yup.object({
-  T3: yup
+  T_On_Fan_Min: yup
     .string()
     .required('Không để trống')
     .test('Digits only', 'Chỉ nhận số nguyên', YupMethod.digitsOnly),
-  T4: yup
+  T_Off_Fan_Min: yup
     .string()
     .required('Không để trống')
     .test('Digits only', 'Chỉ nhận số nguyên', YupMethod.digitsOnly),
 });
 
 const OperateXLNT: React.FC<IOperateXLNT> = ({}) => {
-  // function writeUserData({ BtnOn1 }: Partial<XLNTDataType>) {
-  //   set(ref(realTimeDb, 'XLNT_WEB/BtnOn1'), BtnOn1);
-  // }
+  const [XLNTDataOnPump, setXLNTDataOnPump] = useState<any>([0, 0]);
+  const [XLNTDataOffPump, setXLNTDataOffPump] = useState<any>([0, 0]);
+  const [XLNTDataOnFan, setXLNTDataOnFan] = useState<any>([0, 0]);
+  const [XLNTDataOffFan, setXLNTDataOffFan] = useState<any>([0, 0]);
+  useEffect(() => {
+    onValue(ref(realTimeDb, 'XLNT_PLC/T_On_Pump_Min'), snapshot => {
+      const data: XLNTDataType = snapshot.val();
+      if (data) {
+        setXLNTDataOnPump(data);
+      }
+    });
+    onValue(ref(realTimeDb, 'XLNT_PLC/T_Off_Pump_Min'), snapshot => {
+      const data: XLNTDataType = snapshot.val();
+      if (data) {
+        setXLNTDataOffPump(data);
+      }
+    });
+    onValue(ref(realTimeDb, 'XLNT_PLC/T_On_Fan_Min'), snapshot => {
+      const data: XLNTDataType = snapshot.val();
+      if (data) {
+        setXLNTDataOnFan(data);
+      }
+    });
+    onValue(ref(realTimeDb, 'XLNT_PLC/T_Off_Fan_Min'), snapshot => {
+      const data: XLNTDataType = snapshot.val();
+      if (data) {
+        setXLNTDataOffFan(data);
+      }
+    });
+  }, []);
 
   const {
     control: controlPump,
@@ -56,19 +88,48 @@ const OperateXLNT: React.FC<IOperateXLNT> = ({}) => {
     resolver: yupResolver(schemaFan),
     mode: 'all',
   });
+
+  const writeData = (variable: keyof XLNTDataType, data: any) => {
+    set(ref(realTimeDb, `XLNT_WEB/${variable}`), data);
+  };
+  useEffect(() => {
+    resetPump({
+      T_On_Pump_Min: PLC.ReadDInt(XLNTDataOnPump),
+      T_Off_Pump_Min: PLC.ReadDInt(XLNTDataOffPump),
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [XLNTDataOnPump, XLNTDataOffPump]);
+  useEffect(() => {
+    resetFan({
+      T_On_Fan_Min: PLC.ReadDInt(XLNTDataOnFan),
+      T_Off_Fan_Min: PLC.ReadDInt(XLNTDataOffFan),
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [XLNTDataOnFan, XLNTDataOffFan]);
   // Handle submit
   const onSubmitHandlerPump = async (data: any) => {
-    // const writeData: Partial<XLNTDataType> = {
-    //   BtnOn1: data.BtnOn1 === 'false' ? false : true,
-    // };
-    // writeUserData(writeData);
     try {
+      writeData('T_On_Pump_Min', PLC.WriteDInt(data.T_On_Pump_Min));
+      await delay(1000);
+      writeData('T_Off_Pump_Min', PLC.WriteDInt(data.T_Off_Pump_Min));
+      resetPump({
+        T_On_Pump_Min: data.T_On_Pump_Min,
+        T_Off_Pump_Min: data.T_Off_Pump_Min,
+      });
     } catch (err: any) {
       console.log(err);
     }
   };
   const onSubmitHandlerFan = async (data: any) => {
+    console.log('data:', data);
     try {
+      writeData('T_On_Fan_Min', PLC.WriteDInt(data.T_On_Fan_Min));
+      await delay(1000);
+      writeData('T_Off_Fan_Min', PLC.WriteDInt(data.T_Off_Fan_Min));
+      resetFan({
+        T_On_Fan_Min: data.T_On_Fan_Min,
+        T_Off_Fan_Min: data.T_Off_Fan_Min,
+      });
     } catch (err: any) {
       console.log(err);
     }
@@ -109,22 +170,24 @@ const OperateXLNT: React.FC<IOperateXLNT> = ({}) => {
                           <InputPLC
                             control={controlPump}
                             label="Thời gian chạy (T1)"
-                            name="T1"
+                            name="T_On_Pump_Min"
                             unit="Phút"
                           />
                           <InputPLC
                             control={controlPump}
                             label="Thời gian dừng (T2)"
-                            name="T2"
+                            name="T_Off_Pump_Min"
                             unit="Phút"
                           />
                           <ButtonPrimary
                             type="submit"
                             additionalClass={`h-[42.6px] mt-auto ${
-                              errorsPump?.T1 || errorsPump?.T2
+                              errorsPump?.T_On_Pump_Min ||
+                              errorsPump?.T_Off_Pump_Min
                                 ? 'mb-[calc(19.2px_+_0.25rem)]'
                                 : ''
                             }`}
+                            isSubmitting={isSubmittingPump}
                           >
                             Cập nhật dữ liệu
                           </ButtonPrimary>
@@ -145,22 +208,24 @@ const OperateXLNT: React.FC<IOperateXLNT> = ({}) => {
                           <InputPLC
                             control={controlFan}
                             label="Thời gian chạy (T3)"
-                            name="T3"
+                            name="T_On_Fan_Min"
                             unit="Phút"
                           />
                           <InputPLC
                             control={controlFan}
                             label="Thời gian dừng (T4)"
-                            name="T4"
+                            name="T_Off_Fan_Min"
                             unit="Phút"
                           />
                           <ButtonPrimary
                             type="submit"
                             additionalClass={`h-[42.6px] mt-auto ${
-                              errorsFan?.T3 || errorsFan?.T4
+                              errorsFan?.T_On_Fan_Min ||
+                              errorsFan?.T_Off_Fan_Min
                                 ? 'mb-[calc(19.2px_+_0.25rem)]'
                                 : ''
                             }`}
+                            isSubmitting={isSubmittingFan}
                           >
                             Cập nhật dữ liệu
                           </ButtonPrimary>

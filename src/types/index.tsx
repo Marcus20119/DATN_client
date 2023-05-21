@@ -15,11 +15,6 @@ export type XLNTDataType = {
   T_Left_Off_Pump_Sec: number[];
   T_Left_On_Fan_Sec: number[];
   T_Left_Off_Fan_Sec: number[];
-  T_Current_On_Pump1_MS: number[];
-  T_Current_On_Pump2_MS: number[];
-  T_Current_Off_Pump_MS: number[];
-  T_Current_On_Fan_MS: number[];
-  T_Current_Off_Fan_MS: number[];
   Reset_T_Sum_Pump1: boolean;
   Reset_T_Sum_Pump2: boolean;
   Reset_T_Sum_Fan: boolean;
@@ -48,11 +43,6 @@ export const XLNTInitialData: XLNTDataType = {
   T_Left_Off_Pump_Sec: [0, 0],
   T_Left_On_Fan_Sec: [0, 0],
   T_Left_Off_Fan_Sec: [0, 0],
-  T_Current_On_Pump1_MS: [0, 0],
-  T_Current_On_Pump2_MS: [0, 0],
-  T_Current_Off_Pump_MS: [0, 0],
-  T_Current_On_Fan_MS: [0, 0],
-  T_Current_Off_Fan_MS: [0, 0],
   Reset_T_Sum_Pump1: false,
   Reset_T_Sum_Pump2: false,
   Reset_T_Sum_Fan: false,

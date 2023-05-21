@@ -89,18 +89,6 @@ class ReadDataClass {
         return '';
     }
   }
-  DInt(arr: number[]) {
-    const binaryArray: string[] = arr.map(item => {
-      let binary = (item >>> 0).toString(2);
-      if (binary.length < 16) {
-        binary = binary.padStart(16, '0');
-      } else if (binary.length > 16) {
-        binary = binary.slice(-16);
-      }
-      return binary;
-    });
-    return parseInt(binaryArray.join(''), 2);
-  }
 }
 
 export const ReadData = new ReadDataClass();

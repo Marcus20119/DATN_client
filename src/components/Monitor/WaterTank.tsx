@@ -6,7 +6,6 @@ interface IWaterTank {
 }
 
 const WaterTank: React.FC<IWaterTank> = memo(({ waterHeight: height }) => {
-  console.log('rerenderwater');
   return (
     <div id="water-tank" className="water-tank h-full">
       <svg
@@ -32,6 +31,7 @@ const WaterTank: React.FC<IWaterTank> = memo(({ waterHeight: height }) => {
           className="water-fill"
           fill="url(#water)"
           width="3000"
+          x="-100%"
         />
       </svg>
     </div>
