@@ -24,6 +24,7 @@ export type XLNTDataType = {
   Status_Buoy: boolean;
   Error_Pump1: boolean;
   Error_Pump2: boolean;
+  Error_Fan: boolean;
 };
 
 export const XLNTInitialData: XLNTDataType = {
@@ -52,6 +53,7 @@ export const XLNTInitialData: XLNTDataType = {
   Status_Buoy: false,
   Error_Pump1: false,
   Error_Pump2: false,
+  Error_Fan: false,
 };
 
 export interface SearchParams {

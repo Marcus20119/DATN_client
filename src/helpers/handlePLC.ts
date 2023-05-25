@@ -1,6 +1,6 @@
 class PLCClass {
   ReadDInt(arr: number[]) {
-    if (typeof arr === 'string') return 0;
+    if (typeof arr[0] === 'string') return 0;
     const binaryArray: string[] = arr.map(item => {
       let binary = (item >>> 0).toString(2);
       if (binary.length < 16) {

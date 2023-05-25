@@ -25,7 +25,7 @@ const AdminEditStaffPage: React.FC<IAdminEditStaffPage> = ({}) => {
       try {
         const { data } = await privateAxios.request({
           method: 'GET',
-          url: '/g/Staff/' + id,
+          url: '/g/staff/' + id,
         });
         setThisStaffData(data.data);
       } catch (err) {

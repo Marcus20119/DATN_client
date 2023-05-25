@@ -151,7 +151,7 @@ const AddNewUserModule: React.FC<IAddNewUserModule> = ({ role }) => {
           role === 'ADMIN'
             ? [
                 { name: 'Basic Client', value: 0 },
-                { name: 'Engineer', value: 1 },
+                { name: 'Operator', value: 1 },
                 { name: 'Manager', value: 2 },
                 { name: 'Admin', value: 3 },
               ]
