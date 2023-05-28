@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { onValue, ref, set } from 'firebase/database';
+import { onValue, ref, set, update } from 'firebase/database';
 import { useEffect, useState } from 'react';
 
 import { ButtonPrimary } from '~/components/Button';
@@ -104,16 +104,13 @@ const OperateXLNT: React.FC<IOperateXLNT> = ({}) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const writeData = (variable: keyof XLNTDataType, data: any) => {
-    set(ref(realTimeDb, `XLNT_WEB/${variable}`), data);
-  };
-
   // Handle submit
   const onSubmitHandlerPump = async (data: any) => {
     try {
-      writeData('T_On_Pump_Min', PLC.WriteDInt(data.T_On_Pump_Min));
-      await delay(1000);
-      writeData('T_Off_Pump_Min', PLC.WriteDInt(data.T_Off_Pump_Min));
+      const updates: any = {};
+      updates['/XLNT_WEB/T_On_Pump_Min'] = PLC.WriteDInt(data.T_On_Pump_Min);
+      updates['/XLNT_WEB/T_Off_Pump_Min'] = PLC.WriteDInt(data.T_Off_Pump_Min);
+      await update(ref(realTimeDb), updates);
       resetPump({
         T_On_Pump_Min: data.T_On_Pump_Min,
         T_Off_Pump_Min: data.T_Off_Pump_Min,
@@ -124,9 +121,10 @@ const OperateXLNT: React.FC<IOperateXLNT> = ({}) => {
   };
   const onSubmitHandlerFan = async (data: any) => {
     try {
-      writeData('T_On_Fan_Min', PLC.WriteDInt(data.T_On_Fan_Min));
-      await delay(1000);
-      writeData('T_Off_Fan_Min', PLC.WriteDInt(data.T_Off_Fan_Min));
+      const updates: any = {};
+      updates['/XLNT_WEB/T_On_Fan_Min'] = PLC.WriteDInt(data.T_On_Fan_Min);
+      updates['/XLNT_WEB/T_Off_Fan_Min'] = PLC.WriteDInt(data.T_Off_Fan_Min);
+      await update(ref(realTimeDb), updates);
       resetFan({
         T_On_Fan_Min: data.T_On_Fan_Min,
         T_Off_Fan_Min: data.T_Off_Fan_Min,

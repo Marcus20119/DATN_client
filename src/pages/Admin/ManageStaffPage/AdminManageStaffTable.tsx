@@ -96,8 +96,7 @@ const AdminManageStaffTable: React.FC<IAdminManageStaffTable> = ({
 
                   {currentTab === 'Deleted Staff' && (
                     <>
-                      <EditButton path={``} />
-                      <DeleteButton onClick={() => {}} />
+                      <EditButton path={`/admin/edit-staff/${staffData.id}`} />
                       <RestoreButton
                         onClick={() => {
                           handleRestore(staffData.id);

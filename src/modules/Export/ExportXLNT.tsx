@@ -56,7 +56,6 @@ const ExportXLNT: React.FC<IExportXLNT> = ({}) => {
     toggleForceRefetchClientErrorsData,
   } = useSelector((state: IRootState) => state.client);
   const { userData } = useSelector((state: IRootState) => state.auth);
-  console.log('errorsData:', errorsData);
 
   const [tableCurrentPage, setTableCurrentPage] = useState<number>(
     Number.parseInt(params.page)
@@ -101,7 +100,6 @@ const ExportXLNT: React.FC<IExportXLNT> = ({}) => {
 
   const [exportLoading, setExportLoading] = useState<boolean>(false);
   const [allErrorData, setAllErrorData] = useState<any>([]);
-  console.log('allErrorData:', allErrorData);
   useEffect(() => {
     (async () => {
       setExportLoading(true);
@@ -109,17 +107,15 @@ const ExportXLNT: React.FC<IExportXLNT> = ({}) => {
         method: 'GET',
         url: '/g/export-error/' + userData.project_id,
       });
-      setAllErrorData(data.data);
+      const neededData = data.data.map((item: Partial<ErrorDataType>) => ({
+        ...item,
+        created_at: ReadData.time(item.created_at),
+      }));
+      setAllErrorData(neededData);
       setExportLoading(false);
     })();
   }, []);
   const exportToExcel = () => {
-    // setExportLoading(true);
-    // const { data: allErrorData } = await privateAxios.request({
-    //   method: 'GET',
-    //   url: '/g/export-error/' + userData.project_id,
-    // });
-    // Create a new workbook and worksheet
     const workbook = XLSX.utils.book_new();
     const worksheet = XLSX.utils.json_to_sheet(allErrorData);
 
@@ -147,16 +143,14 @@ const ExportXLNT: React.FC<IExportXLNT> = ({}) => {
 
     XLSX.utils.sheet_add_aoa(
       worksheet,
-      [['DỮ LIỆU LỖI CỦA DỰ ÁN XỬ LÝ NƯỚC THẢI', '', '', '', '']],
+      [['DỮ LIỆU LỖI CỦA DỰ ÁN XỬ LÝ NƯỚC THẢI', '', '']],
       { origin: 'A1' }
     );
 
     XLSX.utils.sheet_add_json(worksheet, allErrorData, { origin: 'A2' });
-    XLSX.utils.sheet_add_aoa(
-      worksheet,
-      [['ID', 'Project ID', 'Error Message', 'Created At', 'Updated At']],
-      { origin: 'A2' }
-    );
+    XLSX.utils.sheet_add_aoa(worksheet, [['ID', 'Lỗi', 'Thời gian']], {
+      origin: 'A2',
+    });
 
     for (let row = 0; row < allErrorData.length + 1 + 1; row++) {
       for (let col = 0; col < Object.keys(allErrorData[0]).length; col++) {
@@ -172,28 +166,30 @@ const ExportXLNT: React.FC<IExportXLNT> = ({}) => {
     }
 
     // Merge cell excel
-    const merge = [{ s: { r: 0, c: 0 }, e: { r: 0, c: 4 } }];
+    const merge = [{ s: { r: 0, c: 0 }, e: { r: 0, c: 2 } }];
     worksheet['!merges'] = merge;
 
     // Adjust to fit data
     function fitToColumn(arrayOfArray: any) {
       // get maximum character of each column
       return arrayOfArray[0].map((a: any, i: any) => ({
-        wch: Math.max(
-          ...arrayOfArray.map((a2: any) =>
-            a2[i] ? a2[i].toString().length : 0
-          )
-        ),
+        wch:
+          10 +
+          Math.max(
+            ...arrayOfArray.map((a2: any) =>
+              a2[i] ? a2[i].toString().length : 0
+            )
+          ),
       }));
     }
     const transformedData = allErrorData.map((obj: any) => Object.values(obj));
     worksheet['!cols'] = fitToColumn([
-      ['ID', 'Project ID', 'Error Message', 'Created At', 'Updated At'],
+      ['ID', 'Lỗi', 'Thời gian'],
       ...transformedData,
     ]);
 
     // Add the worksheet to the workbook
-    XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet 1');
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Error');
     // Export Excel File
     XLSX.writeFile(workbook, 'employees.xlsx', { compression: true });
     // setExportLoading(false);
