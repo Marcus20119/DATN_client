@@ -8,7 +8,7 @@ import {
   EditUserGeneralModule,
   EditUserPasswordModule,
   EditUserProjectModule,
-  EditUserHeadingModule,
+  EditHeadingModule,
 } from '~/modules';
 import { initialUserData, UserDataType } from '~/store/rootType';
 
@@ -41,7 +41,7 @@ const AdminEditUserPage: React.FC<IAdminEditUserPage> = ({}) => {
     <Container>
       <Section sectionTitle="CHỈNH SỬA NGƯỜI DÙNG" isLoading={fetchDataLoading}>
         <div className="flex flex-col py-4 w-full">
-          <EditUserHeadingModule thisUserData={thisUserData} />
+          <EditHeadingModule data={thisUserData} />
 
           <div className="flex flex-col gap-4 py-4 w-full">
             <EditUserGeneralModule

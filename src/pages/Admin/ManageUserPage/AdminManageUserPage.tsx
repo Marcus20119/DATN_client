@@ -41,7 +41,6 @@ const fieldsList: {
 ];
 
 const AdminManageUserPage: React.FC<IAdminManageUserPage> = () => {
-  useScrollOnTop();
   const dispatch = useDispatch();
   const { search } = useLocation();
   const params = queryString.parse(search) as SearchParams;
@@ -57,6 +56,7 @@ const AdminManageUserPage: React.FC<IAdminManageUserPage> = () => {
   const [tableCurrentPage, setTableCurrentPage] = useState<number>(
     Number.parseInt(params.page)
   );
+  useScrollOnTop([tableCurrentPage]);
 
   // Set lại state khi thay đổi query
   const didMountRef = useRef(false);

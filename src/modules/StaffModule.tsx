@@ -109,7 +109,7 @@ const StaffModule: React.FC<IStaffModule> = ({ control, register }) => {
           { label: 'Nga', value: 'russian' },
         ]}
         direction="horizontal"
-      ></Checkbox>
+      />
       <Input
         control={control}
         name="address"

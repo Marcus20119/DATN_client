@@ -36,14 +36,20 @@ const Checkbox: React.FC<ICheckbox> = ({
             direction === 'vertical' ? 'w-full' : 'flex-1'
           }`}
         >
-          <div className="flex gap-8 w-full">
+          <div
+            className={`flex w-full ${
+              direction === 'vertical' ? 'flex-col gap-4' : 'gap-8'
+            }`}
+          >
             {checkboxes.map((option, index) => (
               <label
                 key={option.value}
                 htmlFor={`${name}-${index}`}
                 className="inline-flex items-center gap-2 cursor-pointer"
               >
-                <div className="relative flex justify-center items-center h-5 w-5">
+                <div
+                  className={`relative flex justify-center items-center h-5 w-5`}
+                >
                   <input
                     type="checkbox"
                     id={`${name}-${index}`}

@@ -1,33 +1,31 @@
 import { ReadData } from '~/helpers';
-import { UserDataType } from '~/store/rootType';
+import { ProjectDataType, StaffDataType, UserDataType } from '~/store/rootType';
 
-interface IEditUserHeadingModule {
-  thisUserData: UserDataType;
+interface IEditHeadingModule {
+  data: UserDataType | ProjectDataType | StaffDataType;
 }
 
-const EditUserHeadingModule: React.FC<IEditUserHeadingModule> = ({
-  thisUserData,
-}) => {
+const EditHeadingModule: React.FC<IEditHeadingModule> = ({ data }) => {
   return (
     <div className="flex gap-5 ml-auto">
       <div>
         <span className="font-bold text-main-blue-80 mr-2">Id: </span>
-        <span>{thisUserData.id}</span>
+        <span>{data.id}</span>
       </div>
       <span>-</span>
       <div>
         <span className="font-bold text-main-blue-80 mr-2">Ngày tạo: </span>
-        <span>{ReadData.day(thisUserData.created_at)}</span>
+        <span>{ReadData.day(data.created_at)}</span>
       </div>
       <span>-</span>
       <div>
         <span className="font-bold text-main-blue-80 mr-2">
           Ngày chỉnh sửa cuối cùng:{' '}
         </span>
-        <span>{ReadData.day(thisUserData.updated_at)}</span>
+        <span>{ReadData.day(data.updated_at)}</span>
       </div>
     </div>
   );
 };
 
-export { EditUserHeadingModule };
+export { EditHeadingModule };

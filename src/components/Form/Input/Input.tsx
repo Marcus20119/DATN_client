@@ -10,6 +10,7 @@ export type IInput = {
   placeholder?: string;
   icon?: React.ReactNode;
   direction?: 'horizontal' | 'vertical';
+  labelWidth?: number;
 } & React.DetailedHTMLProps<
   React.InputHTMLAttributes<HTMLInputElement>,
   HTMLInputElement
@@ -22,6 +23,7 @@ const Input: React.FC<IInput> = ({
   icon,
   className,
   direction = 'vertical',
+  labelWidth = 140,
   ...props
 }) => {
   const {
@@ -32,7 +34,7 @@ const Input: React.FC<IInput> = ({
   return (
     <>
       <Field direction={direction}>
-        <Label name={name} direction={direction}>
+        <Label name={name} direction={direction} labelWidth={labelWidth}>
           {label}
         </Label>
         <div

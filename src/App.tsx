@@ -40,6 +40,9 @@ const AdminEditUserPage = lazy(() => import('./pages/Admin/AdminEditUserPage'));
 const AdminEditStaffPage = lazy(
   () => import('./pages/Admin/AdminEditStaffPage')
 );
+const AdminEditProjectPage = lazy(
+  () => import('./pages/Admin/AdminEditProjectPage')
+);
 const AdminAddNewUserPage = lazy(
   () => import('./pages/Admin/AdminAddNewUserPage')
 );
@@ -109,6 +112,7 @@ function App() {
             <Route path="manage-project" element={<AdminManageProjectPage />} />
             <Route path="edit-user/:id" element={<AdminEditUserPage />} />
             <Route path="edit-staff/:id" element={<AdminEditStaffPage />} />
+            <Route path="edit-project/:id" element={<AdminEditProjectPage />} />
             <Route path="add-new-user" element={<AdminAddNewUserPage />} />
             <Route path="add-new-staff" element={<AdminAddNewStaffPage />} />
           </Route>

@@ -12,7 +12,7 @@ const GeneralPage: React.FC<IGeneralPage> = () => {
     <Container>
       <Section sectionTitle="THÔNG TIN VỀ DỰ ÁN">
         <div className="flex flex-col py-4 w-full">
-          {/* <EditUserHeadingModule thisUserData={userData} />
+          {/* <EditHeadingModule thisUserData={userData} />
 
         <div className="flex flex-col gap-4 py-4 w-full">
           <EditUserGeneralModule

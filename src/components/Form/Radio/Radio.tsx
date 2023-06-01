@@ -14,6 +14,7 @@ type IRadio = {
   name: string;
   label: string;
   direction?: 'vertical' | 'horizontal';
+  labelWidth?: number;
 } & React.DetailedHTMLProps<
   React.InputHTMLAttributes<HTMLInputElement>,
   HTMLInputElement
@@ -25,6 +26,7 @@ const Radio: React.FC<IRadio> = ({
   label,
   radios,
   direction = 'vertical',
+  labelWidth = 140,
   ...props
 }) => {
   const {
@@ -36,7 +38,7 @@ const Radio: React.FC<IRadio> = ({
   return (
     <>
       <Field direction={direction}>
-        <Label name={name} direction={direction}>
+        <Label name={name} direction={direction} labelWidth={labelWidth}>
           {label}
         </Label>
         <div

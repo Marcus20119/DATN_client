@@ -4,7 +4,7 @@ import { useScrollOnTop } from '~/hooks';
 import {
   EditUserGeneralModule,
   EditUserPasswordModule,
-  EditUserHeadingModule,
+  EditHeadingModule,
 } from '~/modules';
 import { IRootState } from '~/store/rootReducer';
 
@@ -17,7 +17,7 @@ const AccountPage: React.FC<IAccountPage> = ({}) => {
     <Container>
       <Section sectionTitle="TÀI KHOẢN CỦA TÔI">
         <div className="flex flex-col py-4 w-full">
-          <EditUserHeadingModule thisUserData={userData} />
+          <EditHeadingModule data={userData} />
 
           <div className="flex flex-col gap-4 py-4 w-full">
             <EditUserGeneralModule
