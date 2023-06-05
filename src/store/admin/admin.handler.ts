@@ -12,6 +12,7 @@ import {
 import {
   requestAdminActivateUser,
   requestAdminDeactivateUser,
+  requestAdminFinishProject,
   requestAdminGetAllDataFromProject,
   requestAdminGetAllDataFromStaff,
   requestAdminGetAllDataFromUser,
@@ -20,8 +21,10 @@ import {
   requestAdminRestoreUser,
   requestAdminSoftDeleteStaff,
   requestAdminSoftDeleteUser,
+  requestAdminUnfinishProject,
 } from './admin.request';
 import {
+  forceRefetchAdminProjectsData,
   forceRefetchAdminStaffsData,
   forceRefetchAdminUsersData,
   setAdminState,
@@ -198,6 +201,36 @@ export function* handleAdminHardDeleteUser(action: {
     yield call(requestAdminHardDeleteUser, action.payload);
     yield put(handleHideBaseModal());
     yield put(forceRefetchAdminUsersData());
+  } catch (err) {
+    console.log(err);
+  } finally {
+    yield put(setBaseState({ state: 'loadingModalConfirm', value: false }));
+  }
+}
+export function* handleAdminFinishProject(action: {
+  type: string;
+  payload: ProjectDataType['id'];
+}) {
+  yield put(setBaseState({ state: 'loadingModalConfirm', value: true }));
+  try {
+    yield call(requestAdminFinishProject, action.payload);
+    yield put(handleHideBaseModal());
+    yield put(forceRefetchAdminProjectsData());
+  } catch (err) {
+    console.log(err);
+  } finally {
+    yield put(setBaseState({ state: 'loadingModalConfirm', value: false }));
+  }
+}
+export function* handleAdminUnFinishProject(action: {
+  type: string;
+  payload: ProjectDataType['id'];
+}) {
+  yield put(setBaseState({ state: 'loadingModalConfirm', value: true }));
+  try {
+    yield call(requestAdminUnfinishProject, action.payload);
+    yield put(handleHideBaseModal());
+    yield put(forceRefetchAdminProjectsData());
   } catch (err) {
     console.log(err);
   } finally {

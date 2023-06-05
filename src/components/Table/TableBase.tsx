@@ -1,7 +1,7 @@
 import './TableBase.scss';
 
 type ITableBase = {
-  type?: 'manage' | 'info' | 'PLC';
+  type?: 'manage' | 'info' | 'PLC' | 'user';
   children: React.ReactNode;
 };
 

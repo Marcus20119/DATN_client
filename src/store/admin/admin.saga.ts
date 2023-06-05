@@ -2,6 +2,7 @@ import { takeEvery, takeLatest } from 'redux-saga/effects';
 import {
   actionAdminActivateUser,
   actionAdminDeactivateUser,
+  actionAdminFinishProject,
   actionAdminGetAllDataFromProject,
   actionAdminGetAllDataFromStaff,
   actionAdminGetAllDataFromUser,
@@ -10,10 +11,12 @@ import {
   actionAdminRestoreUser,
   actionAdminSoftDeleteStaff,
   actionAdminSoftDeleteUser,
+  actionAdminUnFinishProject,
 } from './admin.action';
 import {
   handleAdminActivateUser,
   handleAdminDeactivateUser,
+  handleAdminFinishProject,
   handleAdminGetAllDataFromProject,
   handleAdminGetAllDataFromStaff,
   handleAdminGetAllDataFromUser,
@@ -22,6 +25,7 @@ import {
   handleAdminRestoreUser,
   handleAdminSoftDeleteStaff,
   handleAdminSoftDeleteUser,
+  handleAdminUnFinishProject,
 } from './admin.handler';
 
 export default function* adminSaga() {
@@ -44,4 +48,6 @@ export default function* adminSaga() {
   yield takeLatest(actionAdminActivateUser.type, handleAdminActivateUser);
   yield takeLatest(actionAdminDeactivateUser.type, handleAdminDeactivateUser);
   yield takeLatest(actionAdminHardDeleteUser.type, handleAdminHardDeleteUser);
+  yield takeLatest(actionAdminFinishProject.type, handleAdminFinishProject);
+  yield takeLatest(actionAdminUnFinishProject.type, handleAdminUnFinishProject);
 }

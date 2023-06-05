@@ -7,11 +7,15 @@ import * as yup from 'yup';
 import { privateAxios } from '~/axiosConfig';
 import { Container, Section } from '~/components/Common';
 import { BaseModule, EditHeadingModule } from '~/modules';
-import { initialProjectData, ProjectDataType } from '~/store/rootType';
+import {
+  initialProjectData,
+  ProjectDataType,
+  StaffDataType,
+} from '~/store/rootType';
 import { MyToast } from '~/utils';
 import { Input, Radio, Switch } from '~/components/Form';
 import { Checkbox } from '~/components/Form/Checkbox';
-import { useScrollOnTop } from '~/hooks';
+import { useLoadingDelay, useScrollOnTop } from '~/hooks';
 
 interface IAdminEditProjectPage {}
 
@@ -23,9 +27,13 @@ const schemaProjectGeneral = yup.object({
 const schemaProjectStaff = yup.object({});
 
 const AdminEditProjectPage: React.FC<IAdminEditProjectPage> = ({}) => {
+  const isLoading = useLoadingDelay(500);
   const { id } = useParams();
   const [thisProjectData, setThisProjectData] =
     useState<ProjectDataType>(initialProjectData);
+  const [checkboxData, setCheckboxData] = useState<
+    { label: string; value: number }[]
+  >([]);
   const [fetchDataLoading, setFetchDataLoading] = useState<boolean>(false);
   useScrollOnTop([id]);
 
@@ -33,11 +41,22 @@ const AdminEditProjectPage: React.FC<IAdminEditProjectPage> = ({}) => {
     (async () => {
       setFetchDataLoading(true);
       try {
-        const { data } = await privateAxios.request({
+        const { data: projectData } = await privateAxios.request({
           method: 'GET',
           url: '/g/project/' + id,
         });
-        setThisProjectData(data.data);
+        setThisProjectData(projectData.data);
+        const { data: staffData } = await privateAxios.request({
+          method: 'GET',
+          url: '/g/staffs/',
+        });
+        const staffFetchData: StaffDataType[] = staffData.data;
+        setCheckboxData(
+          staffFetchData.map(item => ({
+            label: item.full_name,
+            value: item.id,
+          }))
+        );
       } catch (err) {
         console.log(err);
       } finally {
@@ -111,6 +130,11 @@ const AdminEditProjectPage: React.FC<IAdminEditProjectPage> = ({}) => {
     setErrorSubmitProjectStaff('');
     try {
       console.log('Staff Data:', data);
+      await privateAxios.request({
+        method: 'PATCH',
+        url: '/u/project/edit/' + id,
+        data,
+      });
       MyToast.success('Chỉnh sửa dự án thành công');
     } catch (err: any) {
       console.log(err);
@@ -127,18 +151,11 @@ const AdminEditProjectPage: React.FC<IAdminEditProjectPage> = ({}) => {
       value: 1,
     },
   ];
-  const checkboxData: any =
-    thisProjectData?.staffs_data &&
-    thisProjectData?.staffs_data?.length > 0 &&
-    thisProjectData?.staffs_data?.map((item: any) => ({
-      label: item.full_name,
-      value: item.id,
-    }));
 
   return (
     <Container>
       <Section sectionTitle="CHỈNH SỬA DỰ ÁN" isLoading={fetchDataLoading}>
-        {!fetchDataLoading ? (
+        {!fetchDataLoading && !isLoading && (
           <div className="flex flex-col gap-8 w-full">
             <EditHeadingModule data={thisProjectData} />
             <BaseModule
@@ -193,8 +210,6 @@ const AdminEditProjectPage: React.FC<IAdminEditProjectPage> = ({}) => {
               )}
             </BaseModule>
           </div>
-        ) : (
-          <div>&nbsp;</div>
         )}
       </Section>
     </Container>

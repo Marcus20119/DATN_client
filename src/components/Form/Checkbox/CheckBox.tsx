@@ -7,9 +7,11 @@ export type ICheckbox = {
   control: any;
   name: string;
   label: string;
-  checkboxes: { label: string; value: string }[];
+  checkboxes: { label: string; value: string | number }[];
   direction?: 'horizontal' | 'vertical';
+  checkboxDirection?: 'horizontal' | 'vertical';
   className?: string;
+  labelWidth?: number;
 };
 
 const Checkbox: React.FC<ICheckbox> = ({
@@ -18,7 +20,9 @@ const Checkbox: React.FC<ICheckbox> = ({
   label,
   checkboxes,
   className,
+  labelWidth = 140,
   direction = 'vertical',
+  checkboxDirection = 'vertical',
 }) => {
   const {
     field,
@@ -27,8 +31,11 @@ const Checkbox: React.FC<ICheckbox> = ({
 
   return (
     <>
-      <Field direction={direction}>
-        <Label name={name} direction={direction}>
+      <Field
+        direction={direction}
+        className={checkboxDirection === 'vertical' ? '!items-start' : ''}
+      >
+        <Label name={name} direction={direction} labelWidth={labelWidth}>
           {label}
         </Label>
         <div
@@ -38,7 +45,7 @@ const Checkbox: React.FC<ICheckbox> = ({
         >
           <div
             className={`flex w-full ${
-              direction === 'vertical' ? 'flex-col gap-4' : 'gap-8'
+              checkboxDirection === 'vertical' ? 'flex-col gap-4' : 'gap-8'
             }`}
           >
             {checkboxes.map((option, index) => (

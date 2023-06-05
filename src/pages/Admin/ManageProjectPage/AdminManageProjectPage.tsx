@@ -99,8 +99,8 @@ const AdminManageProjectPage: React.FC<IAdminManageProjectPage> = () => {
       <Section
         sectionTitle="QUẢN LÝ DỰ ÁN"
         isLoading={loadingGetProjectsData}
-        // navigateLabel="Thêm nhân viên"
-        // navigatePath="/admin/add-new-staff"
+        navigateLabel="Thêm dự án"
+        navigatePath="/admin/add-new-project"
       >
         <div className="w-full mb-4">
           <div className="flex justify-end items-center w-full mb-4">

@@ -1,12 +1,14 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { TableBase, TableLoading } from '~/components/Table';
 import {
+  ActivateButton,
   DeleteButton,
   EditButton,
   RestoreButton,
 } from '~/components/Table/ActionButton';
 import { ViewButton } from '~/components/Table/ActionButton/ViewButton';
 import { ReadData } from '~/helpers';
+import { handleShowBaseConfirmModal } from '~/store/base/base.slice';
 import { IRootState } from '~/store/rootReducer';
 import { ManageProjectTabType } from '~/store/rootType';
 
@@ -24,26 +26,27 @@ const AdminManageProjectTable: React.FC<IAdminManageProjectTable> = ({
     (state: IRootState) => state.admin
   );
 
-  // const handleSoftDelete = (id: number) => {
-  //   dispatch(
-  //     handleShowBaseConfirmModal({
-  //       title: 'XÁC NHẬN !',
-  //       description: 'Bạn có chắc chắn muốn xóa nhân viên này ?',
-  //       confirmButtonLabel: 'Xóa',
-  //       confirmAction: { type: 'ADMIN/SOFT-DELETE-STAFF', payload: id },
-  //     })
-  //   );
-  // };
-  // const handleRestore = (id: number) => {
-  //   dispatch(
-  //     handleShowBaseConfirmModal({
-  //       title: 'XÁC NHẬN !',
-  //       description: 'Bạn có chắc chắn muốn khôi phục nhân viên này ?',
-  //       confirmButtonLabel: 'Khôi phục',
-  //       confirmAction: { type: 'ADMIN/RESTORE-STAFF', payload: id },
-  //     })
-  //   );
-  // };
+  const handleFinish = (id: number) => {
+    dispatch(
+      handleShowBaseConfirmModal({
+        title: 'XÁC NHẬN !',
+        description: 'Dự án này đã hoàn thành ?',
+        confirmButtonLabel: 'Hoàn thành',
+        confirmAction: { type: 'ADMIN/FINISH-PROJECT', payload: id },
+      })
+    );
+  };
+  const handleUnFinish = (id: number) => {
+    dispatch(
+      handleShowBaseConfirmModal({
+        title: 'XÁC NHẬN !',
+        description:
+          'Bạn muốn đổi trạng thái của dự án này thành "Chưa hoàn thành" ?',
+        confirmButtonLabel: 'Xác nhận',
+        confirmAction: { type: 'ADMIN/UNFINISH-PROJECT', payload: id },
+      })
+    );
+  };
   return (
     <TableBase>
       <thead>
@@ -83,21 +86,23 @@ const AdminManageProjectTable: React.FC<IAdminManageProjectTable> = ({
                       <EditButton
                         path={`/admin/edit-project/${projectData.id}`}
                       />
-                      <DeleteButton
-                        onClick={() => {
-                          // handleSoftDelete(projectData.id);
-                        }}
+                      <ActivateButton
+                        onClick={() => handleFinish(projectData.id)}
                       />
                     </>
                   )}
 
                   {currentTab === 'Finished Project' && (
                     <>
-                      <EditButton path={``} />
-                      <DeleteButton onClick={() => {}} />
+                      <ViewButton
+                        path={`/client/project-info/${projectData.id}`}
+                      />
+                      <EditButton
+                        path={`/admin/edit-project/${projectData.id}`}
+                      />
                       <RestoreButton
                         onClick={() => {
-                          // handleRestore(projectData.id);
+                          handleUnFinish(projectData.id);
                         }}
                       />
                     </>

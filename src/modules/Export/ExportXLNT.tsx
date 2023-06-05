@@ -191,7 +191,7 @@ const ExportXLNT: React.FC<IExportXLNT> = ({}) => {
     // Add the worksheet to the workbook
     XLSX.utils.book_append_sheet(workbook, worksheet, 'Error');
     // Export Excel File
-    XLSX.writeFile(workbook, 'employees.xlsx', { compression: true });
+    XLSX.writeFile(workbook, 'XLNT_Error.xlsx', { compression: true });
     // setExportLoading(false);
   };
 

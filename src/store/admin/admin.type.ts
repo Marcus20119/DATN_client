@@ -2,6 +2,7 @@ import { StaffDataType } from '../rootType';
 import {
   actionAdminActivateUser,
   actionAdminDeactivateUser,
+  actionAdminFinishProject,
   actionAdminGetAllDataFromProject,
   actionAdminGetAllDataFromStaff,
   actionAdminGetAllDataFromUser,
@@ -10,6 +11,7 @@ import {
   actionAdminRestoreUser,
   actionAdminSoftDeleteStaff,
   actionAdminSoftDeleteUser,
+  actionAdminUnFinishProject,
 } from './admin.action';
 import {
   setAdminState,
@@ -41,6 +43,8 @@ type AdminActionTypeInitial = {
   'ADMIN/ACTIVATE-USER': Parameters<typeof actionAdminActivateUser>[0];
   'ADMIN/DEACTIVATE-USER': Parameters<typeof actionAdminDeactivateUser>[0];
   'ADMIN/HARD-DELETE-USER': Parameters<typeof actionAdminHardDeleteUser>[0];
+  'ADMIN/FINISH-PROJECT': Parameters<typeof actionAdminFinishProject>[0];
+  'ADMIN/UNFINISH-PROJECT': Parameters<typeof actionAdminUnFinishProject>[0];
 };
 
 type AdminActionTypeBase<T extends keyof AdminActionTypeInitial> = {

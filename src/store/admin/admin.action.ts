@@ -3,6 +3,7 @@ import {
   GetAllDataFromProjectType,
   GetAllDataFromStaffType,
   GetAllDataFromUserType,
+  ProjectDataType,
   StaffDataType,
   UserDataType,
 } from '../rootType';
@@ -33,4 +34,10 @@ export const actionAdminDeactivateUser = createAction<UserDataType['id']>(
 );
 export const actionAdminHardDeleteUser = createAction<UserDataType['id']>(
   'ADMIN/HARD-DELETE-USER'
+);
+export const actionAdminFinishProject = createAction<ProjectDataType['id']>(
+  'ADMIN/FINISH-PROJECT'
+);
+export const actionAdminUnFinishProject = createAction<ProjectDataType['id']>(
+  'ADMIN/UNFINISH-PROJECT'
 );

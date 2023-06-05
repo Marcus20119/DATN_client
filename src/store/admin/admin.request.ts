@@ -3,6 +3,7 @@ import {
   GetAllDataFromProjectType,
   GetAllDataFromStaffType,
   GetAllDataFromUserType,
+  ProjectDataType,
   StaffDataType,
   UserDataType,
 } from '../rootType';
@@ -74,5 +75,23 @@ export function requestAdminHardDeleteUser(payload: UserDataType['id']) {
   return privateAxios.request({
     method: 'DELETE',
     url: '/d/3/user/hard-delete/' + payload,
+  });
+}
+export function requestAdminFinishProject(payload: ProjectDataType['id']) {
+  return privateAxios.request({
+    method: 'PATCH',
+    url: '/u/project/edit/' + payload,
+    data: {
+      status: 1,
+    },
+  });
+}
+export function requestAdminUnfinishProject(payload: ProjectDataType['id']) {
+  return privateAxios.request({
+    method: 'PATCH',
+    url: '/u/project/edit/' + payload,
+    data: {
+      status: 0,
+    },
   });
 }

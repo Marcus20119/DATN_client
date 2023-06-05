@@ -1,31 +1,37 @@
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { privateAxios } from '~/axiosConfig';
 import { Container, Section } from '~/components/Common';
 import { Heading } from '~/components/Heading';
+import { TableBase } from '~/components/Table';
 import { ReadData } from '~/helpers';
 import { useScrollOnTop } from '~/hooks';
 import { IRootState } from '~/store/rootReducer';
 import { initialProjectData, ProjectDataType } from '~/store/rootType';
 
-type IProjectInfoPage = {};
+type IProjectInfoPage = {
+  projectId?: string;
+};
 
-const ProjectInfoPage: React.FC<IProjectInfoPage> = () => {
+const ProjectInfoPage: React.FC<IProjectInfoPage> = ({ projectId }) => {
   useScrollOnTop();
-  const { isReachScrolling } = useSelector((state: IRootState) => state.base);
+  const navigateTo = useNavigate();
   const { id } = useParams();
+  const fetchId = projectId || id;
+  if (!fetchId) {
+    navigateTo('/not-found');
+  }
   const [thisProjectData, setThisProjectData] =
     useState<ProjectDataType>(initialProjectData);
   const [fetchDataLoading, setFetchDataLoading] = useState<boolean>(false);
-  console.log('thisProjectData:', thisProjectData);
   useEffect(() => {
     (async () => {
       setFetchDataLoading(true);
       try {
         const { data } = await privateAxios.request({
           method: 'GET',
-          url: '/g/project/' + id,
+          url: '/g/project/' + fetchId,
         });
         setThisProjectData(data.data);
       } catch (err) {
@@ -34,7 +40,7 @@ const ProjectInfoPage: React.FC<IProjectInfoPage> = () => {
         setFetchDataLoading(false);
       }
     })();
-  }, [id]);
+  }, [fetchId]);
 
   let generalData: { name: string; value: string }[] = [
     { name: 'Id', value: thisProjectData.id.toString() },
@@ -66,10 +72,34 @@ const ProjectInfoPage: React.FC<IProjectInfoPage> = () => {
     },
     {
       name: 'Danh sách người dùng',
-      value: thisProjectData?.users_data?.map(user => user.user_name) || [],
+      value: [],
     },
   ];
-  console.log('othersData:', othersData);
+  let projectUsersData: {
+    roleId: number;
+    projectUsers: ProjectDataType['users_data'];
+  }[] = [
+    {
+      roleId: 2,
+      projectUsers: thisProjectData?.users_data?.filter(
+        user => user.role_id === 2
+      ),
+    },
+    {
+      roleId: 1,
+      projectUsers: thisProjectData?.users_data?.filter(
+        user => user.role_id === 1
+      ),
+    },
+    {
+      roleId: 0,
+      projectUsers: thisProjectData?.users_data?.filter(
+        user => user.role_id === 0
+      ),
+    },
+  ];
+  console.log('projectUsersData:', projectUsersData);
+
   return (
     <Container>
       <Section sectionTitle="THÔNG TIN VỀ DỰ ÁN" isLoading={fetchDataLoading}>
@@ -126,36 +156,26 @@ const ProjectInfoPage: React.FC<IProjectInfoPage> = () => {
                 <div className="flex-1 inline-flex flex-col gap-3">
                   {othersData.map((field, index) => (
                     <div key={`others-value-${index}`} className="inline-block">
-                      {field.name === 'Danh sách nhân viên' && (
+                      {field.name === 'Danh sách nhân viên' ? (
                         <span>
                           {Array.isArray(field.value) &&
                             field.value.map((staff, staffIndex) => (
-                              <>
+                              <Fragment key={staff.link as string}>
                                 {typeof staff === 'object' && (
                                   <>
                                     <span>{staffIndex !== 0 && ', '}</span>
                                     <Link
                                       to={staff.link}
-                                      key={staff.link}
                                       className="text-main-blue !underline !underline-offset-2 opacity-100 hover:opacity-80"
                                     >
                                       {staff.placeholder}
                                     </Link>
                                   </>
                                 )}
-                              </>
+                              </Fragment>
                             ))}
                         </span>
-                      )}
-                      {field.name === 'Danh sách người dùng' && (
-                        <span>
-                          {Array.isArray(field.value) && field.value.join(', ')}
-                        </span>
-                      )}
-                      {![
-                        'Danh sách nhân viên',
-                        'Danh sách người dùng',
-                      ].includes(field.name) && (
+                      ) : (
                         <span>
                           {typeof field.value === 'string' && field.value}
                         </span>
@@ -164,6 +184,22 @@ const ProjectInfoPage: React.FC<IProjectInfoPage> = () => {
                   ))}
                 </div>
               </div>
+              <div className="w-full mt-3 rounded-sm overflow-hidden">
+                <TableBase type="user">
+                  <tbody>
+                    {projectUsersData.map(projectUserData => (
+                      <tr key={`projectUserData-${projectUserData.roleId}`}>
+                        <td>{ReadData.roleId(projectUserData.roleId)}</td>
+                        <td>
+                          {projectUserData.projectUsers
+                            ?.map(user => user.user_name)
+                            .join(', ')}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </TableBase>
+              </div>
             </div>
           </div>
         )}
@@ -171,5 +207,4 @@ const ProjectInfoPage: React.FC<IProjectInfoPage> = () => {
     </Container>
   );
 };
-
 export default ProjectInfoPage;
