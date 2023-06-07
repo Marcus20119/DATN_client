@@ -10,6 +10,7 @@ const InputHelp: React.FC<IInput & { helpMessage: string }> = ({
   icon,
   className,
   helpMessage = '',
+  labelWidth = 140,
   ...props
 }) => {
   const dispatch = useDispatch();
@@ -30,6 +31,7 @@ const InputHelp: React.FC<IInput & { helpMessage: string }> = ({
         icon={helpComponent}
         className={`tracking-[0.2rem] ${className}`}
         label={label}
+        labelWidth={labelWidth}
       />
     </div>
   );

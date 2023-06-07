@@ -15,8 +15,13 @@ interface IAdminAddNewProjectPage {}
 
 const schemaProject = yup.object({
   name: yup.string().required('Không được để trống mục này'),
-  project_key: yup.string().required('Không được để trống mục này'),
-  status: yup.number().oneOf([0, 1]).required('Không được để trống mục này'),
+  project_key: yup
+    .string()
+    .required('Không được để trống mục này')
+    .matches(/^[^A-Z]*[A-Z][^A-Z]*[A-Z][^A-Z]*[A-Z][^A-Z]*[A-Z][^A-Z]*$/, {
+      message: 'Mã dự án phải có đúng 4 chữ cái in hoa',
+    }),
+  status: yup.number().required('Không được để trống mục này').oneOf([0, 1]),
 });
 
 const AdminAddNewProjectPage: React.FC<IAdminAddNewProjectPage> = ({}) => {
@@ -56,17 +61,25 @@ const AdminAddNewProjectPage: React.FC<IAdminAddNewProjectPage> = ({}) => {
     resolver: yupResolver(schemaProject),
     mode: 'onSubmit',
   });
+  useEffect(() => {
+    resetProject({ status: 0 });
+  }, []);
   const [errorSubmitProject, setErrorSubmitProject] = useState<string>('');
   const onSubmitProjectHandler = async (data: any) => {
     setErrorSubmitProject('');
     try {
       console.log(' Data:', data);
-      // await privateAxios.request({
-      //   method: 'PATCH',
-      //   url: '/u/project/edit/' + id,
-      //   data,
-      // });
-      MyToast.success('Chỉnh sửa dự án thành công');
+      await privateAxios.request({
+        method: 'POST',
+        url: '/p/add-new-project/',
+        data: {
+          ...data,
+          staff_count: data?.staff_ids?.length || 0,
+          user_ids: [],
+          user_count: 0,
+        },
+      });
+      MyToast.success('Thêm dự án thành công');
     } catch (err: any) {
       console.log(err);
       setErrorSubmitProject(err?.response?.data?.message);

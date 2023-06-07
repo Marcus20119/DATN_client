@@ -43,7 +43,7 @@ const SignInPage: React.FC<ISignInPage> = () => {
       actionSignIn({
         data,
         onSuccess: () => {
-          navigateTo('/client/project-info');
+          navigateTo('/client/general');
         },
       })
     );

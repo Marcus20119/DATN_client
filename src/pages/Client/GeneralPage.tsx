@@ -9,7 +9,13 @@ type IGeneralPage = {};
 const GeneralPage: React.FC<IGeneralPage> = () => {
   useScrollOnTop();
   const { userData } = useSelector((state: IRootState) => state.auth);
-  return <ProjectInfoPage projectId={userData.project_id.toString()} />;
+  return (
+    <>
+      {userData.project_id && (
+        <ProjectInfoPage projectId={userData.project_id.toString()} />
+      )}
+    </>
+  );
 };
 
 export default GeneralPage;

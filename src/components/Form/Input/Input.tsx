@@ -59,7 +59,8 @@ const Input: React.FC<IInput> = ({
       {errors?.[name]?.message && direction === 'horizontal' && (
         <Error
           errorMessage={String(errors?.[name]?.message)}
-          className="!ml-[140px] pl-5 mt-[-12px]"
+          className="pl-5 mt-[-12px]"
+          style={{ marginLeft: `${labelWidth}px` }}
         ></Error>
       )}
     </>

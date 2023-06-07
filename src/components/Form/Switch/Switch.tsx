@@ -9,6 +9,7 @@ interface ISwitch {
   name: string;
   label: string;
   className?: string;
+  labelWidth?: number;
   direction?: 'vertical' | 'horizontal';
 }
 
@@ -17,6 +18,8 @@ const Switch: React.FC<ISwitch> = ({
   name,
   label,
   className = '',
+
+  labelWidth = 140,
   direction = 'vertical',
 }) => {
   const {
@@ -54,7 +57,8 @@ const Switch: React.FC<ISwitch> = ({
       {errors?.[name]?.message && direction === 'horizontal' && (
         <Error
           errorMessage={String(errors?.[name]?.message)}
-          className="!ml-[140px] pl-5 mt-[-12px]"
+          className="pl-5 mt-[-12px]"
+          style={{ marginLeft: `${labelWidth}px` }}
         ></Error>
       )}
     </>

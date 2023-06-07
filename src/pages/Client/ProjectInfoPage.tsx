@@ -1,13 +1,11 @@
 import { Fragment, useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { privateAxios } from '~/axiosConfig';
 import { Container, Section } from '~/components/Common';
 import { Heading } from '~/components/Heading';
 import { TableBase } from '~/components/Table';
 import { ReadData } from '~/helpers';
 import { useScrollOnTop } from '~/hooks';
-import { IRootState } from '~/store/rootReducer';
 import { initialProjectData, ProjectDataType } from '~/store/rootType';
 
 type IProjectInfoPage = {
@@ -16,12 +14,8 @@ type IProjectInfoPage = {
 
 const ProjectInfoPage: React.FC<IProjectInfoPage> = ({ projectId }) => {
   useScrollOnTop();
-  const navigateTo = useNavigate();
   const { id } = useParams();
   const fetchId = projectId || id;
-  if (!fetchId) {
-    navigateTo('/not-found');
-  }
   const [thisProjectData, setThisProjectData] =
     useState<ProjectDataType>(initialProjectData);
   const [fetchDataLoading, setFetchDataLoading] = useState<boolean>(false);

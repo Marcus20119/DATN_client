@@ -11,7 +11,7 @@ const AuthLayout: React.FC<IAuthLayout> = () => {
   const { userData } = useSelector((state: IRootState) => state.auth);
   useEffect(() => {
     if (userData.id) {
-      navigateTo('/client/project-info');
+      navigateTo('/client/general');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userData]);

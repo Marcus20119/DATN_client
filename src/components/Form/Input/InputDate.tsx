@@ -9,6 +9,7 @@ export type IInputData = {
   label: string;
   placeholder?: string;
   direction?: 'horizontal' | 'vertical';
+  labelWidth?: number;
 } & React.DetailedHTMLProps<
   React.InputHTMLAttributes<HTMLInputElement>,
   HTMLInputElement
@@ -20,6 +21,7 @@ const InputDate: React.FC<IInputData> = ({
   label,
   className,
   direction = 'vertical',
+  labelWidth = 140,
   ...props
 }) => {
   const {
@@ -55,7 +57,8 @@ const InputDate: React.FC<IInputData> = ({
       {errors?.[name]?.message && direction === 'horizontal' && (
         <Error
           errorMessage={String(errors?.[name]?.message)}
-          className="!ml-[140px] pl-5 mt-[-12px]"
+          className="pl-5 mt-[-12px]"
+          style={{ marginLeft: `${labelWidth}px` }}
         ></Error>
       )}
     </>

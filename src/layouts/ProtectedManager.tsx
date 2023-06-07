@@ -10,7 +10,7 @@ const ProtectedManager: React.FC<IProtectedManager> = ({}) => {
   const navigateTo = useNavigate();
   useEffect(() => {
     if (userData.role_id < 2) {
-      navigateTo('/client/project-info');
+      navigateTo('/client/general');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userData]);

@@ -9,6 +9,8 @@ export type IInputFile = {
   name: string;
   label: string;
   direction?: 'horizontal' | 'vertical';
+
+  labelWidth?: number;
 } & React.DetailedHTMLProps<
   React.InputHTMLAttributes<HTMLInputElement>,
   HTMLInputElement
@@ -21,6 +23,8 @@ const InputFile: React.FC<IInputFile> = ({
   label,
   className,
   direction = 'vertical',
+
+  labelWidth = 140,
   ...props
 }) => {
   const {
@@ -58,7 +62,8 @@ const InputFile: React.FC<IInputFile> = ({
       {errors?.[name]?.message && direction === 'horizontal' && (
         <Error
           errorMessage={String(errors?.[name]?.message)}
-          className="!ml-[140px] pl-5 mt-[-12px]"
+          className="pl-5 mt-[-12px]"
+          style={{ marginLeft: `${labelWidth}px` }}
         ></Error>
       )}
     </>
