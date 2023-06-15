@@ -9,7 +9,7 @@ export const actionSignUp = createAction<{
 
 export const actionSignIn = createAction<{
   data: SignInDataType;
-  onSuccess: () => void;
+  onSuccess: (url: string) => void;
 }>('AUTH/SIGN-IN');
 
 export const actionGetThisUserData = createAction<UserDataType['id']>(

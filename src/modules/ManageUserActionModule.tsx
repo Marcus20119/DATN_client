@@ -77,7 +77,7 @@ const ManageUserActionModule: React.FC<IManageUserActionModule> = ({
       {currentTab === 'Activated User' && (
         <>
           <EditButton
-            path={`/${role.toLowerCase()}/edit-user/${userData.id}`}
+            path={`/${role.toLowerCase()}/user/edit/${userData.id}`}
           />
           <DeleteButton onClick={() => handleSoftDelete(userData.id)} />
           <DeactivateButton onClick={() => handleDeactivate(userData.id)} />
@@ -86,7 +86,7 @@ const ManageUserActionModule: React.FC<IManageUserActionModule> = ({
       {currentTab === 'Deactivated User' && (
         <>
           <EditButton
-            path={`/${role.toLowerCase()}/edit-user/${userData.id}`}
+            path={`/${role.toLowerCase()}/user/edit/${userData.id}`}
           />
           <DeleteButton onClick={() => handleSoftDelete(userData.id)} />
           <ActivateButton onClick={() => handleActivate(userData.id)} />
@@ -95,7 +95,7 @@ const ManageUserActionModule: React.FC<IManageUserActionModule> = ({
       {currentTab === 'Deleted User' && (
         <>
           <EditButton
-            path={`/${role.toLowerCase()}/edit-user/${userData.id}`}
+            path={`/${role.toLowerCase()}/user/edit/${userData.id}`}
           />
           <DeleteButton onClick={() => handleHardDelete(userData.id)} />
           <RestoreButton onClick={() => handleRestore(userData.id)} />

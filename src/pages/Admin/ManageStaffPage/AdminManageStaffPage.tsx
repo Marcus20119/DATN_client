@@ -87,7 +87,7 @@ const AdminManageStaffPage: React.FC<IAdminManageStaffPage> = () => {
 
   // Thay đổi query
   useNavigateQuery({
-    newPath: `/admin/manage-staff?tab=${tableCurrentTab}&page=${tableCurrentPage}`,
+    newPath: `/admin/staff/manage?tab=${tableCurrentTab}&page=${tableCurrentPage}`,
     rerenderConditions: [tableCurrentPage, tableCurrentTab],
   });
 

@@ -12,7 +12,7 @@ const ItemManageProject: React.FC<IItemManageProject> = () => {
     <Menu.Item>
       {({ active }) => (
         <Link
-          to="/admin/manage-project?tab=Active%20Project&page=1"
+          to="/admin/project/manage?tab=Active%20Project&page=1"
           className={buttonClassName(active)}
           style={{
             backgroundColor: active ? menuColors.fillActive : '',

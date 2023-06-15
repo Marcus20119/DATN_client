@@ -67,7 +67,7 @@ const AddNewUserModule: React.FC<IAddNewUserModule> = ({ role }) => {
         case 'ADMIN': {
           await privateAxios.request({
             method: 'POST',
-            url: '/p/add-new-user',
+            url: '/p/user/add-new',
             data,
           });
           break;
@@ -75,7 +75,7 @@ const AddNewUserModule: React.FC<IAddNewUserModule> = ({ role }) => {
         case 'MANAGER': {
           await privateAxios.request({
             method: 'POST',
-            url: '/p/add-new-user',
+            url: '/p/user/add-new',
             data,
           });
           break;

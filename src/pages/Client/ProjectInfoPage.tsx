@@ -92,8 +92,6 @@ const ProjectInfoPage: React.FC<IProjectInfoPage> = ({ projectId }) => {
       ),
     },
   ];
-  console.log('projectUsersData:', projectUsersData);
-
   return (
     <Container>
       <Section sectionTitle="THÔNG TIN VỀ DỰ ÁN" isLoading={fetchDataLoading}>

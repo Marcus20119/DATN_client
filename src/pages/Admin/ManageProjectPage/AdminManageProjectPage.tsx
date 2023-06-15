@@ -90,7 +90,7 @@ const AdminManageProjectPage: React.FC<IAdminManageProjectPage> = () => {
 
   // Thay đổi query
   useNavigateQuery({
-    newPath: `/admin/manage-project?tab=${tableCurrentTab}&page=${tableCurrentPage}`,
+    newPath: `/admin/project/manage?tab=${tableCurrentTab}&page=${tableCurrentPage}`,
     rerenderConditions: [tableCurrentPage, tableCurrentTab],
   });
 
@@ -100,7 +100,7 @@ const AdminManageProjectPage: React.FC<IAdminManageProjectPage> = () => {
         sectionTitle="QUẢN LÝ DỰ ÁN"
         isLoading={loadingGetProjectsData}
         navigateLabel="Thêm dự án"
-        navigatePath="/admin/add-new-project"
+        navigatePath="/admin/project/add-new"
       >
         <div className="w-full mb-4">
           <div className="flex justify-end items-center w-full mb-4">

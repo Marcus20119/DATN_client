@@ -71,7 +71,7 @@ const AdminAddNewProjectPage: React.FC<IAdminAddNewProjectPage> = ({}) => {
       console.log(' Data:', data);
       await privateAxios.request({
         method: 'POST',
-        url: '/p/add-new-project/',
+        url: '/p/project/add-new/',
         data: {
           ...data,
           staff_count: data?.staff_ids?.length || 0,

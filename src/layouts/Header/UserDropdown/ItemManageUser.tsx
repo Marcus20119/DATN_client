@@ -13,11 +13,11 @@ const ItemManageUser: React.FC<IItemManageUser> = () => {
   let destinationPath: string = '';
   switch (userData.role_id) {
     case 2: {
-      destinationPath = '/manager/manage-user?tab=Activated%20User&page=1';
+      destinationPath = '/manager/user/manage?tab=Activated%20User&page=1';
       break;
     }
     case 3: {
-      destinationPath = '/admin/manage-user?tab=Activated%20User&page=1';
+      destinationPath = '/admin/user/manage?tab=Activated%20User&page=1';
       break;
     }
     default:

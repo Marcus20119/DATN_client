@@ -58,7 +58,6 @@ const UserDropdown: React.FC<IUserDropDown> = () => {
           <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
             <div className="px-1 py-1 ">
               <ItemUserInfo />
-              <ItemInventory />
             </div>
             <div className="px-1 py-1">
               {userData.role_id === 0 && (
@@ -79,8 +78,6 @@ const UserDropdown: React.FC<IUserDropDown> = () => {
                   <ItemMonitor />
                   <ItemControl />
                   <ItemExport />
-                  <ItemManageUser />
-                  <ItemAddNewUser />
                 </>
               )}
               {userData.role_id === 3 && (
@@ -90,6 +87,12 @@ const UserDropdown: React.FC<IUserDropDown> = () => {
                 </>
               )}
             </div>
+            {userData.role_id === 2 && (
+              <div className="px-1 py-1">
+                <ItemManageUser />
+                <ItemAddNewUser />
+              </div>
+            )}
             {userData.role_id === 3 && (
               <div className="px-1 py-1">
                 <ItemManageProject />

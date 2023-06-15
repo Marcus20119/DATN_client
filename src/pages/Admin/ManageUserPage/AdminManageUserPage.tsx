@@ -93,7 +93,7 @@ const AdminManageUserPage: React.FC<IAdminManageUserPage> = () => {
 
   // Thay đổi query
   useNavigateQuery({
-    newPath: `/admin/manage-user?tab=${tableCurrentTab}&page=${tableCurrentPage}`,
+    newPath: `/admin/user/manage?tab=${tableCurrentTab}&page=${tableCurrentPage}`,
     rerenderConditions: [tableCurrentPage, tableCurrentTab],
   });
 
@@ -102,7 +102,7 @@ const AdminManageUserPage: React.FC<IAdminManageUserPage> = () => {
       <Section
         sectionTitle="QUẢN LÝ NGƯỜI DÙNG"
         isLoading={loadingGetUsersData}
-        navigatePath="/admin/add-new-user"
+        navigatePath="/admin/user/add-new"
         navigateLabel="Thêm người dùng"
       >
         <div className="w-full mb-4">

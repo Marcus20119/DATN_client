@@ -13,11 +13,11 @@ const ItemAddNewUser: React.FC<IItemAddNewUser> = () => {
   let destinationPath: string = '';
   switch (userData.role_id) {
     case 2: {
-      destinationPath = '/manager/add-new-user';
+      destinationPath = '/manager/user/add-new';
       break;
     }
     case 3: {
-      destinationPath = '/admin/add-new-user';
+      destinationPath = '/admin/user/add-new';
       break;
     }
     default:

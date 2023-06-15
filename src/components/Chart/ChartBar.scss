@@ -1,0 +1,16 @@
+.chart-bar {
+  div > div > svg {
+    overflow: visible !important;
+  }
+  div > div > svg > g > g:nth-child(2) > text {
+    font-weight: 500;
+  }
+  div > div > svg > g > g:nth-child(3) > g > text {
+    font-weight: 500;
+    font-size: 13px !important;
+  }
+  div > div > svg > g > g:nth-child(n + 4) > text {
+    font-weight: 700;
+    font-size: 13px !important;
+  }
+}

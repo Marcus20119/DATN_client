@@ -84,7 +84,7 @@ const AdminManageProjectTable: React.FC<IAdminManageProjectTable> = ({
                         path={`/client/project-info/${projectData.id}`}
                       />
                       <EditButton
-                        path={`/admin/edit-project/${projectData.id}`}
+                        path={`/admin/project/edit/${projectData.id}`}
                       />
                       <ActivateButton
                         onClick={() => handleFinish(projectData.id)}
@@ -98,7 +98,7 @@ const AdminManageProjectTable: React.FC<IAdminManageProjectTable> = ({
                         path={`/client/project-info/${projectData.id}`}
                       />
                       <EditButton
-                        path={`/admin/edit-project/${projectData.id}`}
+                        path={`/admin/project/edit/${projectData.id}`}
                       />
                       <RestoreButton
                         onClick={() => {

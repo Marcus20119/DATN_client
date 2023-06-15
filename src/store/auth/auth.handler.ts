@@ -40,7 +40,7 @@ export function* handleSignIn(action: {
   type: string;
   payload: {
     data: SignInDataType;
-    onSuccess: () => void;
+    onSuccess: (url: string) => void;
   };
 }) {
   yield put(setAuthState({ state: 'loadingSignIn', value: true }));
@@ -70,7 +70,10 @@ export function* handleSignIn(action: {
         cValue: userData.id,
         exDays: 7,
       });
-      action.payload.onSuccess();
+      console.log('userData:', userData);
+      const url =
+        userData.role_id === 3 ? '/admin/dashboard' : '/client/general';
+      action.payload.onSuccess(url);
     }
   } catch (err: any) {
     console.log(err);

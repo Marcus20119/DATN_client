@@ -42,8 +42,8 @@ const SignInPage: React.FC<ISignInPage> = () => {
     dispatch(
       actionSignIn({
         data,
-        onSuccess: () => {
-          navigateTo('/client/general');
+        onSuccess: (url: string) => {
+          navigateTo(url);
         },
       })
     );

@@ -92,7 +92,7 @@ const ManagerManageUserPage: React.FC<IManagerManageUserPage> = () => {
 
   // Thay đổi query
   useNavigateQuery({
-    newPath: `/manager/manage-user?tab=${tableCurrentTab}&page=${tableCurrentPage}`,
+    newPath: `/manager/user/manage?tab=${tableCurrentTab}&page=${tableCurrentPage}`,
     rerenderConditions: [tableCurrentPage, tableCurrentTab],
   });
 
@@ -101,6 +101,8 @@ const ManagerManageUserPage: React.FC<IManagerManageUserPage> = () => {
       <Section
         sectionTitle="QUẢN LÝ NGƯỜI DÙNG"
         isLoading={loadingGetUsersData}
+        navigateLabel="Thêm người dùng"
+        navigatePath="/manager/user/add-new"
       >
         <div className="w-full mb-4">
           <div className="flex justify-end items-center w-full mb-4">

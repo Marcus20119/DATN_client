@@ -1,0 +1,14 @@
+.chart-line {
+  div > div > svg > g > g:nth-of-type(3) > g > text,
+  div > div > svg > g > g:nth-of-type(4) > g > text,
+  div > div > svg > g > g:nth-of-type(7) > g > text {
+    fill: black !important;
+  }
+
+  div > div > svg > g > g:nth-of-type(4) > text,
+  div > div > svg > g > g:nth-of-type(3) > text {
+    font-size: 12px !important;
+    font-weight: 500;
+    fill: #3b4141 !important;
+  }
+}

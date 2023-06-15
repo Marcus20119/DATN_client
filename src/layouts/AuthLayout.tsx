@@ -11,7 +11,9 @@ const AuthLayout: React.FC<IAuthLayout> = () => {
   const { userData } = useSelector((state: IRootState) => state.auth);
   useEffect(() => {
     if (userData.id) {
-      navigateTo('/client/general');
+      navigateTo(
+        userData.role_id === 3 ? '/admin/dashboard' : '/client/general'
+      );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userData]);

@@ -1,0 +1,16 @@
+.chart-pipe {
+  div > div > svg > g > g:first-child > g > text {
+    font-size: 16px !important;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  div > div > svg > g > g:nth-child(3) > g > text {
+    font-size: 24px !important;
+    font-weight: 700;
+    fill: rgb(255, 255, 255) !important;
+    text-shadow: 0 0 5px #113465;
+  }
+  div > div > svg > g > g:nth-child(4) > g > text {
+    fill: black !important;
+  }
+}

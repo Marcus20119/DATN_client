@@ -9,7 +9,7 @@ const AdminAddNewUserPage: React.FC<IAdminAddNewUserPage> = ({}) => {
   return (
     <Container>
       <Section sectionTitle="THÊM NGƯỜI DÙNG MỚI">
-        <div className="flex flex-col gap-4w-full">
+        <div className="flex flex-col gap-4 w-full">
           <AddNewUserModule role="ADMIN" />
         </div>
       </Section>
