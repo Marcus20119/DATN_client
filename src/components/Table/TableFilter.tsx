@@ -1,6 +1,7 @@
 import { Combobox, Transition } from '@headlessui/react';
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
 import { Fragment, useEffect, useState } from 'react';
+import { useResponsive } from '~/hooks/useResponsive';
 
 type ITableFilter = {
   setOrderField: (state: any) => void;
@@ -65,11 +66,11 @@ const TableFilter: React.FC<ITableFilter> = ({
     setOrderType(selectedType.type);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedType]);
-
+  const { isMobile } = useResponsive();
   return (
     <div className="relative z-20 inline-flex items-center gap-2">
       <span className="text-[#212a39] pr-3 font-bold mt-1">Sắp xếp theo:</span>
-      <div className="w-[180px]">
+      <div className={isMobile ? '' : 'w-[180px]'}>
         <Combobox value={selectedField} onChange={setSelectedField}>
           <div className="relative mt-1">
             <div className="relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-main-blue-80 sm:text-sm">

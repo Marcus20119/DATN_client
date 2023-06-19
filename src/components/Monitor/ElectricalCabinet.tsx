@@ -1,6 +1,9 @@
+import { useResponsive } from '~/hooks/useResponsive';
+
 interface IElectricalCabinet {}
 
 const ElectricalCabinet: React.FC<IElectricalCabinet> = ({}) => {
+  const { isMobile } = useResponsive();
   return (
     <div className="relative flex justify-center items-center w-full h-0 pt-[150%] border-2 border-gray-700 rounded-md">
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[88%] h-0 pt-[138%] border-2 border-gray-700 rounded-sm">
@@ -29,7 +32,11 @@ const ElectricalCabinet: React.FC<IElectricalCabinet> = ({}) => {
               />
             </svg>
           </div>
-          <div className="flex flex-col text-center text-sm -translate-y-2">
+          <div
+            className={`flex flex-col text-center ${
+              isMobile ? 'text-[0.7rem]' : 'text-sm'
+            } -translate-y-2`}
+          >
             <span className="leading-[18px]">HIGH</span>
             <span className="leading-[18px]">VOLTAGE</span>
           </div>

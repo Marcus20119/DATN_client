@@ -8,7 +8,7 @@ const AdminAddNewUserPage: React.FC<IAdminAddNewUserPage> = ({}) => {
   useScrollOnTop();
   return (
     <Container>
-      <Section sectionTitle="THÊM NGƯỜI DÙNG MỚI">
+      <Section sectionTitle="THÊM NGƯỜI DÙNG MỚI" protectedMobile>
         <div className="flex flex-col gap-4 w-full">
           <AddNewUserModule role="ADMIN" />
         </div>

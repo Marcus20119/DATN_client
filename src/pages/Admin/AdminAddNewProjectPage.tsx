@@ -6,7 +6,7 @@ import { Container, Section } from '~/components/Common';
 import { Input, Radio } from '~/components/Form';
 import { Checkbox } from '~/components/Form/Checkbox';
 import { useScrollOnTop } from '~/hooks';
-import { BaseModule, EditHeadingModule } from '~/modules';
+import { BaseModule } from '~/modules';
 import { StaffDataType } from '~/store/rootType';
 import { useForm } from 'react-hook-form';
 import { MyToast } from '~/utils';
@@ -97,7 +97,11 @@ const AdminAddNewProjectPage: React.FC<IAdminAddNewProjectPage> = ({}) => {
   ];
   return (
     <Container>
-      <Section sectionTitle="THÊM DỰ ÁN MỚI" isLoading={fetchDataLoading}>
+      <Section
+        sectionTitle="THÊM DỰ ÁN MỚI"
+        isLoading={fetchDataLoading}
+        protectedMobile
+      >
         <div className="flex flex-col gap-8 w-full">
           <BaseModule
             handleSubmit={handleSubmitProject}

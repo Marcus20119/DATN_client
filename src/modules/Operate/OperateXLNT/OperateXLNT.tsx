@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { onValue, ref, set, update } from 'firebase/database';
+import { onValue, ref, update } from 'firebase/database';
 import { useEffect, useState } from 'react';
 
 import { ButtonPrimary } from '~/components/Button';
@@ -13,9 +13,9 @@ import TimeChartPump from './TimeChartPump';
 import TimeChartFan from './TimeChartFan';
 import { XLNTDataType } from '~/types';
 import { realTimeDb } from '~/firebase/firebase-config';
-import { delay } from '~/utils';
 import DisconnectionScreen from '~/components/PLC/DisconnectionScreen';
 import { useLoadingDelay } from '~/hooks';
+import { useResponsive } from '~/hooks/useResponsive';
 
 interface IOperateXLNT {}
 
@@ -134,17 +134,22 @@ const OperateXLNT: React.FC<IOperateXLNT> = ({}) => {
     }
   };
 
+  const { isMobile } = useResponsive();
   return (
     <>
       <Section sectionTitle="MÀN HÌNH ĐIỀU KHIỂN" isLoading={isLoading}>
         {!isLoading && (
           <div className="relative overflow-hidden w-full bg-main-blue/5 mt-2 p-5 border-2 border-main-blue-80/80 rounded-md">
             <div className="flex flex-col gap-16 w-full h-full">
-              <div className="flex-1 relative flex gap-12 w-full">
-                <div className="relative w-1/2 h-[100%]">
+              <div
+                className={`flex-1 relative grid gap-12 w-full ${
+                  isMobile ? 'grid-cols-1' : 'grid-cols-2'
+                }`}
+              >
+                <div className="relative h-[100%]">
                   <TimeChartPump />
                 </div>
-                <div className="relative w-1/2 h-[100%]">
+                <div className="relative h-[100%]">
                   <TimeChartFan />
                 </div>
               </div>
@@ -152,7 +157,9 @@ const OperateXLNT: React.FC<IOperateXLNT> = ({}) => {
                 <TableBase type="PLC">
                   <thead>
                     <tr>
-                      <th className="w-[320px]">THIẾT BỊ</th>
+                      <th className={isMobile ? 'w-[90px]' : 'w-[320px]'}>
+                        THIẾT BỊ
+                      </th>
                       <th className="">CÀI ĐẶT THÔNG SỐ</th>
                     </tr>
                   </thead>
@@ -166,7 +173,11 @@ const OperateXLNT: React.FC<IOperateXLNT> = ({}) => {
                           // autoComplete="off"
                           noValidate
                         >
-                          <div className="grid grid-cols-3 gap-3 w-full">
+                          <div
+                            className={`grid ${
+                              isMobile ? 'grid-cols-1' : 'grid-cols-3'
+                            } gap-3 w-full`}
+                          >
                             <InputPLC
                               control={controlPump}
                               label="Thời gian chạy (T1)"
@@ -204,7 +215,11 @@ const OperateXLNT: React.FC<IOperateXLNT> = ({}) => {
                           // autoComplete="off"
                           noValidate
                         >
-                          <div className="grid grid-cols-3 gap-3 w-full">
+                          <div
+                            className={`grid ${
+                              isMobile ? 'grid-cols-1' : 'grid-cols-3'
+                            } gap-3 w-full`}
+                          >
                             <InputPLC
                               control={controlFan}
                               label="Thời gian chạy (T3)"

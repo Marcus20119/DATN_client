@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Outlet, useNavigate } from 'react-router-dom';
 import RootModal from '~/components/Modal/RootModal';
+import { useResponsive } from '~/hooks/useResponsive';
 import { signOut } from '~/store/auth/auth.slice';
 import { IRootState } from '~/store/rootReducer';
 import Footer from './Footer';
@@ -21,13 +22,17 @@ const MainLayout: React.FC<IMainLayout> = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userData]);
+
+  const { isMobile } = useResponsive();
   return (
     <>
       {!!userData.id && !userData.is_deleted && (
         <div className="w-full">
           <Header />
           <div
-            className={`min-h-screen ${isReachScrolling ? 'pt-[100px]' : ''}`}
+            className={`min-h-screen ${
+              isMobile ? 'pt-[50px]' : isReachScrolling ? 'pt-[100px]' : ''
+            }`}
           >
             <Outlet />
           </div>

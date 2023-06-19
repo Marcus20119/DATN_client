@@ -2,10 +2,12 @@ import { Menu, Transition } from '@headlessui/react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { Fragment } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useResponsive } from '~/hooks';
 
 import { setBaseState } from '~/store/base/base.slice';
 import { IRootState } from '~/store/rootReducer';
 import ItemControl from './ItemControl';
+import ItemDashboard from './ItemDashboard';
 import ItemExport from './ItemExport';
 import ItemInventory from './ItemInventory';
 import ItemAddNewUser from './ItemManageAddNewUser';
@@ -23,7 +25,7 @@ const UserDropdown: React.FC<IUserDropDown> = () => {
   const { userData } = useSelector((state: IRootState) => state.auth);
   // Vì khi chuyển route thì menu bị glitch nên phải làm như thế này
   const { showMenu } = useSelector((state: IRootState) => state.base);
-
+  const { isMobile } = useResponsive();
   return (
     <Menu as="div" className="z-[100] relative inline-block text-left h-full">
       <div className="h-full">
@@ -62,38 +64,47 @@ const UserDropdown: React.FC<IUserDropDown> = () => {
             <div className="px-1 py-1">
               {userData.role_id === 0 && (
                 <>
+                  {isMobile && <ItemInventory />}
                   <ItemMonitor />
-                  <ItemExport />
+                  {!isMobile && <ItemExport />}
                 </>
               )}
               {userData.role_id === 1 && (
                 <>
+                  {isMobile && <ItemInventory />}
                   <ItemMonitor />
                   <ItemControl />
-                  <ItemExport />
+                  {!isMobile && <ItemExport />}
                 </>
               )}
               {userData.role_id === 2 && (
                 <>
+                  {isMobile && <ItemInventory />}
                   <ItemMonitor />
                   <ItemControl />
-                  <ItemExport />
+                  {!isMobile && <ItemExport />}
                 </>
               )}
               {userData.role_id === 3 && (
                 <>
-                  <ItemManageUser />
-                  <ItemAddNewUser />
+                  {isMobile ? (
+                    <ItemDashboard />
+                  ) : (
+                    <>
+                      <ItemManageUser />
+                      <ItemAddNewUser />
+                    </>
+                  )}
                 </>
               )}
             </div>
-            {userData.role_id === 2 && (
+            {userData.role_id === 2 && !isMobile && (
               <div className="px-1 py-1">
                 <ItemManageUser />
                 <ItemAddNewUser />
               </div>
             )}
-            {userData.role_id === 3 && (
+            {userData.role_id === 3 && !isMobile && (
               <div className="px-1 py-1">
                 <ItemManageProject />
                 <ItemManageStaff />

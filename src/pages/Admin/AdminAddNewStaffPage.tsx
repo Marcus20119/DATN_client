@@ -58,7 +58,7 @@ const AdminAddNewStaffPage: React.FC<IAdminAddNewStaffPage> = ({}) => {
 
   return (
     <Container>
-      <Section sectionTitle="THÊM NHÂN VIÊN MỚI">
+      <Section sectionTitle="THÊM NHÂN VIÊN MỚI" protectedMobile>
         <div className="flex flex-col gap-4 w-full">
           <BaseModule
             handleSubmit={handleSubmitAddNewStaff}

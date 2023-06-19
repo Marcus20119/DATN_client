@@ -104,6 +104,7 @@ const AdminManageUserPage: React.FC<IAdminManageUserPage> = () => {
         isLoading={loadingGetUsersData}
         navigatePath="/admin/user/add-new"
         navigateLabel="Thêm người dùng"
+        protectedMobile
       >
         <div className="w-full mb-4">
           <div className="flex justify-end items-center w-full mb-4">

@@ -18,23 +18,6 @@ import { SearchParams } from '~/types';
 
 interface IExportXLNT {}
 
-const allErrorData = [
-  {
-    id: 2,
-    project_id: 1,
-    error_message: 'Quạt hút mùi quá tải',
-    created_at: '2023-04-17T09:51:31.000Z',
-    updated_at: '2023-05-17T09:54:22.381Z',
-  },
-  {
-    id: 1,
-    project_id: 1,
-    error_message: 'Bơm 1 quá tải',
-    created_at: '2023-05-17T09:51:08.330Z',
-    updated_at: '2023-05-17T09:51:08.330Z',
-  },
-];
-
 const fieldsList: {
   id: number;
   name: string;
@@ -114,6 +97,7 @@ const ExportXLNT: React.FC<IExportXLNT> = ({}) => {
       setAllErrorData(neededData);
       setExportLoading(false);
     })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const exportToExcel = () => {
     const workbook = XLSX.utils.book_new();
@@ -199,6 +183,7 @@ const ExportXLNT: React.FC<IExportXLNT> = ({}) => {
     <Section
       sectionTitle="DỮ LIỆU LỖI"
       isLoading={loadingGetErrorsData && exportLoading}
+      protectedMobile
     >
       <div className="w-full mb-4">
         <div className="flex justify-between items-center w-full mb-4">

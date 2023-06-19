@@ -1,5 +1,6 @@
 import { Menu } from '@headlessui/react';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { setBaseState } from '~/store/base/base.slice';
 import { buttonClassName, menuColors } from './common';
 
@@ -10,7 +11,8 @@ const ItemInventory: React.FC<IItemInventory> = () => {
   return (
     <Menu.Item>
       {({ active }) => (
-        <button
+        <Link
+          to="/client/general"
           className={buttonClassName(active)}
           style={{
             backgroundColor: active ? menuColors.fillActive : '',
@@ -20,8 +22,8 @@ const ItemInventory: React.FC<IItemInventory> = () => {
           }
         >
           <FolderIcon active={active} />
-          Kho tài liệu
-        </button>
+          Thông tin dự án
+        </Link>
       )}
     </Menu.Item>
   );

@@ -10,6 +10,7 @@ import {
 } from '~/components/Chart';
 import { Container, Section } from '~/components/Common';
 import { useScrollOnTop } from '~/hooks';
+import { useResponsive } from '~/hooks/useResponsive';
 
 interface IAdminDashboardPage {}
 
@@ -46,23 +47,31 @@ const AdminDashboardPage: React.FC<IAdminDashboardPage> = ({}) => {
       }
     })();
   }, []);
+  const { isMobile } = useResponsive();
   return (
     <Container>
       <Section sectionTitle="DASHBOARD" isLoading={isLoading}>
         {!isLoading && (
           <div className="flex flex-col gap-4 w-full">
-            <div className="grid grid-cols-2 w-full gap-y-16 my-10">
+            <div
+              className={`grid ${
+                isMobile ? 'grid-cols-1' : 'grid-cols-2'
+              } w-full gap-y-16 my-10`}
+            >
               <ChartPipe
                 data={pipeChartData}
                 title="SỐ LƯỢNG NGƯỜI DÙNG CỦA CÁC DỰ ÁN"
+                height={isMobile ? 300 : undefined}
               />
               <ChartLine
                 data={lineChartData}
                 title="SỐ LƯỢT TRUY CẬP VÀO CÁC DỰ ÁN"
+                height={isMobile ? 300 : undefined}
               />
               <ChartBar
                 data={barChartData}
                 title="SỐ LƯỢNG DỰ ÁN CỦA CÁC NHÂN VIÊN"
+                height={isMobile ? 300 : undefined}
               />
             </div>
           </div>

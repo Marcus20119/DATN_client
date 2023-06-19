@@ -1,4 +1,5 @@
 import { Container } from '~/components/Common';
+import { useResponsive } from '~/hooks/useResponsive';
 
 interface IFooter {}
 
@@ -29,16 +30,23 @@ const Footer: React.FC<IFooter> = ({}) => {
       link: 'https://nhattriautomation.vn/',
     },
   ];
+  const { isMobile } = useResponsive();
   return (
     <div className="border-t-2 border-t-black bg-[#25364D] mt-20">
       <Container>
         <div className="flex flex-col gap-6 w-full pt-10 pb-4">
-          <div className="flex justify-between gap-4 w-full">
-            <div className="flex flex-col gap-2 w-[500px]">
+          <div
+            className={`${
+              isMobile ? 'flex flex-col' : 'flex'
+            } justify-between gap-4 w-full`}
+          >
+            <div
+              className={`flex flex-col gap-2 ${isMobile ? '' : 'w-[500px]'}`}
+            >
               <span className="text-[#ec7e08] text-xl font-mono font-bold tracking-wide">
                 NHẬT TRI AUTOMATION
               </span>
-              <p className="text-sm text-main-white">
+              <p className="block text-sm text-main-white">
                 Là doanh nghiệp hoạt động trong lĩnh vực dịch vụ tự động hóa cho
                 các hệ thống công nghiệp, nhà máy sản xuất. Cung cấp cho khách
                 hàng các giải pháp cộng nghệ nâng cao hiệu quả và chất lượng sản

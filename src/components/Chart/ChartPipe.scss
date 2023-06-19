@@ -1,8 +1,19 @@
+@mixin responsive($device) {
+  @if ($device == 'mobile') {
+    @media only screen and (max-width: 47.9375em) {
+      @content;
+    }
+  }
+}
 .chart-pipe {
   div > div > svg > g > g:first-child > g > text {
     font-size: 16px !important;
     font-weight: 700;
     letter-spacing: 1px;
+
+    @include responsive('mobile') {
+      font-size: 14px !important;
+    }
   }
   div > div > svg > g > g:nth-child(3) > g > text {
     font-size: 24px !important;

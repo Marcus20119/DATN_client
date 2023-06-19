@@ -4,7 +4,7 @@ import { privateAxios } from '~/axiosConfig';
 import { Container, Section } from '~/components/Common';
 import { TableBase } from '~/components/Table';
 import { ReadData } from '~/helpers';
-import { useScrollOnTop } from '~/hooks';
+import { useResponsive, useScrollOnTop } from '~/hooks';
 import { initialStaffData, StaffDataType } from '~/store/rootType';
 
 interface IStaffInfoPage {}
@@ -48,12 +48,21 @@ const StaffInfoPage: React.FC<IStaffInfoPage> = ({}) => {
     { name: 'Điện thoại', value: thisStaffData.phone_number },
   ];
 
+  const { isMobile } = useResponsive();
   return (
     <Container>
       <Section sectionTitle="THÔNG TIN NHÂN VIÊN" isLoading={fetchDataLoading}>
         {!!thisStaffData.id && (
-          <div className="flex w-full mt-5">
-            <div className="flex flex-col items-center gap-2 w-[250px] border-r border-r-main-blue/50 pr-3">
+          <div
+            className={`flex w-full mt-5 ${
+              isMobile ? 'flex-col items-center gap-4' : ''
+            }`}
+          >
+            <div
+              className={`flex flex-col items-center gap-2 w-[250px] ${
+                isMobile ? '' : 'border-r border-r-main-blue/50 pr-3'
+              }`}
+            >
               <img
                 src={ReadData.avatar({
                   bucket: 'staff_avatar',
@@ -66,7 +75,7 @@ const StaffInfoPage: React.FC<IStaffInfoPage> = ({}) => {
                 {thisStaffData.full_name}
               </span>
             </div>
-            <div className="flex-1 flex pl-3">
+            <div className={`flex-1 flex ${isMobile ? '' : 'pl-3'}`}>
               <TableBase type="info">
                 <tbody>
                   {staffFields.map(field => (

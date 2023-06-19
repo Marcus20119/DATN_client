@@ -12,7 +12,7 @@ const ItemControl: React.FC<IItemControl> = () => {
     <Menu.Item>
       {({ active }) => (
         <Link
-          to="/client/monitor"
+          to="/client/operate"
           className={buttonClassName(active)}
           style={{
             backgroundColor: active ? menuColors.fillActive : '',

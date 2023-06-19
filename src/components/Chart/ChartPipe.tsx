@@ -1,4 +1,5 @@
 import { ResponsivePie } from '@nivo/pie';
+import { useResponsive } from '~/hooks/useResponsive';
 import './ChartPipe.scss';
 
 export type ChartPipeDataType = {
@@ -28,6 +29,7 @@ const ChartPipe: React.FC<IChartPipe> = ({ data, title, height = 400 }) => {
       id: item.label,
     };
   });
+  const { isMobile } = useResponsive();
 
   return (
     <div className="flex flex-col items-center w-full">
@@ -51,11 +53,12 @@ const ChartPipe: React.FC<IChartPipe> = ({ data, title, height = 400 }) => {
             from: 'color',
             modifiers: [['darker', 0.2]],
           }}
+          arcLinkLabelsDiagonalLength={isMobile ? 10 : 16}
+          arcLinkLabelsStraightLength={isMobile ? 10 : 30}
           arcLinkLabelsSkipAngle={10}
           arcLinkLabelsTextColor="#3B5880"
           arcLinkLabelsTextOffset={10}
           arcLinkLabelsThickness={2}
-          arcLinkLabelsStraightLength={30}
           arcLinkLabelsColor={{ from: 'color', modifiers: [] }}
           arcLabelsSkipAngle={10}
           arcLabelsTextColor={{

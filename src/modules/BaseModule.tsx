@@ -3,6 +3,7 @@ import { ButtonPrimary } from '~/components/Button';
 import { Error } from '~/components/Form';
 import { Heading } from '~/components/Heading';
 import { onErrorsHandler } from '~/helpers';
+import { useResponsive } from '~/hooks';
 
 interface IBaseModule {
   children: React.ReactNode;
@@ -25,6 +26,7 @@ const BaseModule: React.FC<IBaseModule> = ({
   title,
   buttonSubmitLabel = 'Cập nhật',
 }) => {
+  const { isMobile } = useResponsive();
   return (
     <form
       onSubmit={handleSubmit(onSubmitHandler, () => onErrorsHandler(errors))}
@@ -42,13 +44,23 @@ const BaseModule: React.FC<IBaseModule> = ({
         />
         <Error errorMessage={errorSubmit} className="mb-1" />
       </div>
-      <div className="flex justify-between w-full">
-        <div className="flex flex-col gap-4 w-[65%]">{children}</div>
+      <div
+        className={`flex justify-between w-full ${isMobile ? 'flex-col' : ''}`}
+      >
+        <div
+          className={`flex flex-col gap-4 ${
+            isMobile ? 'w-full mb-4' : 'w-[65%]'
+          }`}
+        >
+          {children}
+        </div>
         <div className="min-w-[180px]">
           <ButtonPrimary
             type="submit"
             isSubmitting={isSubmitting}
-            additionalClass="!bg-main-blue !text-white !w-[195px]"
+            additionalClass={`!bg-main-blue !text-white ${
+              isMobile ? 'mb-8' : '!w-[195px]'
+            }`}
           >
             {buttonSubmitLabel}
           </ButtonPrimary>

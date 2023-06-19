@@ -97,7 +97,11 @@ const AdminEditStaffPage: React.FC<IAdminEditStaffPage> = ({}) => {
 
   return (
     <Container>
-      <Section sectionTitle="CHỈNH SỬA NHÂN VIÊN" isLoading={fetchDataLoading}>
+      <Section
+        sectionTitle="CHỈNH SỬA NHÂN VIÊN"
+        isLoading={fetchDataLoading}
+        protectedMobile
+      >
         <div className="flex flex-col gap-4 w-full">
           <BaseModule
             handleSubmit={handleSubmitAddNewStaff}

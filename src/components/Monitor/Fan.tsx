@@ -1,3 +1,5 @@
+import { useResponsive } from '~/hooks/useResponsive';
+
 interface IFan {
   isActive: boolean;
   isError: boolean;
@@ -21,12 +23,14 @@ const Fan: React.FC<IFan> = ({ isActive, isError }) => {
       ? 'border-green-700 bg-plc-active/40'
       : 'border-gray-500 bg-plc-inactive/20'
   }`;
-
+  const { isMobile } = useResponsive();
   return (
     <div className="relative w-full h-0 pt-[100%]">
       {/* CELL PART */}
       <div
-        className={`z-[5] absolute inset-0 border-[3px] rounded-full ${classBorder}`}
+        className={`z-[5] absolute inset-0 ${
+          isMobile ? 'border-2' : 'border-[3px]'
+        } rounded-full ${classBorder}`}
       >
         {Array(4)
           .fill(null)

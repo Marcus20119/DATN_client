@@ -1,3 +1,10 @@
+@mixin responsive($device) {
+  @if ($device == 'mobile') {
+    @media only screen and (max-width: 47.9375em) {
+      @content;
+    }
+  }
+}
 .table-manage {
   border-collapse: collapse;
   width: 100%;
@@ -47,6 +54,10 @@
     text-align: right;
     font-weight: 700;
     width: 365px;
+
+    @include responsive('mobile') {
+      width: 150px;
+    }
   }
   td:last-child {
     text-align: left;
@@ -118,8 +129,12 @@
     border-right: 3px solid #39455a;
     background-color: #11346544;
     padding: 12px 10px;
-    width: 200px;
     text-align: center;
+    width: 200px;
+
+    @include responsive('mobile') {
+      width: 120px;
+    }
   }
 
   tbody > tr > td:last-child {

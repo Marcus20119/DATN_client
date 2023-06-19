@@ -98,6 +98,7 @@ const AdminManageStaffPage: React.FC<IAdminManageStaffPage> = () => {
         isLoading={loadingGetStaffsData}
         navigateLabel="Thêm nhân viên"
         navigatePath="/admin/add-new-staff"
+        protectedMobile
       >
         <div className="w-full mb-4">
           <div className="flex justify-end items-center w-full mb-4">

@@ -1,3 +1,5 @@
+import { useResponsive } from '~/hooks/useResponsive';
+
 interface IPump {
   isActive: boolean;
   isError: boolean;
@@ -20,12 +22,17 @@ const Pump: React.FC<IPump> = ({
       ? 'border-green-700 bg-plc-active'
       : 'border-gray-500 bg-plc-inactive/50'
   }`;
+  const { isMobile } = useResponsive();
   return (
     <div className="relative flex flex-col items-center w-full">
       <div
         className={`relative w-[25%] h-[0] pt-[5%] border-x-2 border-t-2 rounded-t-sm ${appearance}`}
       >
-        <strong className="absolute bottom-[200%] left-1/2 -translate-x-1/2 text-gray-700 whitespace-nowrap tracking-wide">
+        <strong
+          className={`absolute bottom-[200%] left-1/2 -translate-x-1/2 text-gray-700 whitespace-nowrap tracking-wide ${
+            isMobile ? 'text-xs' : ''
+          }`}
+        >
           {name}
         </strong>
       </div>

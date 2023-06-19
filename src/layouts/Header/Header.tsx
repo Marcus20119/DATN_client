@@ -1,7 +1,9 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { Container } from '~/components/Common';
 import { ReadData } from '~/helpers';
+import { useResponsive } from '~/hooks/useResponsive';
 import { setBaseState } from '~/store/base/base.slice';
 import { IRootState } from '~/store/rootReducer';
 import HeaderNav from './HeaderNav';
@@ -29,30 +31,35 @@ const Header: React.FC<IHeader> = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const { isMobile } = useResponsive();
+
   return (
     <div className="z-[200] relative cursor-default w-full ">
       <div
         className={`bg-[#1a273a] ${
-          !isReachScrolling
-            ? 'w-full h-[28px]'
-            : 'fixed left-0 right-0 top-0 h-[40px]'
+          isMobile
+            ? 'fixed left-0 top-0 w-screen h-[50px]'
+            : isReachScrolling
+            ? 'fixed left-0 top-0 w-screen h-[40px]'
+            : 'w-full h-[28px]'
         }`}
         style={{
-          animation: isReachScrolling
-            ? 'fade-in 0.5s cubic-bezier(0, 0, 0.2, 1) forwards'
-            : '',
+          animation:
+            isReachScrolling || isMobile
+              ? 'fade-in 0.5s cubic-bezier(0, 0, 0.2, 1) forwards'
+              : '',
         }}
       >
         <Container className="justify-between h-full">
-          <div className="h-[24px]">
-            {isReachScrolling && (
+          <Link to="/" className="h-[24px]">
+            {(isReachScrolling || isMobile) && (
               <img
                 src="/imgs/logo-full.png"
                 alt=""
                 className="h-full object-contain object-center"
               />
             )}
-          </div>
+          </Link>
           <div className="inline-flex items-center gap-4 h-full">
             <span className="text-main-white text-[0.72rem] font-semibold opacity-80 tracking-wide mt-[1px]">
               {ReadData.roleId(userData.role_id)}
@@ -66,7 +73,7 @@ const Header: React.FC<IHeader> = () => {
           </div>
         </Container>
       </div>
-      {!isReachScrolling && <HeaderNav />}
+      {!isReachScrolling && !isMobile && <HeaderNav />}
     </div>
   );
 };

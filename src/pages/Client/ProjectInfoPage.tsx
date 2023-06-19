@@ -6,6 +6,7 @@ import { Heading } from '~/components/Heading';
 import { TableBase } from '~/components/Table';
 import { ReadData } from '~/helpers';
 import { useScrollOnTop } from '~/hooks';
+import { useResponsive } from '~/hooks/useResponsive';
 import { initialProjectData, ProjectDataType } from '~/store/rootType';
 
 type IProjectInfoPage = {
@@ -92,6 +93,7 @@ const ProjectInfoPage: React.FC<IProjectInfoPage> = ({ projectId }) => {
       ),
     },
   ];
+  const { isMobile } = useResponsive();
   return (
     <Container>
       <Section sectionTitle="THÔNG TIN VỀ DỰ ÁN" isLoading={fetchDataLoading}>
@@ -160,7 +162,9 @@ const ProjectInfoPage: React.FC<IProjectInfoPage> = ({ projectId }) => {
                                       to={staff.link}
                                       className="text-main-blue !underline !underline-offset-2 opacity-100 hover:opacity-80"
                                     >
-                                      {staff.placeholder}
+                                      {isMobile
+                                        ? staff.placeholder.split(' ').pop()
+                                        : staff.placeholder}
                                     </Link>
                                   </>
                                 )}

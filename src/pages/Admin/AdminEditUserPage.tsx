@@ -39,7 +39,11 @@ const AdminEditUserPage: React.FC<IAdminEditUserPage> = ({}) => {
 
   return (
     <Container>
-      <Section sectionTitle="CHỈNH SỬA NGƯỜI DÙNG" isLoading={fetchDataLoading}>
+      <Section
+        sectionTitle="CHỈNH SỬA NGƯỜI DÙNG"
+        isLoading={fetchDataLoading}
+        protectedMobile
+      >
         <div className="flex flex-col py-4 w-full">
           <EditHeadingModule data={thisUserData} />
 

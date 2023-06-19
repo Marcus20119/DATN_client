@@ -103,6 +103,7 @@ const ManagerManageUserPage: React.FC<IManagerManageUserPage> = () => {
         isLoading={loadingGetUsersData}
         navigateLabel="Thêm người dùng"
         navigatePath="/manager/user/add-new"
+        protectedMobile
       >
         <div className="w-full mb-4">
           <div className="flex justify-end items-center w-full mb-4">
@@ -112,7 +113,7 @@ const ManagerManageUserPage: React.FC<IManagerManageUserPage> = () => {
               fieldsList={fieldsList}
             />
           </div>
-          <div className="relative w-full z-10">
+          <div className={`relative w-full z-10 mt-20`}>
             <TableTab
               tableTabs={tableTabs}
               tableCurrentTab={tableCurrentTab}

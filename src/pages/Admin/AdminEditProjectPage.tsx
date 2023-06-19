@@ -154,7 +154,11 @@ const AdminEditProjectPage: React.FC<IAdminEditProjectPage> = ({}) => {
 
   return (
     <Container>
-      <Section sectionTitle="CHỈNH SỬA DỰ ÁN" isLoading={fetchDataLoading}>
+      <Section
+        sectionTitle="CHỈNH SỬA DỰ ÁN"
+        isLoading={fetchDataLoading}
+        protectedMobile
+      >
         {!fetchDataLoading && !isLoading && (
           <div className="flex flex-col gap-8 w-full">
             <EditHeadingModule data={thisProjectData} />

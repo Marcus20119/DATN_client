@@ -8,9 +8,7 @@ interface IExportPage {}
 
 const ExportPage: React.FC<IExportPage> = ({}) => {
   useScrollOnTop();
-  const { userData, loadingGetThisUserData } = useSelector(
-    (state: IRootState) => state.auth
-  );
+  const { userData } = useSelector((state: IRootState) => state.auth);
   return (
     <Container>{userData.project_key === 'XLNT' && <ExportXLNT />}</Container>
   );
