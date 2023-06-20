@@ -113,7 +113,7 @@ const ManagerManageUserPage: React.FC<IManagerManageUserPage> = () => {
               fieldsList={fieldsList}
             />
           </div>
-          <div className={`relative w-full z-10 mt-20`}>
+          <div className={`relative w-full z-10`}>
             <TableTab
               tableTabs={tableTabs}
               tableCurrentTab={tableCurrentTab}
