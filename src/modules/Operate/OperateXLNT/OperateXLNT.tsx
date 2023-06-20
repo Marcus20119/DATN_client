@@ -143,7 +143,7 @@ const OperateXLNT: React.FC<IOperateXLNT> = ({}) => {
             <div className="flex flex-col gap-16 w-full h-full">
               <div
                 className={`flex-1 relative grid  w-full ${
-                  isMobile ? 'grid-cols-1 gap-12' : 'grid-cols-2 gap-4'
+                  isMobile ? 'grid-cols-1 gap-4' : 'grid-cols-2 gap-12'
                 }`}
               >
                 <div className="relative h-[100%]">
