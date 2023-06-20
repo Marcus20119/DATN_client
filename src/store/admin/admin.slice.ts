@@ -17,6 +17,7 @@ type AdminStateTypeBase<K extends keyof InitialStateType> = {
   state: K;
   value: InitialStateType[K];
 };
+
 type AdminStateType = {
   [K in keyof InitialStateType]: AdminStateTypeBase<K>;
 }[keyof InitialStateType];
