@@ -68,11 +68,22 @@ const AdminDashboardPage: React.FC<IAdminDashboardPage> = ({}) => {
                 title="SỐ LƯỢT TRUY CẬP VÀO CÁC DỰ ÁN"
                 height={isMobile ? 300 : undefined}
               />
-              <ChartBar
-                data={barChartData}
-                title="SỐ LƯỢNG DỰ ÁN CỦA CÁC NHÂN VIÊN"
-                height={isMobile ? 300 : undefined}
-              />
+              {!isMobile && (
+                <div className="col-span-2 ml-12 -mr-10">
+                  <ChartBar
+                    data={barChartData}
+                    title="SỐ LƯỢNG DỰ ÁN CỦA CÁC NHÂN VIÊN"
+                    height={isMobile ? 300 : undefined}
+                  />
+                </div>
+              )}
+              {isMobile && (
+                <ChartBar
+                  data={barChartData}
+                  title="SỐ LƯỢNG DỰ ÁN CỦA CÁC NHÂN VIÊN"
+                  height={isMobile ? 300 : undefined}
+                />
+              )}
             </div>
           </div>
         )}

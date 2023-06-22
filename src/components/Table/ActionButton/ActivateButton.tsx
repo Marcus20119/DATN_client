@@ -2,15 +2,15 @@ import { actionButtonClassName } from './common';
 
 type IActivateButton = {
   onClick?: () => void;
+  title?: string;
 };
 
-const ActivateButton: React.FC<IActivateButton> = ({ onClick = () => {} }) => {
+const ActivateButton: React.FC<IActivateButton> = ({
+  onClick = () => {},
+  title = 'Activate',
+}) => {
   return (
-    <button
-      title="Activate"
-      className={actionButtonClassName}
-      onClick={onClick}
-    >
+    <button title={title} className={actionButtonClassName} onClick={onClick}>
       <ActivateIcon />
     </button>
   );

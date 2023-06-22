@@ -33,10 +33,10 @@ const Section: React.FC<ISection> = ({
               : 'text-[32px]'
           } !w-fit`}
         />
-        {isLoading && !protectedMobile && (
+        {isLoading && (!protectedMobile || !isMobile) && (
           <LoadingCircle className="mt-1" color="circle-black" />
         )}
-        {navigatePath && !protectedMobile && (
+        {navigatePath && (!protectedMobile || !isMobile) && (
           <Link
             to={navigatePath}
             className="ml-auto italic text-main-blue-80 !underline !underline-offset-2 opacity-100 hover:opacity-80"

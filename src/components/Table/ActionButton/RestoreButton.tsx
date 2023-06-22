@@ -2,15 +2,15 @@ import { actionButtonClassName } from './common';
 
 type IRestoreButton = {
   onClick?: () => void;
+  title?: string;
 };
 
-const RestoreButton: React.FC<IRestoreButton> = ({ onClick = () => {} }) => {
+const RestoreButton: React.FC<IRestoreButton> = ({
+  onClick = () => {},
+  title = 'Khôi phục',
+}) => {
   return (
-    <button
-      title="Khôi phục"
-      className={actionButtonClassName}
-      onClick={onClick}
-    >
+    <button title={title} className={actionButtonClassName} onClick={onClick}>
       <RestoreIcon />
     </button>
   );

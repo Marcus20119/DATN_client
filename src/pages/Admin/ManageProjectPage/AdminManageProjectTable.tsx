@@ -88,6 +88,7 @@ const AdminManageProjectTable: React.FC<IAdminManageProjectTable> = ({
                       />
                       <ActivateButton
                         onClick={() => handleFinish(projectData.id)}
+                        title="Hoàn thành"
                       />
                     </>
                   )}
@@ -104,6 +105,7 @@ const AdminManageProjectTable: React.FC<IAdminManageProjectTable> = ({
                         onClick={() => {
                           handleUnFinish(projectData.id);
                         }}
+                        title="Chưa hoàn thành"
                       />
                     </>
                   )}
