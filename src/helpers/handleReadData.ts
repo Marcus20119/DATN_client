@@ -46,7 +46,7 @@ class ReadDataClass {
   roleId(role_id: number) {
     switch (role_id) {
       case 0:
-        return 'Basic Client';
+        return 'Visitor';
       case 1:
         return 'Operator';
       case 2:

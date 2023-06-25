@@ -63,6 +63,7 @@ export function* handleAdminGetAllDataFromStaff(action: {
       action.payload
     );
     if (data) {
+      console.log('data:', data);
       const staffsData: StaffDataType[] = data.data;
       const tableTotalPage: number = data.totalPages;
       yield put(setAdminState({ state: 'staffsData', value: staffsData }));

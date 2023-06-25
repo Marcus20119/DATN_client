@@ -10,7 +10,7 @@ const ProtectedAdmin: React.FC<IProtectedAdmin> = ({}) => {
   const navigateTo = useNavigate();
   useEffect(() => {
     if (userData.role_id !== 3) {
-      navigateTo('/admin/dashboard');
+      navigateTo('/client/general');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userData]);

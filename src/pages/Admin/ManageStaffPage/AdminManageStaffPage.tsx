@@ -97,7 +97,7 @@ const AdminManageStaffPage: React.FC<IAdminManageStaffPage> = () => {
         sectionTitle="QUẢN LÝ NHÂN VIÊN"
         isLoading={loadingGetStaffsData}
         navigateLabel="Thêm nhân viên"
-        navigatePath="/admin/add-new-staff"
+        navigatePath="/admin/staff/add-new"
         protectedMobile
       >
         <div className="w-full mb-4">

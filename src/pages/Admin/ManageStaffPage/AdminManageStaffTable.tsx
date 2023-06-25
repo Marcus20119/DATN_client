@@ -85,7 +85,7 @@ const AdminManageStaffTable: React.FC<IAdminManageStaffTable> = ({
                   {currentTab === 'Active Staff' && (
                     <>
                       <ViewButton path={`/client/staff-info/${staffData.id}`} />
-                      <EditButton path={`/admin/edit-staff/${staffData.id}`} />
+                      <EditButton path={`/admin/staff/edit/${staffData.id}`} />
                       <DeleteButton
                         onClick={() => {
                           handleSoftDelete(staffData.id);
@@ -96,7 +96,7 @@ const AdminManageStaffTable: React.FC<IAdminManageStaffTable> = ({
 
                   {currentTab === 'Deleted Staff' && (
                     <>
-                      <EditButton path={`/admin/edit-staff/${staffData.id}`} />
+                      <EditButton path={`/admin/staff/edit/${staffData.id}`} />
                       <RestoreButton
                         onClick={() => {
                           handleRestore(staffData.id);
