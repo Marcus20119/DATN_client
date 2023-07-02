@@ -67,8 +67,6 @@ const ManagerAddNewUserPage = lazy(
   () => import('./pages/Manager/ManagerAddNewUserPage')
 );
 
-const TestPage = lazy(() => import('./pages/TestPage'));
-
 function App() {
   const dispatch = useDispatch();
   const { userData, toggleForceRefetchThisUserData } = useSelector(
@@ -142,7 +140,6 @@ function App() {
             <Route path="user/edit/:id" element={<ManagerEditUserPage />} />
             <Route path="user/add-new" element={<ManagerAddNewUserPage />} />
           </Route>
-          <Route path="test" element={<TestPage />} />
         </Route>
 
         <Route path="*" element={<NotFoundPage />} />
