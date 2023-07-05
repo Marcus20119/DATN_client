@@ -191,8 +191,10 @@ const MonitorXLNT: React.FC<IMonitorXLNT> = ({}) => {
                   <Laptop />
                 </div>
                 <div
-                  className={`z-10 absolute bottom-[5%] left-[6%] ${
-                    isMobile ? 'w-[100px]' : 'w-[120px]'
+                  className={`z-10 absolute ${
+                    isMobile
+                      ? 'bottom-[55%] right-[5%] w-[100px]'
+                      : 'bottom-[5%] left-[6%] w-[120px]'
                   }`}
                 >
                   <ButtonPrimary
