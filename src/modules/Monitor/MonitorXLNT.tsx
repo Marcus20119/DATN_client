@@ -18,10 +18,10 @@ import { TableBase } from '~/components/Table';
 import { XLNTDataType, XLNTInitialData } from '~/types';
 import { realTimeDb } from '~/firebase/firebase-config';
 import { PLC } from '~/helpers';
-import DisconnectionScreen from '~/components/PLC/DisconnectionScreen';
 import { useLoadingDelay } from '~/hooks';
 import { useResponsive } from '~/hooks/useResponsive';
 import { IRootState } from '~/store/rootReducer';
+import DisconnectionScreen from '~/components/PLC/DisconnectionScreen';
 
 interface IMonitorXLNT {}
 
@@ -35,8 +35,10 @@ const writeReset = (variable: keyof XLNTDataType) => {
 const MonitorXLNT: React.FC<IMonitorXLNT> = ({}) => {
   const isLoading = useLoadingDelay(500);
   const tankRef = useRef(null);
+  const { userData } = useSelector((state: IRootState) => state.auth);
   const [tankWidth, setTankWidth] = useState<number>(0);
   const [tankHeight, setTankHeight] = useState<number>(0);
+
   useEffect(() => {
     if (tankRef.current) {
       const tankRefCurrent = tankRef.current as HTMLDivElement;
@@ -187,6 +189,21 @@ const MonitorXLNT: React.FC<IMonitorXLNT> = ({}) => {
                   }`}
                 >
                   <Laptop />
+                </div>
+                <div
+                  className={`z-10 absolute bottom-[5%] left-[6%] ${
+                    isMobile ? 'w-[100px]' : 'w-[120px]'
+                  }`}
+                >
+                  <ButtonPrimary
+                    onClick={() => writeReset('Reset_Buzz')}
+                    additionalClass={`${
+                      userData.role_id === 0 ? '!cursor-not-allowed' : ''
+                    } !text-sm`}
+                    disabled={userData.role_id === 0}
+                  >
+                    RESET CÒI
+                  </ButtonPrimary>
                 </div>
               </div>
               <div
